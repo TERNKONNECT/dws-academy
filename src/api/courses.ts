@@ -1,6 +1,31 @@
 import api from "./axios";
 import type { AdminCourse } from "@/types/admin";
 
+const uploadToSignedUrl = (
+  uploadUrl: string,
+  file: File,
+  onProgress?: (pct: number) => void,
+) =>
+  new Promise<void>((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("PUT", uploadUrl);
+    xhr.setRequestHeader(
+      "Content-Type",
+      file.type || "application/octet-stream",
+    );
+    xhr.upload.onprogress = (event) => {
+      if (event.lengthComputable && onProgress) {
+        onProgress(Math.round((event.loaded / event.total) * 100));
+      }
+    };
+    xhr.onload = () => {
+      if (xhr.status >= 200 && xhr.status < 300) resolve();
+      else reject(new Error("Video upload failed"));
+    };
+    xhr.onerror = () => reject(new Error("Network error during video upload"));
+    xhr.send(file);
+  });
+
 export const coursesApi = {
   getAll: () => api.get<AdminCourse[]>("/api/courses").then((r) => r.data),
 
@@ -48,6 +73,26 @@ export const coursesApi = {
     file: File,
     onProgress?: (pct: number) => void,
   ): Promise<AdminCourse> => {
+    try {
+      const upload = await api
+        .post<{ uploadUrl: string; key: string; url: string }>(
+          `/api/courses/${id}/intro-video-upload-url`,
+          {
+            filename: file.name,
+            contentType: file.type || "application/octet-stream",
+          },
+        )
+        .then((r) => r.data);
+
+      await uploadToSignedUrl(upload.uploadUrl, file, onProgress);
+
+      return api
+        .post<AdminCourse>(`/api/courses/${id}/intro-video-url`, {
+          introVideoUrl: upload.url,
+          introVideoCloudinaryId: upload.key,
+        })
+        .then((r) => r.data);
+    } catch {
     const formData = new FormData();
     formData.append("video", file);
 
@@ -60,5 +105,6 @@ export const coursesApi = {
       },
     });
     return res.data;
+    }
   },
 };

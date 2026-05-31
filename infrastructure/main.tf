@@ -35,6 +35,18 @@ resource "aws_s3_bucket_public_access_block" "website_bucket_pab" {
   restrict_public_buckets = true
 }
 
+resource "aws_s3_bucket_cors_configuration" "website_bucket_cors" {
+  bucket = aws_s3_bucket.website_bucket.id
+
+  cors_rule {
+    allowed_headers = ["*"]
+    allowed_methods = ["GET", "HEAD", "PUT"]
+    allowed_origins = ["*"]
+    expose_headers  = ["ETag"]
+    max_age_seconds = 3000
+  }
+}
+
 # ------------------------------------------------------------------------------
 # CloudFront Origin Access Control (OAC)
 # ------------------------------------------------------------------------------
