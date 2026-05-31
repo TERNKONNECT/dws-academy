@@ -52,7 +52,7 @@ const AdminProfile = () => {
       const res = await profileApi.uploadAvatar(avatarFile, (pct) =>
         setAvatarProgress(pct),
       );
-      setProfile((p) => (p ? { ...p, avatar: res.avatar } : p));
+      setProfile(res);
       setAvatarFile(null);
       setAvatarProgress(0);
       toast.success("Avatar updated");
@@ -72,7 +72,7 @@ const AdminProfile = () => {
     <div className="space-y-6 max-w-2xl">
       <h1 className="text-2xl font-bold text-foreground">My Profile</h1>
       <p className="text-sm text-muted-foreground">
-        This information is shown to students on your course pages. jkjj
+        This information is shown to students on your course pages.
       </p>
 
       <Card>

@@ -1,10 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { superAdminApi, type InstructorSummary } from "@/api/superadmin";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { TableSkeleton } from "@/components/shared/SkeletonLoader";
 import { EmptyState } from "@/components/shared/EmptyState";
 import {
@@ -16,12 +25,23 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Search, ChevronRight, BookOpen, Users, Trophy } from "lucide-react";
+import {
+  Search,
+  ChevronRight,
+  BookOpen,
+  Users,
+  Trophy,
+  MailPlus,
+} from "lucide-react";
 import { toast } from "sonner";
 
 const Instructors = () => {
   const [instructors, setInstructors] = useState<InstructorSummary[]>([]);
   const [loading, setLoading] = useState(true);
+  const [inviting, setInviting] = useState(false);
+  const [inviteOpen, setInviteOpen] = useState(false);
+  const [inviteName, setInviteName] = useState("");
+  const [inviteEmail, setInviteEmail] = useState("");
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -44,15 +64,91 @@ const Instructors = () => {
     0,
   );
 
+  const handleInvite = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!inviteName.trim() || !inviteEmail.trim()) {
+      toast.error("Enter the admin name and email.");
+      return;
+    }
+
+    setInviting(true);
+    try {
+      const result = await superAdminApi.inviteInstructor(
+        inviteName.trim(),
+        inviteEmail.trim(),
+      );
+      setInstructors((current) => {
+        const withoutExisting = current.filter(
+          (item) => item.id !== result.instructor.id,
+        );
+        return [result.instructor, ...withoutExisting];
+      });
+      setInviteName("");
+      setInviteEmail("");
+      setInviteOpen(false);
+      toast.success(result.message);
+    } catch (error) {
+      const apiError =
+        typeof error === "object" && error !== null && "response" in error
+          ? (error as { response?: { data?: { error?: string } } }).response
+              ?.data?.error
+          : undefined;
+      toast.error(apiError || "Failed to send admin invite");
+    } finally {
+      setInviting(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-foreground">
-          Course Instructors
-        </h1>
-        <p className="text-sm text-muted-foreground mt-1">
-          All admins on the platform and their course statistics
-        </p>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-foreground">
+            Course Instructors
+          </h1>
+          <p className="text-sm text-muted-foreground mt-1">
+            All admins on the platform and their course statistics
+          </p>
+        </div>
+        <Dialog open={inviteOpen} onOpenChange={setInviteOpen}>
+          <DialogTrigger asChild>
+            <Button className="w-full sm:w-auto">
+              <MailPlus className="h-4 w-4 mr-2" />
+              Invite Admin
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Invite Admin</DialogTitle>
+            </DialogHeader>
+            <form onSubmit={handleInvite} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="invite-name">Name</Label>
+                <Input
+                  id="invite-name"
+                  value={inviteName}
+                  onChange={(e) => setInviteName(e.target.value)}
+                  placeholder="Jane Doe"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="invite-email">Email</Label>
+                <Input
+                  id="invite-email"
+                  type="email"
+                  value={inviteEmail}
+                  onChange={(e) => setInviteEmail(e.target.value)}
+                  placeholder="jane@example.com"
+                />
+              </div>
+              <DialogFooter>
+                <Button type="submit" disabled={inviting}>
+                  {inviting ? "Sending..." : "Send Invite"}
+                </Button>
+              </DialogFooter>
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
 
       {/* Summary cards */}
@@ -132,6 +228,11 @@ const Instructors = () => {
                         <p className="text-xs text-muted-foreground">
                           {instructor.email}
                         </p>
+                        {instructor.inviteStatus === "pending" && (
+                          <Badge variant="outline" className="mt-2">
+                            Invite pending
+                          </Badge>
+                        )}
                       </div>
                     </TableCell>
                     <TableCell>

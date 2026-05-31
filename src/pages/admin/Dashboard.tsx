@@ -10,6 +10,8 @@ import type { DashboardStats } from '@/types/admin';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
+const formatStat = (value?: number) => (value ?? 0).toLocaleString();
+
 const Dashboard = () => {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [userGrowth, setUserGrowth] = useState<{ labels: string[]; data: number[] } | null>(null);
@@ -46,7 +48,7 @@ const Dashboard = () => {
               <div className={`rounded-lg bg-muted p-3 ${s.color}`}><s.icon className="h-5 w-5" /></div>
               <div>
                 <p className="text-sm text-muted-foreground">{s.label}</p>
-                <p className="text-2xl font-bold text-foreground">{s.value.toLocaleString()}</p>
+                <p className="text-2xl font-bold text-foreground">{formatStat(s.value)}</p>
               </div>
             </CardContent>
           </Card>

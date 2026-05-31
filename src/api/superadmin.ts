@@ -5,6 +5,8 @@ export interface InstructorSummary {
   name: string;
   email: string;
   joinedAt: string;
+  inviteStatus?: "pending" | "accepted";
+  inviteExpiresAt?: string | null;
   totalCourses: number;
   totalEnrollments: number;
   totalCompleted: number;
@@ -47,4 +49,12 @@ export const superAdminApi = {
 
   getInstructorDetail: (id: string): Promise<InstructorDetail> =>
     api.get(`/api/superadmin/instructors/${id}`).then((r) => r.data),
+
+  inviteInstructor: (
+    name: string,
+    email: string,
+  ): Promise<{ message: string; instructor: InstructorSummary }> =>
+    api
+      .post("/api/superadmin/instructors/invite", { name, email })
+      .then((r) => r.data),
 };

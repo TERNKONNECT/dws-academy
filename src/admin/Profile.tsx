@@ -52,7 +52,7 @@ const Profile = () => {
       const res = await profileApi.uploadAvatar(avatarFile, (pct) =>
         setAvatarProgress(pct),
       );
-      setProfile((p) => (p ? { ...p, avatar: res.avatar } : p));
+      setProfile(res);
       setAvatarFile(null);
       setAvatarProgress(0);
       toast.success("Avatar updated");

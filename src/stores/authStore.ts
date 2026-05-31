@@ -9,7 +9,7 @@ interface AuthState {
   token: string | null;
   isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<User>;
-  signup: (name: string, email: string, password: string) => Promise<void>;
+  signup: (name: string, email: string, password: string) => Promise<string>;
   logout: () => void;
 }
 
@@ -63,22 +63,7 @@ export const useAuthStore = create<AuthState>()(
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || "Signup failed");
 
-        const user: User = {
-          id: data.user._id ?? data.user.id,
-          name: data.user.name,
-          email: data.user.email,
-          role: data.user.role ?? "user",
-          avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${data.user.name}`,
-          joinedAt: data.user.createdAt,
-        };
-
-        localStorage.setItem("lms_token", data.token);
-        localStorage.setItem("lms_user", JSON.stringify(user));
-
-        set({ user, token: data.token, isAuthenticated: true });
-
-        const { useEnrollmentStore } = await import("./enrollmentStore");
-        useEnrollmentStore.getState().initForUser(user.id);
+        return data.message || "Check your email to verify your account.";
       },
 
       logout: () => {

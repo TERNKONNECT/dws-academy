@@ -65,12 +65,12 @@ const Signup = () => {
     }
     setLoading(true);
     try {
-      await signup(name, email, password);
+      const message = await signup(name, email, password);
       toast({
-        title: "Account created!",
-        description: "Welcome to DWSAcademy.",
+        title: "Check your email",
+        description: message,
       });
-      navigate("/");
+      navigate("/login");
     } catch (err: any) {
       toast({
         title: "Error",

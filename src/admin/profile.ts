@@ -1,5 +1,4 @@
 import api from "./axios";
-import { uploadToCloudinary } from "@/lib/cloudinary";
 
 export interface AdminProfile {
   id: string;
@@ -22,20 +21,20 @@ export const profileApi = {
   }): Promise<AdminProfile> =>
     api.put("/api/profile", data).then((r) => r.data),
 
-  // Upload avatar directly to Cloudinary then save URL
   uploadAvatar: async (
     file: File,
     onProgress?: (pct: number) => void,
   ): Promise<{ avatar: string }> => {
-    const { url, publicId } = await uploadToCloudinary(
-      file,
-      "lms/avatars",
-      "image",
-      onProgress,
-    );
-    const res = await api.post("/api/profile/avatar-url", {
-      avatar: url,
-      avatarCloudinaryId: publicId,
+    const formData = new FormData();
+    formData.append("avatar", file);
+
+    const res = await api.post("/api/profile/avatar", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+      onUploadProgress: (event) => {
+        if (event.total && onProgress) {
+          onProgress(Math.round((event.loaded / event.total) * 100));
+        }
+      },
     });
     return res.data;
   },

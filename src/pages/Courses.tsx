@@ -48,9 +48,7 @@ const Courses = () => {
 
   return (
     <MainLayout>
-      <div
-        className={`cursor-pointer transition-colors ${selectedCategory === cat ? "bg-yellow-400 text-black border-yellow-400 hover:bg-yellow-500" : "hover:bg-yellow-50 hover:border-yellow-400 hover:text-yellow-700"}`}
-      >
+      <div>
         <div className="mb-8">
           <p className="text-muted-foreground">
             Find the perfect course to advance your skills

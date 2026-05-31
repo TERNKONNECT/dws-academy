@@ -1,6 +1,5 @@
 import api from "./axios";
 import type { Lesson } from "@/types";
-import { uploadToCloudinary } from "@/lib/cloudinary";
 
 export const lessonsApi = {
   createText: (
@@ -24,15 +23,23 @@ export const lessonsApi = {
     order: number,
     onProgress?: (pct: number) => void,
   ): Promise<Lesson> => {
-    const { url, publicId } = await uploadToCloudinary(
-      file,
-      "lms/lessons",
-      "video",
-      onProgress,
-    );
+    const formData = new FormData();
+    formData.append("video", file);
+    formData.append("title", title);
+    formData.append("duration", duration);
+    formData.append("order", String(order));
+
     const res = await api.post<Lesson>(
-      `/api/courses/${courseId}/modules/${moduleId}/lessons/video-url`,
-      { title, videoUrl: url, cloudinaryId: publicId, duration, order },
+      `/api/courses/${courseId}/modules/${moduleId}/lessons/video`,
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+        onUploadProgress: (event) => {
+          if (event.total && onProgress) {
+            onProgress(Math.round((event.loaded / event.total) * 100));
+          }
+        },
+      },
     );
     return res.data;
   },
