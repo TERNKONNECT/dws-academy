@@ -5,6 +5,20 @@ const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:9000";
 
 const delay = (ms = 500) => new Promise((r) => setTimeout(r, ms));
 
+const getToken = () => {
+  try {
+    const auth = JSON.parse(localStorage.getItem("lms-auth") || "{}");
+    return auth?.state?.token ?? localStorage.getItem("lms_token");
+  } catch {
+    return localStorage.getItem("lms_token");
+  }
+};
+
+const authHeaders = () => {
+  const token = getToken();
+  return token ? { Authorization: `Bearer ${token}` } : {};
+};
+
 // Map backend lesson → frontend Lesson
 const mapLesson = (l: any): Lesson => ({
   id: l.id,
@@ -15,6 +29,7 @@ const mapLesson = (l: any): Lesson => ({
   videoUrl: l.videoUrl || "",
   order: l.order,
   type: l.type === "video" ? "video" : "reading",
+  locked: Boolean(l.locked),
 });
 
 // Map backend module → frontend Module
@@ -86,6 +101,10 @@ const mapBackendCourse = (c: any): Course => ({
   modules: (c.modules ?? []).map(mapModule),
   reviews: [],
   isFeatured: c.status === "published",
+  pricingType: c.pricingType ?? "free",
+  price: Number(c.price || 0),
+  currency: c.currency ?? "NGN",
+  hasAccess: Boolean(c.hasAccess),
 });
 
 // Map backend quiz → frontend Quiz
@@ -107,7 +126,9 @@ export const api = {
   // Fetch all courses from backend, fall back to mock
   getCourses: async (): Promise<Course[]> => {
     try {
-      const res = await fetch(`${API_URL}/api/courses`);
+      const res = await fetch(`${API_URL}/api/courses`, {
+        headers: authHeaders(),
+      });
       if (!res.ok) throw new Error("Failed");
       const data = await res.json();
       const backendCourses = data.map(mapBackendCourse);
@@ -126,7 +147,9 @@ export const api = {
 
     // Fetch from backend — GET /api/courses/:id returns full structure
     try {
-      const res = await fetch(`${API_URL}/api/courses/${id}`);
+      const res = await fetch(`${API_URL}/api/courses/${id}`, {
+        headers: authHeaders(),
+      });
       if (!res.ok) return undefined;
       const data = await res.json();
       return mapBackendCourse(data);
@@ -142,16 +165,16 @@ export const api = {
     rating: number,
     comment: string,
   ): Promise<void> => {
-    const auth = JSON.parse(localStorage.getItem("lms-auth") || "{}");
-    const token = auth?.state?.token;
-    await fetch(`${API_URL}/api/reviews/${courseId}`, {
+    const res = await fetch(`${API_URL}/api/reviews/${courseId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        ...authHeaders(),
       },
       body: JSON.stringify({ rating, comment }),
     });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || "Failed to submit review");
   },
 
   getCourseReviews: async (courseId: string) => {
@@ -162,6 +185,39 @@ export const api = {
     } catch {
       return { avgRating: 0, totalReviews: 0, reviews: [] };
     }
+  },
+
+  initializePayment: async (courseId: string) => {
+    const res = await fetch(`${API_URL}/api/payments/initialize`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...authHeaders(),
+      },
+      body: JSON.stringify({ courseId }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || "Failed to start payment");
+    return data as {
+      reference: string;
+      authorizationUrl: string;
+      amount: number;
+      currency: string;
+    };
+  },
+
+  verifyPayment: async (reference: string) => {
+    const res = await fetch(`${API_URL}/api/payments/verify/${reference}`, {
+      headers: authHeaders(),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      const err: any = new Error(data.error || "Payment was not successful");
+      err.courseId = data.courseId;
+      err.courseTitle = data.courseTitle;
+      throw err;
+    }
+    return data as { status: string; courseId: string; courseTitle?: string };
   },
 
   getInstructorProfile: async (adminId: string) => {

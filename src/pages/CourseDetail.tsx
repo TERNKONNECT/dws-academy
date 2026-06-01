@@ -11,6 +11,8 @@ import {
   Play,
   FileText,
   BookOpen,
+  CreditCard,
+  Lock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -36,14 +38,21 @@ const CourseDetail = () => {
   const [userComment, setUserComment] = useState("");
   const [submittingReview, setSubmittingReview] = useState(false);
   const [hasReviewed, setHasReviewed] = useState(false);
+  const [checkingOut, setCheckingOut] = useState(false);
 
   const navigate = useNavigate();
   const { toast } = useToast();
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
   const currentUser = useAuthStore((s) => s.user);
-  const { isEnrolled, enroll, getEnrolledCourse } = useEnrollmentStore();
+  const { isEnrolled, enroll, getEnrolledCourse, refreshFromServer } = useEnrollmentStore();
 
   const [voiceActive, setVoiceActive] = useState(false);
+
+  // Refresh enrollment status from server each time this page is visited
+  // so paid users always see "Continue Learning" and not the checkout button.
+  useEffect(() => {
+    refreshFromServer();
+  }, [refreshFromServer]);
 
   useEffect(() => {
     if (id) {
@@ -81,6 +90,13 @@ const CourseDetail = () => {
   const progressPct =
     totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
   const hasCompleted = enrollment?.isCompleted ?? false;
+  const isPaid = course?.pricingType === "paid" && Number(course?.price || 0) > 0;
+  const formatPrice = (amount = 0, currency = "NGN") =>
+    new Intl.NumberFormat("en-NG", {
+      style: "currency",
+      currency,
+      minimumFractionDigits: 0,
+    }).format(amount);
 
   const handleEnroll = async () => {
     if (!isAuthenticated) {
@@ -101,6 +117,37 @@ const CourseDetail = () => {
           variant: "destructive",
         });
       }
+    }
+  };
+
+  const handleCheckout = async () => {
+    if (!isAuthenticated) {
+      navigate("/login");
+      return;
+    }
+    if (!id) return;
+    setCheckingOut(true);
+    try {
+      const payment = await api.initializePayment(id);
+      window.location.href = payment.authorizationUrl;
+    } catch (err: any) {
+      // User already has access (paid before, or enrollment exists) — refresh
+      // and send them straight to the course instead of showing an error.
+      if (
+        err.message?.toLowerCase().includes("already have access") ||
+        err.message?.toLowerCase().includes("already completed")
+      ) {
+        const { refreshFromServer } = useEnrollmentStore.getState();
+        await refreshFromServer();
+        navigate(`/learn/${id}`);
+        return;
+      }
+      toast({
+        title: "Checkout failed",
+        description: err.message || "Unable to start payment",
+        variant: "destructive",
+      });
+      setCheckingOut(false);
     }
   };
 
@@ -223,16 +270,30 @@ const CourseDetail = () => {
             ) : (
               <Card className="bg-white text-foreground">
                 <CardContent className="p-6 space-y-4">
-                  <h3 className="text-2xl font-bold">Free</h3>
+                  <h3 className="text-2xl font-bold">
+                    {isPaid
+                      ? formatPrice(course.price, course.currency)
+                      : "Free"}
+                  </h3>
                   <Button
                     className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
                     size="lg"
-                    onClick={handleEnroll}
+                    onClick={isPaid ? handleCheckout : handleEnroll}
+                    disabled={checkingOut}
                   >
-                    Enroll Now
+                    {isPaid ? (
+                      <>
+                        <CreditCard className="mr-2 h-4 w-4" />
+                        {checkingOut ? "Opening checkout..." : "Checkout"}
+                      </>
+                    ) : (
+                      "Enroll Now"
+                    )}
                   </Button>
                   <p className="text-xs text-muted-foreground text-center">
-                    Full lifetime access
+                    {isPaid
+                      ? "Secure Paystack checkout. Lifetime access after payment."
+                      : "Full lifetime access"}
                   </p>
                 </CardContent>
               </Card>
@@ -295,7 +356,9 @@ const CourseDetail = () => {
                           key={lesson.id}
                           className="flex items-center gap-3 p-2 rounded-md hover:bg-muted/50 text-sm"
                         >
-                          {lesson.type === "video" ? (
+                          {lesson.locked ? (
+                            <Lock className="h-4 w-4 text-muted-foreground" />
+                          ) : lesson.type === "video" ? (
                             <Play className="h-4 w-4 text-muted-foreground" />
                           ) : lesson.type === "reading" ? (
                             <FileText className="h-4 w-4 text-muted-foreground" />

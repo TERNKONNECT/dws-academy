@@ -24,6 +24,10 @@ export interface Course {
   modules: Module[];
   reviews: Review[];
   isFeatured?: boolean;
+  pricingType?: "free" | "paid";
+  price?: number;
+  currency?: string;
+  hasAccess?: boolean;
 }
 
 export interface Instructor {
@@ -54,6 +58,7 @@ export interface Lesson {
   videoUrl: string;
   order: number;
   type: "video" | "reading" | "exercise";
+  locked?: boolean;
 }
 
 export interface Quiz {

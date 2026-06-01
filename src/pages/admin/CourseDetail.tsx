@@ -35,6 +35,11 @@ const courseSchema = z.object({
   description: z.string().trim().min(10).max(2000),
   difficulty: z.string().min(1),
   status: z.enum(["draft", "published"]),
+  pricingType: z.enum(["free", "paid"]),
+  price: z.coerce.number().min(0),
+}).refine((data) => data.pricingType === "free" || data.price > 0, {
+  message: "Paid courses need a price",
+  path: ["price"],
 });
 
 type CourseFormData = z.infer<typeof courseSchema>;
@@ -52,6 +57,7 @@ const CourseDetail = () => {
   const [uploadingThumb, setUploadingThumb] = useState(false);
   const [thumbProgress, setThumbProgress] = useState(0);
   const form = useForm<CourseFormData>({ resolver: zodResolver(courseSchema) });
+  const pricingType = form.watch("pricingType");
 
   useEffect(() => {
     if (!id) return;
@@ -65,6 +71,8 @@ const CourseDetail = () => {
           description: c.description,
           difficulty: c.difficulty || "Beginner",
           status: c.status,
+          pricingType: (c as any).pricingType ?? "free",
+          price: Number((c as any).price || 0),
         });
       })
       .catch(() => toast.error("Course not found"))
@@ -297,6 +305,54 @@ const CourseDetail = () => {
                           <SelectItem value="published">Published</SelectItem>
                         </SelectContent>
                       </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="pricingType"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Pricing</FormLabel>
+                      <Select
+                        onValueChange={(value) => {
+                          field.onChange(value);
+                          if (value === "free") form.setValue("price", 0);
+                        }}
+                        value={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="free">Free</SelectItem>
+                          <SelectItem value="paid">Paid</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="price"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Price (NGN)</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          min="0"
+                          step="1"
+                          disabled={pricingType === "free"}
+                          {...field}
+                        />
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}

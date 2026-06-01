@@ -23,6 +23,8 @@ import MyLearning from "./pages/MyLearning";
 import CourseLearning from "./pages/CourseLearning";
 import Quiz from "./pages/Quiz";
 import Profile from "./pages/Profile";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import PaymentFailed from "./pages/PaymentFailed";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotFound from "./pages/NotFound";
 import About from "./pages/About";
@@ -66,6 +68,15 @@ const App = () => (
             <Route path="/courses/:id" element={<CourseDetail />} />
             <Route path="/services" element={<Services />} />
             <Route path="/get" element={<GetStarted />} />
+            <Route
+              path="/payment/success"
+              element={
+                <ProtectedRoute>
+                  <PaymentSuccess />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/payment/failed" element={<PaymentFailed />} />
             <Route
               path="/my-learning"
               element={

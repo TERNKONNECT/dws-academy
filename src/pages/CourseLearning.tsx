@@ -45,18 +45,24 @@ const CourseLearning = () => {
     completeModule,
     isModuleCompleted,
     getEnrolledCourse,
+    refreshFromServer,
   } = useEnrollmentStore();
 
   useEffect(() => {
     if (!courseId) return;
-    if (!isEnrolled(courseId)) {
-      navigate(`/courses/${courseId}`);
-      return;
-    }
-    api.getCourseById(courseId).then((c) => {
+    let active = true;
+    (async () => {
+      await refreshFromServer();
+      if (!active) return;
+      if (!useEnrollmentStore.getState().isEnrolled(courseId)) {
+        navigate(`/courses/${courseId}`);
+        return;
+      }
+      const c = await api.getCourseById(courseId);
+      if (!active) return;
       if (c) {
         setCourse(c);
-        const enrollment = getEnrolledCourse(courseId);
+        const enrollment = useEnrollmentStore.getState().getEnrolledCourse(courseId);
         let firstIncomplete: string | null = null;
         for (const mod of c.modules) {
           for (const les of mod.lessons) {
@@ -72,8 +78,11 @@ const CourseLearning = () => {
         );
       }
       setLoading(false);
-    });
-  }, [courseId]);
+    })();
+    return () => {
+      active = false;
+    };
+  }, [courseId, navigate, refreshFromServer, getEnrolledCourse]);
 
   const allLessons = useMemo(
     () => course?.modules.flatMap((m) => m.lessons) ?? [],

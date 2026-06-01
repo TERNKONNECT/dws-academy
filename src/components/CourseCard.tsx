@@ -5,6 +5,14 @@ import { Badge } from "@/components/ui/badge";
 import type { Course } from "@/types";
 
 const CourseCard = ({ course }: { course: Course }) => {
+  const price =
+    course.pricingType === "paid" && Number(course.price || 0) > 0
+      ? new Intl.NumberFormat("en-NG", {
+          style: "currency",
+          currency: course.currency || "NGN",
+          minimumFractionDigits: 0,
+        }).format(course.price || 0)
+      : "Free";
   const levelColor = {
     Beginner: "bg-green-100 text-green-700",
     Intermediate: "bg-yellow-100 text-yellow-700",
@@ -40,6 +48,7 @@ const CourseCard = ({ course }: { course: Course }) => {
           <p className="text-xs text-muted-foreground">
             {course.instructor.name}
           </p>
+          <p className="text-sm font-bold text-foreground">{price}</p>
           <div className="flex items-center gap-3 text-xs text-muted-foreground">
             <span className="flex items-center gap-1">
               <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />

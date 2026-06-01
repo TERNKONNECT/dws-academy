@@ -23,6 +23,9 @@ export interface AdminCourse {
   modules?: AdminModule[];
   instructor?: { id: string; name: string; email: string };
   whatYouLearn?: string[];
+  pricingType?: "free" | "paid";
+  price?: number;
+  currency?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -70,11 +73,16 @@ export interface AdminQuiz {
 
 export interface DashboardStats {
   totalUsers: number;
+  totalAdmins: number;
   totalCourses: number;
   totalEnrollments: number;
   totalLessons: number;
   totalQuizzes: number;
   activeUsers: number;
+  totalCompleted: number;
+  totalPayments: number;
+  totalRevenue: number;
+  completionRate: number;
 }
 
 export interface AuthResponse {
