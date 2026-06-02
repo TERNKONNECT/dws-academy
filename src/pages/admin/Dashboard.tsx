@@ -82,10 +82,27 @@ const Dashboard = () => {
               <TableRow><TableHead>Activity</TableHead><TableHead>User</TableHead><TableHead>Date</TableHead></TableRow>
             </TableHeader>
             <TableBody>
-              <TableRow><TableCell>Enrolled in React Masterclass</TableCell><TableCell>Sarah Connor</TableCell><TableCell>Mar 28, 2026</TableCell></TableRow>
-              <TableRow><TableCell>Completed Quiz: Node.js Basics</TableCell><TableCell>Mike Johnson</TableCell><TableCell>Mar 27, 2026</TableCell></TableRow>
-              <TableRow><TableCell>New course published: Docker 101</TableCell><TableCell>Admin</TableCell><TableCell>Mar 26, 2026</TableCell></TableRow>
-              <TableRow><TableCell>Enrolled in TypeScript Essentials</TableCell><TableCell>Lisa Wang</TableCell><TableCell>Mar 25, 2026</TableCell></TableRow>
+              {stats.recentActivity && stats.recentActivity.length > 0 ? (
+                stats.recentActivity.map((act, index) => (
+                  <TableRow key={index}>
+                    <TableCell className="font-medium text-foreground">{act.activity}</TableCell>
+                    <TableCell>{act.user}</TableCell>
+                    <TableCell>
+                      {new Date(act.date).toLocaleDateString(undefined, {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                      })}
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={3} className="text-center text-muted-foreground py-8">
+                    No recent activity
+                  </TableCell>
+                </TableRow>
+              )}
             </TableBody>
           </Table>
         </CardContent>

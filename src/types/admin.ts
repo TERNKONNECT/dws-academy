@@ -75,6 +75,11 @@ export interface DashboardStats {
   totalLessons: number;
   totalQuizzes: number;
   activeUsers: number;
+  recentActivity?: {
+    activity: string;
+    user: string;
+    date: string;
+  }[];
 }
 
 export interface AuthResponse {
