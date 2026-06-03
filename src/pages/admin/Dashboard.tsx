@@ -179,70 +179,89 @@ const Dashboard = () => {
         )}
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">
-            {isSuperAdmin ? 'Most Popular Courses (Platform)' : 'My Course Activity'}
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>#</TableHead>
-                <TableHead>Course</TableHead>
-                <TableHead>Enrollments</TableHead>
-                <TableHead>Status</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-<<<<<<< HEAD
-              {popularCourses.length === 0 ? (
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">
+              {isSuperAdmin ? 'Most Popular Courses (Platform)' : 'My Course Activity'}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
                 <TableRow>
-                  <TableCell colSpan={4} className="text-muted-foreground">
-                    No enrollment activity yet.
-                  </TableCell>
+                  <TableHead>#</TableHead>
+                  <TableHead>Course</TableHead>
+                  <TableHead>Enrollments</TableHead>
+                  <TableHead>Status</TableHead>
                 </TableRow>
-              ) : (
-                popularCourses.map((course, idx) => (
-                  <TableRow key={course.title}>
-                    <TableCell className="text-muted-foreground font-medium">{idx + 1}</TableCell>
-                    <TableCell className="font-medium">{course.title}</TableCell>
-                    <TableCell>{course.enrollments}</TableCell>
-                    <TableCell>
-                      <Badge variant={course.enrollments > 0 ? 'default' : 'secondary'}>
-                        {course.enrollments > 0 ? 'Active' : 'No enrollments'}
-                      </Badge>
+              </TableHeader>
+              <TableBody>
+                {popularCourses.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={4} className="text-muted-foreground text-center py-8">
+                      No enrollment activity yet.
                     </TableCell>
                   </TableRow>
-                ))
-=======
-              {stats.recentActivity && stats.recentActivity.length > 0 ? (
-                stats.recentActivity.map((act, index) => (
-                  <TableRow key={index}>
-                    <TableCell className="font-medium text-foreground">{act.activity}</TableCell>
-                    <TableCell>{act.user}</TableCell>
-                    <TableCell>
-                      {new Date(act.date).toLocaleDateString(undefined, {
-                        month: 'short',
-                        day: 'numeric',
-                        year: 'numeric',
-                      })}
+                ) : (
+                  popularCourses.map((course, idx) => (
+                    <TableRow key={course.title}>
+                      <TableCell className="text-muted-foreground font-medium">{idx + 1}</TableCell>
+                      <TableCell className="font-medium">{course.title}</TableCell>
+                      <TableCell>{course.enrollments}</TableCell>
+                      <TableCell>
+                        <Badge variant={course.enrollments > 0 ? 'default' : 'secondary'}>
+                          {course.enrollments > 0 ? 'Active' : 'No enrollments'}
+                        </Badge>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Recent Activity</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Activity</TableHead>
+                  <TableHead>User</TableHead>
+                  <TableHead>Date</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {stats.recentActivity && stats.recentActivity.length > 0 ? (
+                  stats.recentActivity.map((act, index) => (
+                    <TableRow key={index}>
+                      <TableCell className="font-medium text-foreground">{act.activity}</TableCell>
+                      <TableCell>{act.user}</TableCell>
+                      <TableCell>
+                        {new Date(act.date).toLocaleDateString(undefined, {
+                          month: 'short',
+                          day: 'numeric',
+                          year: 'numeric',
+                        })}
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={3} className="text-center text-muted-foreground py-8">
+                      No recent activity
                     </TableCell>
                   </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell colSpan={3} className="text-center text-muted-foreground py-8">
-                    No recent activity
-                  </TableCell>
-                </TableRow>
->>>>>>> d3dd7b51487e195fc0ebb6f725ed1ec154daf26e
-              )}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
+                )}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };
