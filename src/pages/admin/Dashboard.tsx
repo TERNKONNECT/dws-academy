@@ -196,26 +196,23 @@ const Dashboard = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {popularCourses.length === 0 ? (
+              {/* {popularCourses.length === 0 ? ( */}
+              <TableRow>
+                <TableHead>#</TableHead>
+                <TableHead>Course</TableHead>
+                <TableHead>Enrollments</TableHead>
+                <TableHead>Status</TableHead>
+              </TableRow>
+            </TableBody>
+            {/* </TableHeader> */}
+            <TableBody>
+              {/* {popularCourses.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={4} className="text-muted-foreground">
+                  <TableCell colSpan={4} className="text-muted-foreground text-center py-8">
                     No enrollment activity yet.
                   </TableCell>
                 </TableRow>
-              ) : (
-                popularCourses.map((course, idx) => (
-                  <TableRow key={course.title}>
-                    <TableCell className="text-muted-foreground font-medium">{idx + 1}</TableCell>
-                    <TableCell className="font-medium">{course.title}</TableCell>
-                    <TableCell>{course.enrollments}</TableCell>
-                    <TableCell>
-                      <Badge variant={course.enrollments > 0 ? 'default' : 'secondary'}>
-                        {course.enrollments > 0 ? 'Active' : 'No enrollments'}
-                      </Badge>
-                    </TableCell>
-                  </TableRow>
-                ))
-              )}
+              )} */}
             </TableBody>
           </Table>
         </CardContent>
