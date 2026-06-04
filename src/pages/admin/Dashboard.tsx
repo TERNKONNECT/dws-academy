@@ -196,7 +196,6 @@ const Dashboard = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-<<<<<<< HEAD
               {popularCourses.length === 0 ? (
                 <TableRow>
                   <TableCell colSpan={4} className="text-muted-foreground">
@@ -216,28 +215,6 @@ const Dashboard = () => {
                     </TableCell>
                   </TableRow>
                 ))
-=======
-              {stats.recentActivity && stats.recentActivity.length > 0 ? (
-                stats.recentActivity.map((act, index) => (
-                  <TableRow key={index}>
-                    <TableCell className="font-medium text-foreground">{act.activity}</TableCell>
-                    <TableCell>{act.user}</TableCell>
-                    <TableCell>
-                      {new Date(act.date).toLocaleDateString(undefined, {
-                        month: 'short',
-                        day: 'numeric',
-                        year: 'numeric',
-                      })}
-                    </TableCell>
-                  </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell colSpan={3} className="text-center text-muted-foreground py-8">
-                    No recent activity
-                  </TableCell>
-                </TableRow>
->>>>>>> d3dd7b51487e195fc0ebb6f725ed1ec154daf26e
               )}
             </TableBody>
           </Table>
