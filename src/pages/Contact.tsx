@@ -37,8 +37,8 @@ export default function Contact() {
             Get in <span className="text-yellow-400">Touch</span>
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Ready to create unforgettable events? Let's discuss how we can bring
-            your vision to life.
+            Ready to start your journey in event planning? Let's discuss how the
+            Academy can help you.
           </p>
         </div>
       </section>
@@ -51,12 +51,12 @@ export default function Contact() {
             <div className="lg:col-span-1 space-y-8">
               <div>
                 <h2 className="text-2xl font-bold text-black mb-4">
-                  Let's Create Magic Together
+                  Join the Academy
                 </h2>
                 <p className="text-gray-600 leading-relaxed">
-                  Whether you're planning a wedding, corporate event, or special
-                  celebration, we're here to make your dreams come true with our
-                  expert event planning services.
+                  Whether you're looking to master event planning, build a professional
+                  network, or start your own business, we're here to equip you with
+                  expert knowledge and hands-on experience.
                 </p>
               </div>
 
@@ -136,7 +136,7 @@ export default function Contact() {
                         {form.name}
                       </span>
                       ! We've received your message and will get back to you
-                      within 24 hours to discuss your event.
+                      within 24 hours to discuss your learning journey.
                     </p>
                     <Button
                       onClick={() => setSubmitted(false)}
@@ -149,11 +149,11 @@ export default function Contact() {
                   <>
                     <div className="mb-8">
                       <h2 className="text-2xl font-bold text-black mb-2">
-                        Tell Us About Your Event
+                        Tell Us About Your Goals
                       </h2>
                       <p className="text-gray-600">
-                        Share your vision with us and we'll help make it a
-                        reality.
+                        Share your learning goals with us and we'll guide you on
+                        the right path.
                       </p>
                     </div>
 
@@ -214,48 +214,46 @@ export default function Contact() {
                           />
                         </div>
                         <div className="space-y-2">
-                          <Label
-                            htmlFor="subject"
-                            className="text-sm font-medium text-black"
-                          >
-                            Event Type *
-                          </Label>
-                          <select
-                            id="subject"
-                            name="subject"
-                            value={form.subject}
-                            onChange={handleChange}
-                            required
-                            className="h-12 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-yellow-400 focus:ring-yellow-400 focus:outline-none"
-                          >
-                            <option value="">Select event type</option>
-                            <option value="wedding">Wedding</option>
-                            <option value="corporate">Corporate Event</option>
-                            <option value="birthday">Birthday Party</option>
-                            <option value="anniversary">Anniversary</option>
-                            <option value="graduation">Graduation</option>
-                            <option value="other">Other</option>
-                          </select>
+                            <Label
+                              htmlFor="subject"
+                              className="text-sm font-medium text-black"
+                            >
+                              Area of Interest *
+                            </Label>
+                            <select
+                              id="subject"
+                              name="subject"
+                              value={form.subject}
+                              onChange={handleChange}
+                              required
+                              className="h-12 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-yellow-400 focus:ring-yellow-400 focus:outline-none"
+                            >
+                              <option value="">Select area of interest</option>
+                              <option value="beginners">Beginners Class</option>
+                              <option value="intensive">Intensive Class</option>
+                              <option value="advanced">Advanced Class</option>
+                              <option value="other">Other</option>
+                            </select>
                         </div>
                       </div>
 
                       <div className="space-y-2">
-                        <Label
-                          htmlFor="message"
-                          className="text-sm font-medium text-black"
-                        >
-                          Event Details *
-                        </Label>
-                        <Textarea
-                          id="message"
-                          name="message"
-                          placeholder="Tell us about your event - date, location, number of guests, special requirements..."
-                          rows={6}
-                          value={form.message}
-                          onChange={handleChange}
-                          required
-                          className="resize-none border-gray-300 focus:border-yellow-400 focus:ring-yellow-400"
-                        />
+                          <Label
+                            htmlFor="message"
+                            className="text-sm font-medium text-black"
+                          >
+                            Your Details *
+                          </Label>
+                          <Textarea
+                            id="message"
+                            name="message"
+                            placeholder="Tell us about your background and what you hope to learn..."
+                            rows={6}
+                            value={form.message}
+                            onChange={handleChange}
+                            required
+                            className="resize-none border-gray-300 focus:border-yellow-400 focus:ring-yellow-400"
+                          />
                       </div>
 
                       <Button
@@ -282,8 +280,8 @@ export default function Contact() {
               Visit Our <span className="text-yellow-500">Studio</span>
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Come see our event planning studio and portfolio. We'd love to
-              meet you and discuss your upcoming celebration in person.
+              Come see our academy and learning facilities. We'd love to
+              meet you and discuss your educational goals in person.
             </p>
           </div>
 

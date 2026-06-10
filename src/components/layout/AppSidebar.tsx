@@ -28,9 +28,17 @@ import { useAuth } from "@/contexts/AuthContext";
 const adminNavItems = [
   { title: "Profile", url: "/dashboard/profile", icon: UserCircle },
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
+  { title: "Instructors", url: "/dashboard/instructors", icon: ShieldCheck },
   { title: "Courses", url: "/dashboard/courses", icon: BookOpen },
   { title: "Users", url: "/dashboard/users", icon: Users },
   { title: "Analytics", url: "/dashboard/analytics", icon: BarChart3 },
+];
+
+const operatorNavItems = [
+  { title: "Profile", url: "/dashboard/profile", icon: UserCircle },
+  { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
+  { title: "Courses", url: "/dashboard/courses", icon: BookOpen },
+  { title: "Users", url: "/dashboard/users", icon: Users },
 ];
 
 const superAdminNavItems = [
@@ -52,8 +60,11 @@ export function AppSidebar() {
   const location = useLocation();
   const { user } = useAuth();
   const isSuperAdmin = user?.role === "super-admin";
+  const isAdmin = user?.role === "admin";
 
-  const navItems = isSuperAdmin ? superAdminNavItems : adminNavItems;
+  const navItems = isSuperAdmin 
+    ? superAdminNavItems 
+    : isAdmin ? adminNavItems : operatorNavItems;
 
   const isActive = (path: string) =>
     location.pathname === path ||

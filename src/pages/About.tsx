@@ -68,7 +68,7 @@ const team = [
 
 const stats = [
   { value: "200+", label: "Events Planned" },
-  { value: "1000+", label: "Happy Clients" },
+  { value: "1000+", label: "Happy People" },
   { value: "15+", label: "Years Experience" },
   { value: "4.9/5", label: "Client Rating" },
 ];
@@ -326,7 +326,7 @@ export default function About() {
               Event planning is an amazing skill, but skill alone isn't enough.
               Many talented planners struggle, not because they're not good, but
               because they don't understand the business side, how to build
-              systems, manage clients, lead teams, and sustain profit.
+              systems, manage people, lead teams, and sustain profit.
             </p>
             <p className="text-lg text-black font-semibold">
               Here, we teach you all! The skill and the business!

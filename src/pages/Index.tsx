@@ -287,7 +287,7 @@ const Index = () => {
               Event planning is an amazing skill, but skill alone isn't enough.
               Many talented planners struggle — not because they're not good,
               but because they don't understand the business side: how to build
-              systems, manage clients, lead teams, and sustain profit.
+              systems, manage people, lead teams, and sustain profit.
             </p>
             <p className="text-yellow-400 text-xl font-semibold">
               Here, we teach you all! The skill and the business!

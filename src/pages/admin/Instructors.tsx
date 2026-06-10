@@ -14,6 +14,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { TableSkeleton } from "@/components/shared/SkeletonLoader";
 import { EmptyState } from "@/components/shared/EmptyState";
 import {
@@ -42,6 +49,7 @@ const Instructors = () => {
   const [inviteOpen, setInviteOpen] = useState(false);
   const [inviteName, setInviteName] = useState("");
   const [inviteEmail, setInviteEmail] = useState("");
+  const [inviteRole, setInviteRole] = useState<"admin" | "operator">("admin");
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -76,6 +84,7 @@ const Instructors = () => {
       const result = await superAdminApi.inviteInstructor(
         inviteName.trim(),
         inviteEmail.trim(),
+        inviteRole
       );
       setInstructors((current) => {
         const withoutExisting = current.filter(
@@ -85,6 +94,7 @@ const Instructors = () => {
       });
       setInviteName("");
       setInviteEmail("");
+      setInviteRole("admin");
       setInviteOpen(false);
       toast.success(result.message);
     } catch (error) {
@@ -140,6 +150,18 @@ const Instructors = () => {
                   onChange={(e) => setInviteEmail(e.target.value)}
                   placeholder="jane@example.com"
                 />
+              </div>
+              <div className="space-y-2">
+                <Label>Role</Label>
+                <Select value={inviteRole} onValueChange={(v: "admin" | "operator") => setInviteRole(v)}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a role" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="admin">Admin</SelectItem>
+                    <SelectItem value="operator">Operator (No Analytics)</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <DialogFooter>
                 <Button type="submit" disabled={inviting}>

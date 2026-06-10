@@ -74,7 +74,21 @@ const Dashboard = () => {
     { label: 'Active Students', value: formatStat(stats.activeUsers), icon: UserCheck, color: 'text-cyan-600', bg: 'bg-cyan-50' },
   ];
 
-  const statCards = isSuperAdmin ? superAdminCards : adminCards;
+  const operatorCards = [
+    { label: 'Students in My Courses', value: formatStat(stats.totalUsers), icon: Users, color: 'text-blue-600', bg: 'bg-blue-50' },
+    { label: 'My Courses', value: formatStat(stats.totalCourses), icon: BookOpen, color: 'text-emerald-600', bg: 'bg-emerald-50' },
+    { label: 'Total Enrollments', value: formatStat(stats.totalEnrollments), icon: TrendingUp, color: 'text-violet-600', bg: 'bg-violet-50' },
+    { label: 'Completed', value: formatStat(stats.totalCompleted), icon: CheckCircle2, color: 'text-green-600', bg: 'bg-green-50' },
+    { label: 'Lessons', value: formatStat(stats.totalLessons), icon: Layers, color: 'text-amber-600', bg: 'bg-amber-50' },
+    { label: 'Quizzes', value: formatStat(stats.totalQuizzes), icon: HelpCircle, color: 'text-rose-600', bg: 'bg-rose-50' },
+    { label: 'Active Students', value: formatStat(stats.activeUsers), icon: UserCheck, color: 'text-cyan-600', bg: 'bg-cyan-50' },
+  ];
+
+  const statCards = isSuperAdmin 
+    ? superAdminCards 
+    : user?.role === "admin" 
+      ? adminCards 
+      : operatorCards;
 
   const completionRate = stats.completionRate ?? 0;
 

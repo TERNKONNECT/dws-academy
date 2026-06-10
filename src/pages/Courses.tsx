@@ -77,33 +77,7 @@ const Courses = () => {
         </div>
 
         <div className="flex flex-wrap gap-2 mb-8">
-          {CATEGORIES.map((cat) => {
-            const badgeClass =
-              selectedCategory === cat
-                ? "cursor-pointer transition-colors bg-yellow-400 text-black border-yellow-400 hover:bg-yellow-500"
-                : "cursor-pointer transition-colors hover:bg-yellow-50 hover:border-yellow-400 hover:text-yellow-700";
-            return (
-              <Badge
-                key={cat}
-                variant="outline"
-                className={badgeClass}
-                onClick={() => toggleCategory(cat)}
-              >
-                {cat}
-              </Badge>
-            );
-          })}
-          {selectedCategory && (
-            <Badge
-              variant="secondary"
-              className="cursor-pointer hover:bg-yellow-100"
-              onClick={() => toggleCategory("")}
-            >
-              ✕ Clear filter
-            </Badge>
-          )}
         </div>
-
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3, 4, 5, 6].map((i) => (

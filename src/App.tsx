@@ -6,7 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/contexts/AuthContext";
 import {
   ProtectedAdminRoute,
-  SuperAdminRoute,
+  StrictAdminRoute,
 } from "@/components/admin/ProtectedAdminRoute";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 
@@ -130,21 +130,28 @@ const App = () => (
                 element={<CourseEnrollments />}
               />
               <Route path="users" element={<Users />} />
-              <Route path="analytics" element={<Analytics />} />
+              <Route
+                path="analytics"
+                element={
+                  <StrictAdminRoute>
+                    <Analytics />
+                  </StrictAdminRoute>
+                }
+              />
               <Route
                 path="instructors"
                 element={
-                  <SuperAdminRoute>
+                  <StrictAdminRoute>
                     <Instructors />
-                  </SuperAdminRoute>
+                  </StrictAdminRoute>
                 }
               />
               <Route
                 path="instructors/:id"
                 element={
-                  <SuperAdminRoute>
+                  <StrictAdminRoute>
                     <InstructorDetail />
-                  </SuperAdminRoute>
+                  </StrictAdminRoute>
                 }
               />
             </Route>
