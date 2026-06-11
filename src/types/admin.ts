@@ -79,18 +79,10 @@ export interface DashboardStats {
   totalLessons: number;
   totalQuizzes: number;
   activeUsers: number;
-<<<<<<< HEAD
   totalCompleted: number;
   totalPayments: number;
   totalRevenue: number;
   completionRate: number;
-=======
-  recentActivity?: {
-    activity: string;
-    user: string;
-    date: string;
-  }[];
->>>>>>> d3dd7b51487e195fc0ebb6f725ed1ec154daf26e
 }
 
 export interface AuthResponse {

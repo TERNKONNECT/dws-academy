@@ -103,19 +103,20 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 font-semibold"
+                    className="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold border-0 shadow-lg hover:shadow-xl transition-all"
+                  // className="text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 font-semibold"
                   >
                     Log In
                   </Button>
                 </Link>
-                <Link to="/appointment">
+                {/* <Link to="/appointment">
                   <Button
                     size="sm"
                     className="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold border-0 shadow-lg hover:shadow-xl transition-all"
                   >
                     Start free trial
                   </Button>
-                </Link>
+                </Link> */}
               </>
             )}
           </div>
@@ -180,14 +181,14 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                       Log In
                     </Button>
                   </Link>
-                  <Link to="/appointment" onClick={() => setMobileOpen(false)}>
+                  {/* <Link to="/appointment" onClick={() => setMobileOpen(false)}>
                     <Button
                       size="sm"
                       className="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold border-0"
                     >
                       Appointment
                     </Button>
-                  </Link>
+                  </Link> */}
                 </>
               )}
             </div>

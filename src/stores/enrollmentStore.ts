@@ -105,13 +105,23 @@ export const useEnrollmentStore = create<EnrollmentState>()((set, get) => ({
   enroll: async (courseId) => {
     if (get().isEnrolled(courseId)) return;
 
+    const res = await fetch(`${API_URL}/api/enrollments/${courseId}`, {
+        method: "POST",
+        headers: authHeaders(),
+      });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      throw new Error(data.error || "Failed to enroll");
+    }
+
     const newCourse: EnrolledCourse = {
-      courseId,
-      enrolledAt: new Date().toISOString(),
+      courseId: data.courseId ?? courseId,
+      enrolledAt: data.createdAt ?? new Date().toISOString(),
       completedLessons: [],
       completedModules: [],
       quizAttempts: [],
-      isCompleted: false,
+      isCompleted: Boolean(data.isCompleted),
+      completedAt: data.completedAt,
     };
 
     const updated = [...get().enrolledCourses, newCourse];
@@ -119,13 +129,6 @@ export const useEnrollmentStore = create<EnrollmentState>()((set, get) => ({
 
     const uid = get().userId;
     if (uid) saveToStorage(uid, updated);
-
-    try {
-      await fetch(`${API_URL}/api/enrollments/${courseId}`, {
-        method: "POST",
-        headers: authHeaders(),
-      });
-    } catch {}
   },
 
   isEnrolled: (courseId) =>
