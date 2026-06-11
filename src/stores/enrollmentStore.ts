@@ -6,7 +6,20 @@ const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:9000";
 const getToken = () => {
   try {
     const auth = JSON.parse(localStorage.getItem("lms-auth") || "{}");
-    return auth?.state?.token ?? null;
+    return auth?.state?.token ?? localStorage.getItem("lms_token");
+  } catch {
+    return localStorage.getItem("lms_token");
+  }
+};
+
+const getPersistedUserId = () => {
+  try {
+    const auth = JSON.parse(localStorage.getItem("lms-auth") || "{}");
+    const authUserId = auth?.state?.user?.id;
+    if (authUserId) return authUserId;
+
+    const user = JSON.parse(localStorage.getItem("lms_user") || "{}");
+    return user?.id ?? null;
   } catch {
     return null;
   }
@@ -65,8 +78,11 @@ export const useEnrollmentStore = create<EnrollmentState>()((set, get) => ({
   },
 
   refreshFromServer: async () => {
-    const uid = get().userId;
+    const uid = get().userId || getPersistedUserId();
     if (!uid || !getToken()) return;
+    if (get().userId !== uid) {
+      set({ userId: uid, enrolledCourses: loadFromStorage(uid) });
+    }
     try {
       const res = await fetch(`${API_URL}/api/enrollments/my`, {
         headers: authHeaders(),

@@ -27,6 +27,17 @@ const PaymentSuccess = () => {
     api
       .verifyPayment(reference)
       .then(async (payment) => {
+        if (payment.status !== "success") {
+          setState({
+            loading: false,
+            courseId: payment.courseId,
+            courseTitle: payment.courseTitle,
+            error:
+              payment.error ||
+              "Payment is still processing. Access will be granted after Paystack confirms the payment.",
+          });
+          return;
+        }
         await refreshFromServer();
         setState({
           loading: false,
@@ -58,8 +69,8 @@ const PaymentSuccess = () => {
           <Card className="w-full max-w-xl">
             <CardContent className="p-10 text-center space-y-5">
               <div className="flex justify-center">
-                <div className="h-20 w-20 rounded-full bg-yellow-50 flex items-center justify-center animate-pulse">
-                  <Loader2 className="h-10 w-10 text-yellow-500 animate-spin" />
+                <div className="h-20 w-20 rounded-full bg-primary/10 flex items-center justify-center animate-pulse">
+                  <Loader2 className="h-10 w-10 text-primary animate-spin" />
                 </div>
               </div>
               <h1 className="text-2xl font-bold">Verifying your payment</h1>
@@ -79,7 +90,7 @@ const PaymentSuccess = () => {
     return (
       <MainLayout>
         <div className="container flex min-h-[70vh] items-center justify-center py-12">
-          <Card className="w-full max-w-xl border-amber-200">
+          <Card className="w-full max-w-xl border-destructive">
             <CardContent className="p-10 text-center space-y-5">
               <h1 className="text-2xl font-bold">Payment needs attention</h1>
               <p className="text-muted-foreground">{state.error}</p>
@@ -116,7 +127,7 @@ const PaymentSuccess = () => {
                 Payment Successful!
               </h1>
               {state.courseTitle && (
-                <p className="text-lg font-semibold text-yellow-600">
+                <p className="text-lg font-semibold text-primary">
                   {state.courseTitle}
                 </p>
               )}
@@ -157,7 +168,7 @@ const PaymentSuccess = () => {
             <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
               {state.courseId && (
                 <Link to={`/learn/${state.courseId}`}>
-                  <Button className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0 gap-2 w-full sm:w-auto">
+                  <Button className="gradient-primary text-white font-bold border-0 gap-2 w-full sm:w-auto">
                     <BookOpen className="h-4 w-4" />
                     Start Learning Now
                   </Button>

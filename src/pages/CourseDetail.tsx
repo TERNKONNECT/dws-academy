@@ -82,7 +82,7 @@ const CourseDetail = () => {
       .catch(() => {});
   }, [id, currentUser?.id]);
 
-  const enrolled = id ? isEnrolled(id) : false;
+  const enrolled = id ? isEnrolled(id) || Boolean(course?.hasAccess) : false;
   const enrollment = id ? getEnrolledCourse(id) : undefined;
   const totalLessons =
     course?.modules.reduce((acc, m) => acc + m.lessons.length, 0) ?? 0;
