@@ -326,7 +326,7 @@ export default function Services() {
               Client <span className="text-yellow-400">Testimonials</span>
             </h2>
             <p className="text-xl text-gray-300">
-              Hear what our satisfied clients say about their experiences
+              Hear what our satisfied people say about their experiences
             </p>
           </div>
 

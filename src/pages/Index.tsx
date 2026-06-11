@@ -53,31 +53,25 @@ const courseSlides = [
 
 const classes = [
   {
-    level: "FOR ASPIRING PLANNERS",
-    title: "Beginners Class",
-    desc: "For aspiring planners or anyone curious about the world of events. Learn the foundation you need to start strong.",
-    icon: <BookOpen className="h-6 w-6" />,
+    level: "FOR ASPIRING & PRACTICING PLANNERS",
+    title: "Beginners and Intensive Class",
+    desc: "Perfect for aspiring planners or those with some experience who want to build a strong foundation and polish their craft to operate more professionally.",
+    icon: <TrendingUp className="h-6 w-6" />,
     curriculum: [
       "Understanding the event planning industry",
       "Event types, roles, and core principles",
       "Step-by-step process of planning events",
       "Budgeting, logistics, and client communication basics",
-      "Confidence-building & mindset for excellence",
-    ],
-  },
-  {
-    level: "FOR PRACTICING PLANNERS",
-    title: "Intensive Class",
-    desc: "For planners with some experience who want to polish their craft and operate more professionally.",
-    icon: <TrendingUp className="h-6 w-6" />,
-    curriculum: [
       "Hands-on practical event planning",
       "Vendor coordination, timelines & workflows",
       "Styling, setup, and real-time project exercises",
       "Introduction to event business management",
       "Templates, tools, and guided supervision",
+      "Confidence-building & mindset for excellence",
     ],
     featured: true,
+    price: "₦350,000",
+    duration: "4 weeks",
   },
   {
     level: "FOR ESTABLISHED PLANNERS",
@@ -91,6 +85,8 @@ const classes = [
       "Building brand authority & longevity",
       "Excellence in execution: case studies and mentorship",
     ],
+    price: "₦250,000",
+    duration: "4 weeks",
   },
 ];
 
@@ -287,7 +283,7 @@ const Index = () => {
               Event planning is an amazing skill, but skill alone isn't enough.
               Many talented planners struggle — not because they're not good,
               but because they don't understand the business side: how to build
-              systems, manage clients, lead teams, and sustain profit.
+              systems, manage people, lead teams, and sustain profit.
             </p>
             <p className="text-yellow-400 text-xl font-semibold">
               Here, we teach you all! The skill and the business!
@@ -316,8 +312,8 @@ const Index = () => {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {classes.map(({ level, title, desc, icon, curriculum, featured }) => (
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {classes.map(({ level, title, desc, icon, curriculum, featured, price, duration }) => (
               <Card
                 key={title}
                 className={`relative overflow-hidden border-2 transition-all hover:-translate-y-1 hover:shadow-2xl ${
@@ -358,6 +354,12 @@ const Index = () => {
                       </li>
                     ))}
                   </ul>
+                  {price && (
+                    <div className="pt-6 mt-4 border-t border-yellow-100/50 text-center space-y-1">
+                      <p className="text-3xl font-bold text-yellow-600">{price}</p>
+                      <p className="text-sm text-gray-500 font-medium">{duration}</p>
+                    </div>
+                  )}
                   <Button
                     onClick={scrollToWaitlist}
                     className={`w-full font-bold ${

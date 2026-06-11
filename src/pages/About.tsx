@@ -44,31 +44,28 @@ const values = [
 
 const team = [
   {
-    name: "Adunni Williams",
-    role: "Founder & Lead Event Planner",
-    image:
-      "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&auto=format&fit=crop&q=80",
-    bio: "With over 8 years of experience in event planning, Adunni has transformed countless celebrations into unforgettable experiences.",
+    name: "Olayinka Olawunmi Olatunji",
+    role: "Director of Academy",
+    image: "/profiles/olayinka.jpg",
+    bio: "Leading the vision and curriculum at DWS Events Academy to shape the next generation of event professionals.",
   },
   {
-    name: "Kemi Oladele",
-    role: "Creative Director",
-    image:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&auto=format&fit=crop&q=80",
-    bio: "Kemi brings artistic vision and creative flair to every event, specializing in unique themes and stunning decorations.",
+    name: "Esther Adebiyi",
+    role: "Platform Coordinator",
+    image: "/profiles/esther.jpg",
+    bio: "Ensuring smooth operations and a seamless learning experience for all academy students and facilitators.",
   },
   {
-    name: "Tunde Adebayo",
-    role: "Operations Manager",
-    image:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&auto=format&fit=crop&q=80",
-    bio: "Tunde ensures seamless execution and coordination, managing logistics and vendor relationships with precision.",
+    name: "Adesuwa Olarenwaju-Dada",
+    role: "Facilitator",
+    image: "/profiles/adesuwa.jpg",
+    bio: "An expert event professional dedicated to teaching and mentoring students with real-world industry insights.",
   },
 ];
 
 const stats = [
   { value: "200+", label: "Events Planned" },
-  { value: "1000+", label: "Happy Clients" },
+  { value: "1000+", label: "Happy People" },
   { value: "15+", label: "Years Experience" },
   { value: "4.9/5", label: "Client Rating" },
 ];
@@ -326,7 +323,7 @@ export default function About() {
               Event planning is an amazing skill, but skill alone isn't enough.
               Many talented planners struggle, not because they're not good, but
               because they don't understand the business side, how to build
-              systems, manage clients, lead teams, and sustain profit.
+              systems, manage people, lead teams, and sustain profit.
             </p>
             <p className="text-lg text-black font-semibold">
               Here, we teach you all! The skill and the business!

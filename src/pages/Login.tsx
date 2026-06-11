@@ -87,7 +87,10 @@ const Login = () => {
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
             <div className="h-12 w-12 rounded-xl bg-yellow-400 flex items-center justify-center">
-              <BookOpen className="h-6 w-6 text-black" />
+              <Link to="/">
+                <BookOpen className="h-6 w-6 text-black" />
+              </Link>
+
             </div>
           </div>
           <CardTitle className="text-2xl text-white">Welcome Back</CardTitle>

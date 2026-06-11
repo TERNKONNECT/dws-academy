@@ -53,8 +53,9 @@ export const superAdminApi = {
   inviteInstructor: (
     name: string,
     email: string,
+    role: "admin" | "operator" = "admin"
   ): Promise<{ message: string; instructor: InstructorSummary }> =>
     api
-      .post("/api/superadmin/instructors/invite", { name, email })
+      .post("/api/superadmin/instructors/invite", { name, email, role })
       .then((r) => r.data),
 };
