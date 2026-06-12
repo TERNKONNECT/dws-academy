@@ -19,6 +19,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Progress } from "@/components/ui/progress";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import MainLayout from "@/components/layouts/MainLayout";
 import { api } from "@/services/api";
 import { useAuthStore } from "@/stores/authStore";
@@ -39,6 +46,7 @@ const CourseDetail = () => {
   const [submittingReview, setSubmittingReview] = useState(false);
   const [hasReviewed, setHasReviewed] = useState(false);
   const [checkingOut, setCheckingOut] = useState(false);
+  const [checkoutModalOpen, setCheckoutModalOpen] = useState(false);
 
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -91,6 +99,19 @@ const CourseDetail = () => {
     totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
   const hasCompleted = enrollment?.isCompleted ?? false;
   const isPaid = course?.pricingType === "paid" && Number(course?.price || 0) > 0;
+  
+  const [serviceFeePercentage, setServiceFeePercentage] = useState(0);
+
+  useEffect(() => {
+    api.getPaymentConfig().then((config) => {
+      setServiceFeePercentage(config.serviceFeePercentage || 0);
+    });
+  }, []);
+
+  const courseFee = Number(course?.price || 0);
+  const serviceFee = courseFee * (serviceFeePercentage / 100);
+  const totalAmount = courseFee + serviceFee;
+
   const formatPrice = (amount = 0, currency = "NGN") =>
     new Intl.NumberFormat("en-NG", {
       style: "currency",
@@ -118,6 +139,21 @@ const CourseDetail = () => {
         });
       }
     }
+  };
+
+  const openCheckoutModal = () => {
+    if (!isAuthenticated) {
+      navigate("/login");
+      return;
+    }
+    if (!id) return;
+    
+    if (course?.hasAccess) {
+      navigate(`/learn/${id}`);
+      return;
+    }
+
+    setCheckoutModalOpen(true);
   };
 
   const handleCheckout = async () => {
@@ -278,7 +314,7 @@ const CourseDetail = () => {
                   <Button
                     className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
                     size="lg"
-                    onClick={isPaid ? handleCheckout : handleEnroll}
+                    onClick={isPaid ? openCheckoutModal : handleEnroll}
                     disabled={checkingOut}
                   >
                     {isPaid ? (
@@ -519,6 +555,40 @@ const CourseDetail = () => {
           </Card>
         </div>
       </div>
+
+      <Dialog open={checkoutModalOpen} onOpenChange={setCheckoutModalOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Payment Summary</DialogTitle>
+            <DialogDescription>
+              Review your breakdown before proceeding to payment.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-muted-foreground">Course Fee</span>
+              <span className="font-medium">{course.currency} {courseFee.toLocaleString()}</span>
+            </div>
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-muted-foreground">Service Fee ({serviceFeePercentage}%)</span>
+              <span className="font-medium">{course.currency} {serviceFee.toLocaleString()}</span>
+            </div>
+            <div className="border-t pt-4 flex justify-between items-center">
+              <span className="font-bold text-lg">Total Amount</span>
+              <span className="font-bold text-lg text-primary">{course.currency} {totalAmount.toLocaleString()}</span>
+            </div>
+          </div>
+          <Button
+            className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+            size="lg"
+            onClick={handleCheckout}
+            disabled={checkingOut}
+          >
+            <CreditCard className="mr-2 h-4 w-4" />
+            {checkingOut ? "Processing..." : `Pay ${course.currency} ${totalAmount.toLocaleString()}`}
+          </Button>
+        </DialogContent>
+      </Dialog>
     </MainLayout>
   );
 };
