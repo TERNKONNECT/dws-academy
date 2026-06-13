@@ -44,6 +44,7 @@ import Analytics from "./pages/admin/Analytics";
 import Instructors from "./pages/admin/Instructors";
 import InstructorDetail from "./pages/admin/InstructorDetail";
 import AdminProfile from "./pages/admin/AdminProfile";
+import EventsGallery from "./pages/admin/EventsGallery";
 
 const queryClient = new QueryClient();
 
@@ -135,6 +136,14 @@ const App = () => (
                 element={
                   <StrictAdminRoute>
                     <Analytics />
+                  </StrictAdminRoute>
+                }
+              />
+              <Route
+                path="events-gallery"
+                element={
+                  <StrictAdminRoute>
+                    <EventsGallery />
                   </StrictAdminRoute>
                 }
               />

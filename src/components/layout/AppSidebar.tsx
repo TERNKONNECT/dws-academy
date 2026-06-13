@@ -7,6 +7,7 @@ import {
   ShieldCheck,
   UserCircle,
   GraduationCap,
+  Image,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
@@ -46,6 +47,7 @@ const superAdminNavItems = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
   { title: "Instructors", url: "/dashboard/instructors", icon: ShieldCheck },
   { title: "Courses", url: "/dashboard/courses", icon: BookOpen },
+  { title: "Events & Gallery", url: "/dashboard/events-gallery", icon: Image },
   { title: "Users", url: "/dashboard/users", icon: Users },
   { title: "Analytics", url: "/dashboard/analytics", icon: BarChart3 },
 ];
