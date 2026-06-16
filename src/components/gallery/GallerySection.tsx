@@ -1,8 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { eventsApi } from "@/api/events";
-import { Loader2, Image as ImageIcon } from "lucide-react";
+import { Loader2, Image as ImageIcon, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
-export function GallerySection() {
+interface GallerySectionProps {
+  limit?: number;
+  showViewMore?: boolean;
+}
+
+export function GallerySection({ limit, showViewMore = false }: GallerySectionProps) {
   const { data: events, isLoading } = useQuery({
     queryKey: ["events"],
     queryFn: eventsApi.getAll,
@@ -10,18 +17,22 @@ export function GallerySection() {
 
   if (isLoading) {
     return (
-      <div className="py-24 flex justify-center">
+      <div id="gallery" className="py-24 flex justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
   }
 
   // Filter out events that don't have images
-  const validEvents = events?.filter((event) => event.images && event.images.length > 0) || [];
+  let validEvents = events?.filter((event) => event.images && event.images.length > 0) || [];
+  
+  if (limit && limit > 0) {
+    validEvents = validEvents.slice(0, limit);
+  }
 
   if (validEvents.length === 0) {
     return (
-      <section className="py-24 bg-muted/30">
+      <section id="gallery" className="py-24 bg-muted/30">
         <div className="container px-4 md:px-6 text-center">
           <ImageIcon className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Event Gallery</h2>
@@ -32,7 +43,7 @@ export function GallerySection() {
   }
 
   return (
-    <section className="py-24 bg-muted/30">
+    <section id="gallery" className="py-24 bg-muted/30">
       <div className="container px-4 md:px-6">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-foreground">Event Gallery</h2>
@@ -76,6 +87,16 @@ export function GallerySection() {
             </div>
           ))}
         </div>
+
+        {showViewMore && validEvents.length > 0 && (
+          <div className="mt-16 flex justify-center">
+            <Link to="/gallery">
+              <Button size="lg" className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold h-12 px-8 text-base">
+                View Full Gallery <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );

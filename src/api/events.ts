@@ -21,35 +21,35 @@ export interface AppEvent {
 
 export const eventsApi = {
   getAll: async () => {
-    const response = await axios.get<AppEvent[]>('/events');
+    const response = await axios.get<AppEvent[]>('/api/events');
     return response.data;
   },
   
   create: async (data: { name: string; description?: string; date?: string }) => {
-    const response = await axios.post<AppEvent>('/events', data);
+    const response = await axios.post<AppEvent>('/api/events', data);
     return response.data;
   },
   
   delete: async (id: string) => {
-    const response = await axios.delete<{ message: string }>(`/events/${id}`);
+    const response = await axios.delete<{ message: string }>(`/api/events/${id}`);
     return response.data;
   },
   
   getPresignedUrl: async (eventId: string, data: { filename: string; contentType: string }) => {
     const response = await axios.post<{ uploadUrl: string; key: string; url: string }>(
-      `/events/${eventId}/images/presigned-url`,
+      `/api/events/${eventId}/images/presigned-url`,
       data
     );
     return response.data;
   },
   
   saveImages: async (eventId: string, images: { url: string; key: string }[]) => {
-    const response = await axios.post<EventImage[]>(`/events/${eventId}/images`, { images });
+    const response = await axios.post<EventImage[]>(`/api/events/${eventId}/images`, { images });
     return response.data;
   },
   
   deleteImagesBulk: async (imageIds: string[]) => {
-    const response = await axios.delete<{ message: string }>('/events/images/bulk', {
+    const response = await axios.delete<{ message: string }>('/api/events/images/bulk', {
       data: { imageIds }
     });
     return response.data;

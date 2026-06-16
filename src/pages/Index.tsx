@@ -1,5 +1,5 @@
-import { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import {
   ArrowRight,
   CheckCircle,
@@ -92,6 +92,20 @@ const classes = [
 ];
 
 const Index = () => {
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      setTimeout(() => {
+        const id = hash.replace('#', '');
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }, [hash]);
+
   const [slideIndex, setSlideIndex] = useState(0);
   const [formData, setFormData] = useState({
     name: "",
@@ -274,7 +288,7 @@ const Index = () => {
       </section>
 
       {/* Event Gallery */}
-      <GallerySection />
+      <GallerySection limit={2} showViewMore />
 
       {/* Why DWS Academy */}
       <section className="py-20 bg-gradient-to-br from-black via-gray-900 to-black text-white">

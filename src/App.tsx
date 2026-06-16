@@ -21,6 +21,7 @@ import Courses from "./pages/Courses";
 import CourseDetail from "./pages/CourseDetail";
 import MyLearning from "./pages/MyLearning";
 import CourseLearning from "./pages/CourseLearning";
+import Gallery from "./pages/Gallery";
 import Quiz from "./pages/Quiz";
 import Profile from "./pages/Profile";
 import PaymentSuccess from "./pages/PaymentSuccess";
@@ -67,6 +68,7 @@ const App = () => (
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/courses/:id" element={<CourseDetail />} />
+            <Route path="/gallery" element={<Gallery />} />
             <Route path="/services" element={<Services />} />
             <Route path="/get" element={<GetStarted />} />
             <Route
