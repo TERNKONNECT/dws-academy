@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   ArrowRight,
   CheckCircle,
@@ -92,7 +92,7 @@ const classes = [
 ];
 
 const Index = () => {
-  const { hash } = window.location;
+  const { hash } = useLocation();
 
   useEffect(() => {
     if (hash) {

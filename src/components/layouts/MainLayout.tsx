@@ -23,6 +23,20 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     navigate("/");
   };
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, linkTo: string) => {
+    if (linkTo.startsWith('/#') && window.location.pathname === '/') {
+      e.preventDefault();
+      const id = linkTo.replace('/#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        window.history.pushState(null, '', linkTo);
+      } else {
+        window.location.href = linkTo;
+      }
+    }
+  };
+
   const navLinks = [
     { to: "/", label: "Home" },
     { to: "/about", label: "About Us" },
@@ -66,6 +80,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
               <Link
                 key={link.to}
                 to={link.to}
+                onClick={(e) => handleNavClick(e, link.to)}
                 className="text-sm font-semibold text-gray-700 hover:text-yellow-600 transition-colors relative group py-2"
               >
                 {link.label}
@@ -141,7 +156,10 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                 key={link.to}
                 to={link.to}
                 className="block py-3 text-sm font-semibold text-gray-700 hover:text-yellow-600 transition-colors border-b border-gray-100 last:border-b-0"
-                onClick={() => setMobileOpen(false)}
+                onClick={(e) => {
+                  setMobileOpen(false);
+                  handleNavClick(e, link.to);
+                }}
               >
                 {link.label}
               </Link>

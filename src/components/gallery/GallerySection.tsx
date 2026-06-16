@@ -10,7 +10,7 @@ export function GallerySection() {
 
   if (isLoading) {
     return (
-      <div className="py-24 flex justify-center">
+      <div id="gallery" className="py-24 flex justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     );
