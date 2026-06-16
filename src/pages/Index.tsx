@@ -19,6 +19,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import MainLayout from "@/components/layouts/MainLayout";
+import { GallerySection } from "@/components/gallery/GallerySection";
 
 const courseSlides = [
   {
@@ -271,6 +272,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Event Gallery */}
+      <GallerySection />
 
       {/* Why DWS Academy */}
       <section className="py-20 bg-gradient-to-br from-black via-gray-900 to-black text-white">
