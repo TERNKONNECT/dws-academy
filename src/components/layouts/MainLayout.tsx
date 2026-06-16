@@ -27,7 +27,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     { to: "/", label: "Home" },
     { to: "/about", label: "About Us" },
     // { to: "/services", label: "Our Services" },
-    { to: "/#gallery", label: "Gallery" },
+    { to: "/#gallery", label: "Event Gallery" },
     { to: "/contact", label: "Contact Us" },
     { to: "/courses", label: "Events Academy" },
   ];
