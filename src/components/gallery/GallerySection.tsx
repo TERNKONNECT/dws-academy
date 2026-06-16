@@ -21,7 +21,7 @@ export function GallerySection() {
 
   if (validEvents.length === 0) {
     return (
-      <section className="py-24 bg-muted/30">
+      <section id="gallery" className="py-24 bg-muted/30">
         <div className="container px-4 md:px-6 text-center">
           <ImageIcon className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Event Gallery</h2>
@@ -32,7 +32,7 @@ export function GallerySection() {
   }
 
   return (
-    <section className="py-24 bg-muted/30">
+    <section id="gallery" className="py-24 bg-muted/30">
       <div className="container px-4 md:px-6">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-foreground">Event Gallery</h2>
