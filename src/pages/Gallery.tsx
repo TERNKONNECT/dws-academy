@@ -10,7 +10,7 @@ const Gallery = () => {
             Our <span className="text-yellow-400">Gallery</span>
           </h1>
           <p className="text-gray-300 max-w-2xl mx-auto text-lg">
-            Explore moments of excellence from our past events and academy sessions.
+            Explore moments of excellence from our past academy sessions.
           </p>
         </div>
       </div>
