@@ -287,7 +287,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Event Gallery */}
+      {/* Gallery */}
       <GallerySection limit={2} showViewMore />
 
       {/* Why DWS Academy */}
