@@ -2,6 +2,11 @@
 <html lang="en">
 
 <head>
+  <script>
+    if (!localStorage.getItem("tkw_a11y_prefs")) {
+      localStorage.setItem("tkw_a11y_prefs", JSON.stringify({ tts: false }));
+    }
+  </script>
   <script src="https://widget.ternkonnect.com/widget.js" data-account="Y4TeKv2Ybm"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
