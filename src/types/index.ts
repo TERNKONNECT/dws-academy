@@ -13,6 +13,7 @@ export interface Course {
   description: string;
   shortDescription: string;
   thumbnail: string;
+  introVideoUrl?: string;
   instructor: Instructor;
   category: string;
   level: "Beginner" | "Intermediate" | "Advanced";

@@ -26,29 +26,7 @@ import {
   Upload,
 } from "lucide-react";
 import { toast } from "sonner";
-
-const getYoutubeEmbedUrl = (url: string) => {
-  const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/);
-  return match ? `https://www.youtube.com/embed/${match[1]}` : null;
-};
-
-const VideoPreview = ({ url }: { url: string }) => {
-  const embedUrl = getYoutubeEmbedUrl(url);
-  return embedUrl ? (
-    <iframe
-      src={embedUrl}
-      className="w-full rounded-lg aspect-video"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowFullScreen
-    />
-  ) : (
-    <video
-      src={url}
-      controls
-      className="w-full rounded-lg aspect-video bg-black"
-    />
-  );
-};
+import VideoPreview from "@/components/video/VideoPreview";
 
 // ── Inline editable text ──────────────────────────────────────────────────────
 const InlineEdit = ({
@@ -416,8 +394,6 @@ const AddLessonForm = ({
   const [duration, setDuration] = useState("");
   const [saving, setSaving] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const [introMode, setIntroMode] = useState<"upload" | "youtube">("upload");
-  const [introYoutubeUrl, setIntroYoutubeUrl] = useState("");
 
   const handleSave = async () => {
     if (!title.trim()) return toast.error("Title is required");
@@ -509,24 +485,42 @@ const AddLessonForm = ({
             </button>
           </div>
           {videoMode === "upload" ? (
-            <label className="flex items-center gap-2 cursor-pointer border rounded-lg p-3 hover:bg-muted transition-colors">
-              <Upload className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm text-muted-foreground">
-                {file ? file.name : "Choose video file (mp4, mov, webm)"}
-              </span>
-              <input
-                type="file"
-                accept="video/*"
-                className="hidden"
-                onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-              />
-            </label>
+            <div className="space-y-2">
+              {file && (
+                <VideoPreview
+                  file={file}
+                  title="Selected lesson video preview"
+                  className="w-full rounded-lg aspect-video bg-black"
+                />
+              )}
+              <label className="flex items-center gap-2 cursor-pointer border rounded-lg p-3 hover:bg-muted transition-colors">
+                <Upload className="h-4 w-4 text-muted-foreground" />
+                <span className="text-sm text-muted-foreground">
+                  {file ? file.name : "Choose video file (mp4, mov, webm)"}
+                </span>
+                <input
+                  type="file"
+                  accept="video/*"
+                  className="hidden"
+                  onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+                />
+              </label>
+            </div>
           ) : (
-            <Input
-              placeholder="https://www.youtube.com/watch?v=..."
-              value={youtubeUrl}
-              onChange={(e) => setYoutubeUrl(e.target.value)}
-            />
+            <div className="space-y-2">
+              {youtubeUrl.trim() && (
+                <VideoPreview
+                  url={youtubeUrl}
+                  title="YouTube lesson preview"
+                  className="w-full rounded-lg aspect-video"
+                />
+              )}
+              <Input
+                placeholder="https://www.youtube.com/watch?v=..."
+                value={youtubeUrl}
+                onChange={(e) => setYoutubeUrl(e.target.value)}
+              />
+            </div>
           )}
           <Input
             placeholder="Duration (e.g. 15 min)"
@@ -948,7 +942,77 @@ const CourseBuilder = () => {
           )}
         </CardContent> */}
 
-        {course.introVideoUrl && <VideoPreview url={course.introVideoUrl} />}
+        <CardContent className="space-y-3">
+          {(introFile || introYoutubeUrl.trim() || course.introVideoUrl) && (
+            <VideoPreview
+              file={introMode === "upload" ? introFile : null}
+              url={
+                introMode === "youtube"
+                  ? introYoutubeUrl
+                  : introFile
+                    ? ""
+                    : course.introVideoUrl
+              }
+              title="Intro video preview"
+              className="w-full rounded-lg aspect-video bg-black"
+            />
+          )}
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                setIntroMode("upload");
+                setIntroYoutubeUrl("");
+              }}
+              className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium border transition-colors ${introMode === "upload" ? "bg-primary text-primary-foreground border-primary" : "border-border"}`}
+            >
+              <Upload className="h-3 w-3" /> Upload File
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setIntroMode("youtube");
+                setIntroFile(null);
+              }}
+              className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium border transition-colors ${introMode === "youtube" ? "bg-primary text-primary-foreground border-primary" : "border-border"}`}
+            >
+              YouTube Link
+            </button>
+          </div>
+          {introMode === "upload" ? (
+            <label className="flex items-center gap-2 cursor-pointer border rounded-lg p-3 hover:bg-muted transition-colors">
+              <Upload className="h-4 w-4 text-muted-foreground" />
+              <span className="text-sm text-muted-foreground">
+                {introFile
+                  ? introFile.name
+                  : course.introVideoUrl
+                    ? "Replace intro video"
+                    : "Upload intro video"}
+              </span>
+              <input
+                type="file"
+                accept="video/*"
+                className="hidden"
+                onChange={(e) => setIntroFile(e.target.files?.[0] ?? null)}
+              />
+            </label>
+          ) : (
+            <Input
+              placeholder="https://www.youtube.com/watch?v=..."
+              value={introYoutubeUrl}
+              onChange={(e) => setIntroYoutubeUrl(e.target.value)}
+            />
+          )}
+          {(introFile || introYoutubeUrl.trim()) && (
+            <Button
+              size="sm"
+              onClick={handleUploadIntroVideo}
+              disabled={uploadingIntro}
+            >
+              {uploadingIntro ? "Saving..." : "Save Intro Video"}
+            </Button>
+          )}
+        </CardContent>
       </Card>
 
       {/* Modules */}

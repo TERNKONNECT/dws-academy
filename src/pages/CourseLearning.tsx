@@ -21,11 +21,7 @@ import { api } from "@/services/api";
 import { useEnrollmentStore } from "@/stores/enrollmentStore";
 import { useToast } from "@/hooks/use-toast";
 import type { Course } from "@/types";
-
-const getYoutubeEmbedUrl = (url: string) => {
-  const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/);
-  return match ? `https://www.youtube.com/embed/${match[1]}` : null;
-};
+import VideoPreview from "@/components/video/VideoPreview";
 
 const CourseLearning = () => {
   const { courseId } = useParams<{ courseId: string }>();
@@ -540,30 +536,17 @@ const CourseLearning = () => {
           ) : currentLesson ? (
             <div className="p-6 max-w-4xl mx-auto space-y-6">
               {currentLesson.type === "video" && currentLesson.videoUrl
-                ? (() => {
-                    const embedUrl = getYoutubeEmbedUrl(currentLesson.videoUrl);
-                    return embedUrl ? (
-                      <iframe
-                        ref={iframeRef}
-                        key={currentLesson.id}
-                        src={`${embedUrl}?enablejsapi=1`}
-                        className="w-full aspect-video rounded-xl"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      />
-                    ) : (
-                      <video
-                        ref={videoRef}
-                        key={currentLesson.id}
-                        src={currentLesson.videoUrl}
-                        controls
-                        className="w-full aspect-video rounded-xl bg-black"
-                        controlsList="nodownload"
-                      >
-                        Your browser does not support the video tag.
-                      </video>
-                    );
-                  })()
+                ? (
+                  <VideoPreview
+                    key={currentLesson.id}
+                    ref={videoRef}
+                    iframeRef={iframeRef}
+                    url={currentLesson.videoUrl}
+                    title={currentLesson.title}
+                    className="w-full aspect-video rounded-xl bg-black"
+                    controlsList="nodownload"
+                  />
+                )
                 : null}
 
               <div className="space-y-4">

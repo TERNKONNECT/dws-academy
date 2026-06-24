@@ -32,6 +32,7 @@ import { useAuthStore } from "@/stores/authStore";
 import { useEnrollmentStore } from "@/stores/enrollmentStore";
 import { useToast } from "@/hooks/use-toast";
 import type { Course } from "@/types";
+import VideoPreview from "@/components/video/VideoPreview";
 
 const CourseDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -47,6 +48,7 @@ const CourseDetail = () => {
   const [hasReviewed, setHasReviewed] = useState(false);
   const [checkingOut, setCheckingOut] = useState(false);
   const [checkoutModalOpen, setCheckoutModalOpen] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
 
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -220,6 +222,31 @@ const CourseDetail = () => {
     );
   };
 
+  const handleCurriculumLessonClick = () => {
+    if (!course) return;
+    if (enrolled) {
+      navigate(`/learn/${course.id}`);
+      return;
+    }
+    if (course.introVideoUrl) {
+      setPreviewOpen(true);
+      return;
+    }
+    toast({
+      title: "Preview unavailable",
+      description: "Enroll to start the full lesson video.",
+    });
+  };
+
+  const handlePreviewAction = async () => {
+    setPreviewOpen(false);
+    if (isPaid) {
+      openCheckoutModal();
+      return;
+    }
+    await handleEnroll();
+  };
+
   if (loading)
     return (
       <MainLayout>
@@ -388,9 +415,11 @@ const CourseDetail = () => {
                   {expandedModules.includes(mod.id) && (
                     <div className="px-4 pb-4 space-y-2">
                       {mod.lessons.map((lesson) => (
-                        <div
+                        <button
                           key={lesson.id}
-                          className="flex items-center gap-3 p-2 rounded-md hover:bg-muted/50 text-sm"
+                          type="button"
+                          onClick={handleCurriculumLessonClick}
+                          className="w-full flex items-center gap-3 p-2 rounded-md hover:bg-muted/50 text-sm text-left"
                         >
                           {lesson.locked ? (
                             <Lock className="h-4 w-4 text-muted-foreground" />
@@ -403,9 +432,9 @@ const CourseDetail = () => {
                           )}
                           <span className="flex-1">{lesson.title}</span>
                           <span className="text-xs text-muted-foreground">
-                            {lesson.duration}
+                            {enrolled ? lesson.duration : "Preview"}
                           </span>
-                        </div>
+                        </button>
                       ))}
                       {mod.quizId && (
                         <div className="flex items-center gap-3 p-2 rounded-md hover:bg-muted/50 text-sm text-yellow-600 font-medium">
@@ -586,6 +615,29 @@ const CourseDetail = () => {
           >
             <CreditCard className="mr-2 h-4 w-4" />
             {checkingOut ? "Processing..." : `Pay ${course.currency} ${totalAmount.toLocaleString()}`}
+          </Button>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={previewOpen} onOpenChange={setPreviewOpen}>
+        <DialogContent className="sm:max-w-3xl">
+          <DialogHeader>
+            <DialogTitle>{course.title} Preview</DialogTitle>
+            <DialogDescription>
+              Enroll and start the course to watch the full lesson videos.
+            </DialogDescription>
+          </DialogHeader>
+          <VideoPreview
+            url={course.introVideoUrl || ""}
+            title={`${course.title} preview`}
+            className="w-full rounded-lg aspect-video bg-black"
+          />
+          <Button
+            className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+            onClick={handlePreviewAction}
+            disabled={checkingOut}
+          >
+            {isPaid ? "Checkout" : "Enroll Now"}
           </Button>
         </DialogContent>
       </Dialog>

@@ -80,6 +80,7 @@ const mapBackendCourse = (c: any): Course => ({
   thumbnail:
     c.thumbnail ||
     "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop",
+  introVideoUrl: c.introVideoUrl || "",
   instructor: {
     id: c.instructor?.id ?? c.createdBy ?? "instructor",
     name: c.instructor?.name ?? "DWSAcademy  Instructor",
@@ -300,5 +301,4 @@ export const api = {
     }
   },
 };
-
 
