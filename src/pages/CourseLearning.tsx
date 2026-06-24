@@ -48,14 +48,18 @@ const CourseLearning = () => {
     if (!courseId) return;
     let active = true;
     (async () => {
-      await refreshFromServer();
+      const [, c] = await Promise.all([
+        refreshFromServer(),
+        api.getCourseById(courseId),
+      ]);
       if (!active) return;
-      if (!useEnrollmentStore.getState().isEnrolled(courseId)) {
+      const canAccess =
+        Boolean(c?.hasAccess) ||
+        useEnrollmentStore.getState().isEnrolled(courseId);
+      if (!canAccess) {
         navigate(`/courses/${courseId}`);
         return;
       }
-      const c = await api.getCourseById(courseId);
-      if (!active) return;
       if (c) {
         setCourse(c);
         const enrollment = useEnrollmentStore.getState().getEnrolledCourse(courseId);
