@@ -49,7 +49,7 @@ export function GallerySection({ limit, showViewMore = false }: GallerySectionPr
       <div className="container px-4 md:px-6">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-foreground">Past Academy Sessions</h2>
-          <p className="mt-4 text-lg text-muted-foreground">Highlights from our past events and programs.</p>
+          <p className="mt-4 text-lg text-muted-foreground">Highlights from our past trainings.</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

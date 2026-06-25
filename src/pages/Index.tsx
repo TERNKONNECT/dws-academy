@@ -288,7 +288,7 @@ const Index = () => {
       </section>
 
       {/* Gallery */}
-      <GallerySection limit={2} showViewMore />
+      <GallerySection limit={4} showViewMore />
 
       {/* Why DWS Academy */}
       <section className="py-20 bg-gradient-to-br from-black via-gray-900 to-black text-white">
