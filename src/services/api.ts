@@ -120,6 +120,8 @@ const mapQuiz = (q: any, courseId: string): Quiz => ({
     options: question.options,
     correctAnswer: question.correctIndex,
     explanation: "",
+    type: question.type === "theory" ? "theory" : "mcq",
+    sampleAnswer: question.sampleAnswer ?? "",
   })),
 });
 

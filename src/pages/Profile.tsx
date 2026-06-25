@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Mail,
   Calendar,
@@ -13,14 +13,25 @@ import {
   Flame,
   GraduationCap,
   CheckCircle2,
+  Upload,
+  Save,
+  Lock,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import MainLayout from "@/components/layouts/MainLayout";
 import { useAuthStore } from "@/stores/authStore";
 import { useEnrollmentStore } from "@/stores/enrollmentStore";
 import { api } from "@/services/api";
+import { profileApi, type AdminProfile } from "@/api/profile";
+import { useToast } from "@/hooks/use-toast";
 import type { Course } from "@/types";
 import {
   Chart as ChartJS,
@@ -61,14 +72,147 @@ interface AchievementDef {
 }
 
 const Profile = () => {
-  const { user } = useAuthStore();
+  const { user, setUser, logout } = useAuthStore();
   const { enrolledCourses, refreshFromServer } = useEnrollmentStore();
   const [courses, setCourses] = useState<Course[]>([]);
   const [loadingCourses, setLoadingCourses] = useState(true);
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  // Settings state
+  const [profileData, setProfileData] = useState<AdminProfile | null>(null);
+  const [name, setName] = useState("");
+  const [title, setTitle] = useState("");
+  const [bio, setBio] = useState("");
+  const [savingProfile, setSavingProfile] = useState(false);
+
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [uploadingAvatar, setUploadingAvatar] = useState(false);
+  const [avatarProgress, setAvatarProgress] = useState(0);
+
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [savingPassword, setSavingPassword] = useState(false);
+
+  const [deactivatePassword, setDeactivatePassword] = useState("");
+  const [deactivating, setDeactivating] = useState(false);
 
   useEffect(() => {
     refreshFromServer().finally(() => {});
   }, [refreshFromServer]);
+
+  useEffect(() => {
+    profileApi
+      .get()
+      .then((p) => {
+        setProfileData(p);
+        setName(p.name);
+        setTitle(p.title || "");
+        setBio(p.bio || "");
+      })
+      .catch((err) => {
+        console.error("Failed to load profile details", err);
+      });
+  }, []);
+
+  const handleSaveProfile = async () => {
+    setSavingProfile(true);
+    try {
+      const updated = await profileApi.update({ name, title, bio });
+      setProfileData(updated);
+      if (user) setUser({ ...user, name: updated.name });
+      toast({ title: "Profile updated" });
+    } catch {
+      toast({
+        title: "Error",
+        description: "Failed to update profile",
+        variant: "destructive",
+      });
+    } finally {
+      setSavingProfile(false);
+    }
+  };
+
+  const handleAvatarUpload = async () => {
+    if (!avatarFile) return;
+    setUploadingAvatar(true);
+    setAvatarProgress(0);
+    try {
+      const res = await profileApi.uploadAvatar(avatarFile, (pct) =>
+        setAvatarProgress(pct),
+      );
+      setProfileData(res);
+      setAvatarFile(null);
+      setAvatarProgress(0);
+      if (user) setUser({ ...user, avatar: res.avatar });
+      toast({ title: "Avatar updated" });
+    } catch (err: any) {
+      toast({
+        title: "Error",
+        description: err.message || "Failed to upload avatar",
+        variant: "destructive",
+      });
+    } finally {
+      setUploadingAvatar(false);
+    }
+  };
+
+  const handleUpdatePassword = async () => {
+    if (newPassword !== confirmPassword) {
+      toast({
+        title: "Error",
+        description: "New passwords do not match",
+        variant: "destructive",
+      });
+      return;
+    }
+    if (newPassword.length < 6) {
+      toast({
+        title: "Error",
+        description: "New password must be at least 6 characters",
+        variant: "destructive",
+      });
+      return;
+    }
+    setSavingPassword(true);
+    try {
+      await profileApi.updatePassword({ currentPassword, newPassword });
+      toast({ title: "Password updated" });
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+    } catch (err: any) {
+      toast({
+        title: "Error",
+        description:
+          err.response?.data?.error || err.message || "Failed to update password",
+        variant: "destructive",
+      });
+    } finally {
+      setSavingPassword(false);
+    }
+  };
+
+  const handleDeactivate = async () => {
+    setDeactivating(true);
+    try {
+      await profileApi.deactivate({ password: deactivatePassword });
+      toast({ title: "Account deactivated" });
+      logout();
+      navigate("/login");
+    } catch (err: any) {
+      toast({
+        title: "Error",
+        description:
+          err.response?.data?.error || err.message || "Failed to deactivate account",
+        variant: "destructive",
+      });
+    } finally {
+      setDeactivating(false);
+      setDeactivatePassword("");
+    }
+  };
 
   useEffect(() => {
     setLoadingCourses(true);
@@ -293,6 +437,13 @@ const Profile = () => {
           </CardContent>
         </Card>
 
+        <Tabs defaultValue="overview" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-2 max-w-xs">
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="settings">Settings</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="overview" className="space-y-6 mt-0">
         {/* KPI Stats Row */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
           <Card>
@@ -530,6 +681,173 @@ const Profile = () => {
             </div>
           </div>
         </div>
+          </TabsContent>
+
+          <TabsContent value="settings" className="space-y-6 mt-0">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-base">Profile Photo</CardTitle>
+              </CardHeader>
+              <CardContent className="flex items-center gap-6">
+                <Avatar className="h-20 w-20">
+                  <AvatarImage src={profileData?.avatar || user?.avatar} alt={user?.name} />
+                  <AvatarFallback className="text-2xl bg-yellow-400/20 text-yellow-600">
+                    {user?.name?.charAt(0).toUpperCase() || "U"}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="space-y-2">
+                  <label className="flex items-center gap-2 cursor-pointer border rounded-lg px-4 py-2 hover:bg-muted transition-colors text-sm">
+                    <Upload className="h-4 w-4" />
+                    {avatarFile ? avatarFile.name : "Choose photo"}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => setAvatarFile(e.target.files?.[0] ?? null)}
+                    />
+                  </label>
+                  {avatarFile && (
+                    <div className="space-y-2">
+                      {uploadingAvatar && (
+                        <div className="space-y-1">
+                          <div className="w-full bg-muted rounded-full h-2">
+                            <div
+                              className="bg-yellow-400 h-2 rounded-full transition-all"
+                              style={{ width: `${avatarProgress}%` }}
+                            />
+                          </div>
+                          <p className="text-xs text-muted-foreground text-center">
+                            {avatarProgress < 100 ? `${avatarProgress}%` : "Saving..."}
+                          </p>
+                        </div>
+                      )}
+                      <Button size="sm" onClick={handleAvatarUpload} disabled={uploadingAvatar}>
+                        {uploadingAvatar ? "Uploading..." : "Upload"}
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-base">Personal Information</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <Label>Full Name</Label>
+                  <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" />
+                </div>
+                <div className="space-y-2">
+                  <Label>Email</Label>
+                  <Input value={user?.email || ""} disabled className="bg-muted" />
+                  <p className="text-xs text-muted-foreground">Email cannot be changed.</p>
+                </div>
+                <div className="space-y-2">
+                  <Label>Title / Role (Optional)</Label>
+                  <Input
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="e.g. Student, Graphic Designer"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>Bio (Optional)</Label>
+                  <Textarea
+                    value={bio}
+                    onChange={(e) => setBio(e.target.value)}
+                    rows={4}
+                    placeholder="Tell us a little about yourself..."
+                  />
+                </div>
+                <Button
+                  onClick={handleSaveProfile}
+                  disabled={savingProfile || !profileData}
+                  className="gap-2 bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+                >
+                  <Save className="h-4 w-4" />
+                  {savingProfile ? "Saving..." : "Save Changes"}
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-base flex items-center gap-2">
+                  <Lock className="h-4 w-4" />
+                  Security Settings
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <Label>Current Password</Label>
+                  <Input
+                    type="password"
+                    value={currentPassword}
+                    onChange={(e) => setCurrentPassword(e.target.value)}
+                    placeholder="Enter current password"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>New Password</Label>
+                  <Input
+                    type="password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    placeholder="Enter new password"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>Confirm New Password</Label>
+                  <Input
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    placeholder="Confirm new password"
+                  />
+                </div>
+                <Button
+                  onClick={handleUpdatePassword}
+                  disabled={savingPassword || !currentPassword || !newPassword}
+                  className="gap-2"
+                >
+                  <Save className="h-4 w-4" />
+                  {savingPassword ? "Updating..." : "Update Password"}
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="border-destructive/30">
+              <CardHeader>
+                <CardTitle className="text-base text-destructive">Danger Zone</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-sm text-muted-foreground">
+                  Deactivating your account will sign you out and prevent future
+                  logins. Your data is preserved — contact support to reactivate.
+                </p>
+                <div className="space-y-2 max-w-sm">
+                  <Label>Confirm Password</Label>
+                  <Input
+                    type="password"
+                    value={deactivatePassword}
+                    onChange={(e) => setDeactivatePassword(e.target.value)}
+                    placeholder="Enter your password"
+                  />
+                </div>
+                <Button
+                  variant="destructive"
+                  onClick={handleDeactivate}
+                  disabled={deactivating || !deactivatePassword}
+                  className="gap-2"
+                >
+                  {deactivating ? "Deactivating..." : "Deactivate Account"}
+                </Button>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
     </MainLayout>
   );

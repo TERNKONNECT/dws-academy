@@ -45,6 +45,7 @@ import Analytics from "./pages/admin/Analytics";
 import Instructors from "./pages/admin/Instructors";
 import InstructorDetail from "./pages/admin/InstructorDetail";
 import AdminProfile from "./pages/admin/AdminProfile";
+import Settings from "./pages/admin/Settings";
 import EventsGallery from "./pages/admin/EventsGallery";
 
 const queryClient = new QueryClient();
@@ -124,6 +125,7 @@ const App = () => (
             >
               <Route index element={<Dashboard />} />
               <Route path="profile" element={<AdminProfile />} />
+              <Route path="settings" element={<Settings />} />
               <Route path="courses" element={<AdminCourses />} />
               <Route path="courses/new" element={<CourseNew />} />
               <Route path="courses/:id" element={<AdminCourseDetail />} />
