@@ -59,6 +59,8 @@ export interface Question {
   text: string;
   options: string[];
   correctIndex: number;
+  type?: "mcq" | "theory";
+  sampleAnswer?: string;
 }
 
 export interface AdminQuiz {

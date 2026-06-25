@@ -11,6 +11,7 @@ interface AuthState {
   login: (email: string, password: string) => Promise<User>;
   signup: (name: string, email: string, password: string) => Promise<string>;
   logout: () => void;
+  setUser: (user: User) => void;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -73,6 +74,11 @@ export const useAuthStore = create<AuthState>()(
           useEnrollmentStore.getState().clearEnrollments();
         });
         set({ user: null, token: null, isAuthenticated: false });
+      },
+
+      setUser: (user: User) => {
+        localStorage.setItem("lms_user", JSON.stringify(user));
+        set({ user });
       },
     }),
     { name: "lms-auth" },
