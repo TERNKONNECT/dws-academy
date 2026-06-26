@@ -108,21 +108,35 @@ const mapBackendCourse = (c: any): Course => ({
   hasAccess: Boolean(c.hasAccess),
 });
 
+const normalizeQuizQuestion = (question: any, i: number) => {
+  const options =
+    question.options ??
+    [question.optionA, question.optionB, question.optionC, question.optionD].filter(
+      (option) => option !== undefined && option !== null,
+    );
+  const correctAnswer =
+    question.correctIndex ??
+    question.correctAnswer ??
+    (typeof question.answer === "number" ? question.answer : undefined);
+
+  return {
+    id: question._id ?? question.id ?? `q-${i}`,
+    question: question.text ?? question.question ?? "",
+    options: Array.isArray(options) ? options : [],
+    correctAnswer: Number.isInteger(correctAnswer) ? correctAnswer : 0,
+    explanation: question.explanation ?? "",
+    type: question.type === "theory" ? "theory" : "mcq",
+    sampleAnswer: question.sampleAnswer ?? "",
+  };
+};
+
 // Map backend quiz → frontend Quiz
 const mapQuiz = (q: any, courseId: string): Quiz => ({
   id: q.id,
-  courseId,
+  courseId: q.courseId ?? courseId,
   moduleId: q.moduleId,
   title: q.title,
-  questions: (q.questions ?? []).map((question: any, i: number) => ({
-    id: question._id || `q-${i}`,
-    question: question.text,
-    options: question.options,
-    correctAnswer: question.correctIndex,
-    explanation: "",
-    type: question.type === "theory" ? "theory" : "mcq",
-    sampleAnswer: question.sampleAnswer ?? "",
-  })),
+  questions: (q.questions ?? []).map(normalizeQuizQuestion),
 });
 
 export const api = {
@@ -281,13 +295,27 @@ export const api = {
     if (mock) return mock;
 
     try {
-      // Fetch all courses then find the module whose quiz.id matches
-      const res = await fetch(`${API_URL}/api/courses`);
+      const res = await fetch(`${API_URL}/api/quizzes/${quizId}`, {
+        headers: authHeaders(),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        return mapQuiz(data, data.courseId ?? "");
+      }
+    } catch {}
+
+    try {
+      // Legacy fallback: fetch courses then find the module whose quiz.id matches.
+      const res = await fetch(`${API_URL}/api/courses`, {
+        headers: authHeaders(),
+      });
       if (!res.ok) return undefined;
       const allCourses = await res.json();
 
       for (const course of allCourses) {
-        const courseRes = await fetch(`${API_URL}/api/courses/${course.id}`);
+        const courseRes = await fetch(`${API_URL}/api/courses/${course.id}`, {
+          headers: authHeaders(),
+        });
         if (!courseRes.ok) continue;
         const courseData = await courseRes.json();
 
@@ -302,5 +330,34 @@ export const api = {
       return undefined;
     }
   },
-};
 
+  submitQuiz: async (
+    quizId: string,
+    answers: Record<string, number | string>,
+  ): Promise<
+    | {
+        score: number;
+        totalQuestions: number;
+        percentage: number;
+        passed: boolean;
+        completedAt: string;
+        quiz?: Quiz;
+      }
+    | undefined
+  > => {
+    const res = await fetch(`${API_URL}/api/quizzes/${quizId}/submit`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...authHeaders(),
+      },
+      body: JSON.stringify({ answers }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || "Failed to submit quiz");
+    return {
+      ...data,
+      quiz: data.quiz ? mapQuiz(data.quiz, data.quiz.courseId ?? "") : undefined,
+    };
+  },
+};
