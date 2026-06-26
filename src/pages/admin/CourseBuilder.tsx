@@ -86,11 +86,13 @@ const QuizEditor = ({
   moduleId,
   quiz,
   onSaved,
+  onDeleted,
 }: {
   courseId: string;
   moduleId: string;
   quiz: Quiz | null;
   onSaved: (q: Quiz) => void;
+  onDeleted: () => void;
 }) => {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState(quiz?.title ?? "Module Quiz");
@@ -126,6 +128,21 @@ const QuizEditor = ({
       toast.success(quiz ? "Quiz updated" : "Quiz created");
     } catch (err: any) {
       toast.error(err.response?.data?.error || "Failed to save quiz");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!quiz) return;
+    setSaving(true);
+    try {
+      await quizzesApi.delete(courseId, moduleId);
+      onDeleted();
+      setOpen(false);
+      toast.success("Quiz deleted");
+    } catch (err: any) {
+      toast.error(err.response?.data?.error || "Failed to delete quiz");
     } finally {
       setSaving(false);
     }
@@ -256,6 +273,11 @@ const QuizEditor = ({
               <Button size="sm" onClick={handleSave} disabled={saving}>
                 {saving ? "Saving..." : "Save Quiz"}
               </Button>
+              {quiz && (
+                <Button size="sm" variant="destructive" onClick={handleDelete} disabled={saving}>
+                  Delete Quiz
+                </Button>
+              )}
               <Button
                 size="sm"
                 variant="outline"
@@ -751,6 +773,7 @@ const ModuleCard = ({
               moduleId={mod.id}
               quiz={quiz}
               onSaved={setQuiz}
+              onDeleted={() => setQuiz(null)}
             />
             {quiz && (
               <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">

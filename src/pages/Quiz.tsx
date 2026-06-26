@@ -38,6 +38,7 @@ const Quiz = () => {
     Record<string, number | string>
   >({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
   const [voiceEnabled, setVoiceEnabled] = useState(true);
   const navigate = useNavigate();
@@ -98,32 +99,60 @@ const Quiz = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!quiz) return;
+    setSubmitting(true);
     const gradable = quiz.questions.filter((q) => q.type !== "theory");
-    const score = gradable.reduce(
+    let score = gradable.reduce(
       (acc, q) =>
         acc + (selectedAnswersRef.current[q.id] === q.correctAnswer ? 1 : 0),
       0,
     );
+    let totalQuestions = gradable.length;
+    let passed = gradable.length === 0 || score === gradable.length;
+    let completedAt = new Date().toISOString();
+
+    try {
+      if (quizId) {
+        const result = await api.submitQuiz(quizId, selectedAnswersRef.current);
+        if (result) {
+          score = result.score;
+          totalQuestions = result.totalQuestions;
+          passed = result.passed;
+          completedAt = result.completedAt ?? completedAt;
+          if (result.quiz) setQuiz(result.quiz);
+        }
+      }
+    } catch (err: any) {
+      toast({
+        title: "Quiz saved locally",
+        description:
+          err.message ||
+          "We could not reach the server, but your score was calculated here.",
+        variant: "destructive",
+      });
+    } finally {
+      setSubmitting(false);
+    }
+
     if (courseId && quizId) {
       addQuizAttempt(courseId, {
         quizId,
         answers: selectedAnswersRef.current,
         score,
-        totalQuestions: gradable.length,
-        completedAt: new Date().toISOString(),
+        totalQuestions,
+        completedAt,
       });
-      if (gradable.length === 0 || score === gradable.length)
-        completeCourse(courseId);
+      if (passed) completeCourse(courseId);
     }
+
     setSubmitted(true);
 
     toast({
       title: "Quiz Submitted!",
       description:
-        gradable.length > 0
-          ? `You scored ${score}/${gradable.length}`
+        totalQuestions > 0
+          ? `You scored ${score}/${totalQuestions}`
           : "Your answers have been saved for review.",
     });
   };
@@ -389,12 +418,13 @@ const Quiz = () => {
               ) : (
                 <Button
                   onClick={handleSubmit}
-                  disabled={quiz.questions.some(
-                    (q) => !isAnswered(q, selectedAnswers),
-                  )}
+                  disabled={
+                    submitting ||
+                    quiz.questions.some((q) => !isAnswered(q, selectedAnswers))
+                  }
                   className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
                 >
-                  Submit Quiz
+                  {submitting ? "Submitting..." : "Submit Quiz"}
                 </Button>
               )}
             </div>

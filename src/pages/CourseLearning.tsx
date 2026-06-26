@@ -35,6 +35,7 @@ const CourseLearning = () => {
   const { toast } = useToast();
 
   const {
+    enrolledCourses,
     isEnrolled,
     completeLesson,
     isLessonCompleted,
@@ -98,7 +99,9 @@ const CourseLearning = () => {
       : 0;
   const allLessonsComplete =
     allLessons.length > 0 && completedCount === allLessons.length;
-  const hasNoContent = !loading && course && allLessons.length === 0;
+  const quizModules = course?.modules.filter((m) => m.quizId) ?? [];
+  const hasQuizzes = quizModules.length > 0;
+  const hasNoContent = !loading && course && allLessons.length === 0 && !hasQuizzes;
 
   // ── Expose video controls globally (same pattern as frontend VideoPlayer) ──
   useEffect(() => {
@@ -315,6 +318,7 @@ const CourseLearning = () => {
       // No more lessons — check if there is a quiz
       const quizModule = c?.modules.find((m) => m.quizId);
       if (quizModule?.quizId) {
+        navigateRef.current(`/learn/${cId}/quiz/${quizModule.quizId}`);
       } else {
       }
     }
@@ -534,6 +538,31 @@ const CourseLearning = () => {
                   <Link to="/courses">
                     <Button variant="outline">Explore Academy</Button>
                   </Link>
+                </div>
+              </div>
+            </div>
+          ) : !currentLesson && hasQuizzes ? (
+            <div className="flex items-center justify-center min-h-full p-8">
+              <div className="text-center space-y-6 max-w-md">
+                <div className="h-20 w-20 rounded-full bg-yellow-400 flex items-center justify-center mx-auto">
+                  <Trophy className="h-10 w-10 text-black" />
+                </div>
+                <h2 className="text-3xl font-bold">Ready for your quiz</h2>
+                <p className="text-muted-foreground">
+                  Choose a module quiz to continue this course.
+                </p>
+                <div className="grid gap-2">
+                  {quizModules.map((mod) => (
+                    <Button
+                      key={mod.id}
+                      className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+                      onClick={() =>
+                        navigate(`/learn/${courseId}/quiz/${mod.quizId}`)
+                      }
+                    >
+                      {mod.lessons.length === 0 ? mod.title : "Take Quiz"}
+                    </Button>
+                  ))}
                 </div>
               </div>
             </div>
