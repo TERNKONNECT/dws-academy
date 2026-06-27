@@ -374,14 +374,14 @@ const Index = () => {
                     </div>
                   )}
                   <Button
-                    onClick={scrollToWaitlist}
+                    onClick={handleRegister}
                     className={`w-full font-bold ${
                       featured
                         ? "bg-yellow-400 hover:bg-yellow-500 text-black"
                         : "bg-black hover:bg-gray-800 text-white"
                     }`}
                   >
-                    Join Waitlist
+                    Register Now
                   </Button>
                 </CardContent>
               </Card>

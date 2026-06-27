@@ -9,6 +9,7 @@ import {
   Phone,
   Mail,
   Clock,
+  LayoutDashboard,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuthStore } from "@/stores/authStore";
@@ -92,6 +93,16 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           <div className="hidden md:flex items-center gap-4">
             {isAuthenticated ? (
               <>
+                <Link to={user?.role === "admin" || user?.role === "super-admin" ? "/dashboard" : "/my-learning"}>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="gap-2 bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold border-0 shadow-sm"
+                  >
+                    <LayoutDashboard className="h-4 w-4" />
+                    Dashboard
+                  </Button>
+                </Link>
                 <Link to="/profile">
                   <Button
                     variant="ghost"
