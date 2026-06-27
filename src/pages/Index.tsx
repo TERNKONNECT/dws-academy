@@ -239,8 +239,9 @@ const Index = () => {
             <div className="overflow-hidden rounded-2xl shadow-xl">
               <div className="relative h-80">
                 <img
-                  src={courseSlides[slideIndex].image}
+                  src={`${courseSlides[slideIndex].image}&q=80&auto=format`}
                   alt={courseSlides[slideIndex].title}
+                  loading="lazy"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
@@ -326,57 +327,51 @@ const Index = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {classes.map(({ level, title, desc, icon, curriculum, featured, price, duration }) => (
+            {classes.map((cls, i) => (
               <Card
-                key={title}
+                key={i}
                 className={`relative overflow-hidden border-2 transition-all hover:-translate-y-1 hover:shadow-2xl ${
-                  featured
+                  cls.featured
                     ? "border-yellow-400 shadow-xl shadow-yellow-100"
                     : "border-gray-100"
                 }`}
               >
-                {featured && (
+                {cls.featured && (
                   <div className="absolute top-0 left-0 right-0 bg-yellow-400 text-black text-xs font-bold text-center py-1.5 tracking-wider uppercase">
                     Most Popular
                   </div>
                 )}
-                <CardContent className={`p-8 space-y-5 ${featured ? "pt-10" : ""}`}>
-                  <div
-                    className={`w-12 h-12 rounded-xl flex items-center justify-center ${
-                      featured
-                        ? "bg-yellow-400 text-black"
-                        : "bg-yellow-50 text-yellow-600"
-                    }`}
-                  >
-                    {icon}
+                <CardContent className={`p-8 md:p-10 ${cls.featured ? "pt-12" : ""}`}>
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-yellow-100 text-yellow-600 mb-6 shadow-inner">
+                    {cls.icon}
                   </div>
-                  <div>
-                    <p className="text-xs font-bold text-yellow-600 uppercase tracking-wider mb-1">
-                      {level}
-                    </p>
-                    <h3 className="text-2xl font-bold text-black">{title}</h3>
-                    <p className="text-gray-500 mt-2 text-sm leading-relaxed">
-                      {desc}
-                    </p>
+                  <div className="text-yellow-600 font-bold text-sm mb-3 tracking-widest uppercase">
+                    {cls.level}
                   </div>
-                  <ul className="space-y-2.5">
-                    {curriculum.map((item) => (
-                      <li key={item} className="flex items-start gap-2.5 text-sm text-gray-600">
-                        <CheckCircle className="h-4 w-4 text-yellow-500 mt-0.5 shrink-0" />
-                        {item}
+                  <h3 className="text-2xl font-bold text-black mb-4">
+                    {cls.title}
+                  </h3>
+                  <p className="text-gray-600 mb-8 leading-relaxed text-sm">
+                    {cls.desc}
+                  </p>
+                  <ul className="space-y-4 mb-8">
+                    {cls.curriculum.map((item, idx) => (
+                      <li key={idx} className="flex items-start text-sm">
+                        <CheckCircle className="h-5 w-5 text-yellow-500 mr-3 shrink-0" />
+                        <span className="text-gray-700">{item}</span>
                       </li>
                     ))}
                   </ul>
-                  {price && (
+                  {cls.price && (
                     <div className="pt-6 mt-4 border-t border-yellow-100/50 text-center space-y-1">
-                      <p className="text-3xl font-bold text-yellow-600">{price}</p>
-                      <p className="text-sm text-gray-500 font-medium">{duration}</p>
+                      <p className="text-3xl font-bold text-yellow-600">{cls.price}</p>
+                      <p className="text-sm text-gray-500 font-medium">{cls.duration}</p>
                     </div>
                   )}
                   <Button
                     onClick={handleRegister}
                     className={`w-full font-bold ${
-                      featured
+                      cls.featured
                         ? "bg-yellow-400 hover:bg-yellow-500 text-black"
                         : "bg-black hover:bg-gray-800 text-white"
                     }`}
