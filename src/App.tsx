@@ -48,7 +48,16 @@ import AdminProfile from "./pages/admin/AdminProfile";
 import Settings from "./pages/admin/Settings";
 import EventsGallery from "./pages/admin/EventsGallery";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,   // 5 min — don't refetch if data is fresh
+      gcTime: 1000 * 60 * 10,     // 10 min — keep unused data in memory
+      retry: 1,
+      refetchOnWindowFocus: false, // don't hammer the API when tab regains focus
+    },
+  },
+});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
