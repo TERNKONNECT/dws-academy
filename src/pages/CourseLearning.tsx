@@ -503,6 +503,10 @@ const CourseLearning = () => {
                           disabled={
                             !unlocked ||
                             (!isQuizOnlyModule &&
+                              !mod.lessons.every((l) =>
+                                courseId ? isLessonCompleted(courseId, l.id) : false
+                              ))
+                          }
                           onClick={() => {
                             if (!unlocked) {
                               toast({ title: "Module Locked", description: "Please complete previous modules first.", variant: "destructive" });
