@@ -14,7 +14,7 @@ import {
   TrendingUp,
   Shield,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -157,18 +157,10 @@ const academyClasses = [
 ];
 
 export default function About() {
-  const [waitlistForm, setWaitlistForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    interest: "",
-  });
+  const navigate = useNavigate();
 
-  const handleWaitlistSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle waitlist submission
-    console.log("Waitlist submission:", waitlistForm);
-  };
+  const handleRegister = () =>
+    navigate("/signup");
 
   return (
     <MainLayout>
@@ -454,8 +446,11 @@ export default function About() {
                     <p className="text-gray-600 text-sm mb-4">
                       {classInfo.duration}
                     </p>
-                    <Button className="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold">
-                      Join Waitlist
+                    <Button 
+                      onClick={handleRegister}
+                      className="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold"
+                    >
+                      Register Now
                     </Button>
                   </div>
                 </CardContent>
@@ -531,132 +526,6 @@ export default function About() {
                 </CardContent>
               </Card>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Waitlist Section */}
-      <section className="py-20 bg-gradient-to-br from-black via-gray-900 to-black">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto">
-            <Card className="bg-white/5 backdrop-blur-sm border border-white/10 p-8">
-              <CardContent className="space-y-6">
-                <div className="text-center space-y-4">
-                  <h2 className="text-3xl font-bold text-white">
-                    Join The <span className="text-yellow-400">Waitlist</span>
-                  </h2>
-                  <p className="text-gray-300">Be among the first to access:</p>
-                  <div className="grid grid-cols-2 gap-4 text-sm text-gray-300">
-                    <div className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-yellow-400" />
-                      <span>Early enrollment</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-yellow-400" />
-                      <span>Class details & bonuses</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-yellow-400" />
-                      <span>Pre-class resources</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-yellow-400" />
-                      <span>WhatsApp community access</span>
-                    </div>
-                  </div>
-                </div>
-
-                <form onSubmit={handleWaitlistSubmit} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="name" className="text-white">
-                      Full Name *
-                    </Label>
-                    <Input
-                      id="name"
-                      value={waitlistForm.name}
-                      onChange={(e) =>
-                        setWaitlistForm({
-                          ...waitlistForm,
-                          name: e.target.value,
-                        })
-                      }
-                      className="bg-white/10 border-white/20 text-white placeholder:text-gray-400"
-                      placeholder="Your full name"
-                      required
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="email" className="text-white">
-                      Email Address *
-                    </Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={waitlistForm.email}
-                      onChange={(e) =>
-                        setWaitlistForm({
-                          ...waitlistForm,
-                          email: e.target.value,
-                        })
-                      }
-                      className="bg-white/10 border-white/20 text-white placeholder:text-gray-400"
-                      placeholder="your@email.com"
-                      required
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="phone" className="text-white">
-                      WhatsApp Number *
-                    </Label>
-                    <Input
-                      id="phone"
-                      value={waitlistForm.phone}
-                      onChange={(e) =>
-                        setWaitlistForm({
-                          ...waitlistForm,
-                          phone: e.target.value,
-                        })
-                      }
-                      className="bg-white/10 border-white/20 text-white placeholder:text-gray-400"
-                      placeholder="+234 xxx xxx xxxx"
-                      required
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="interest" className="text-white">
-                      Select your interest: *
-                    </Label>
-                    <select
-                      id="interest"
-                      value={waitlistForm.interest}
-                      onChange={(e) =>
-                        setWaitlistForm({
-                          ...waitlistForm,
-                          interest: e.target.value,
-                        })
-                      }
-                      className="w-full h-10 rounded-md border border-white/20 bg-white/10 px-3 py-2 text-white focus:border-yellow-400 focus:ring-yellow-400"
-                      required
-                    >
-                      <option value="">Choose a class...</option>
-                      <option value="beginners">Beginners Class</option>
-                      <option value="intensive">Intensive Class</option>
-                      <option value="advanced">Advanced Class</option>
-                    </select>
-                  </div>
-
-                  <Button
-                    type="submit"
-                    className="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold"
-                  >
-                    JOIN THE WAITLIST
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </section>

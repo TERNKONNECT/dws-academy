@@ -2,6 +2,8 @@ import api from "./axios";
 import type { AdminQuiz } from "@/types/admin";
 
 export const quizzesApi = {
+  getAll: () => api.get<AdminQuiz[]>("/api/quizzes").then((r) => r.data),
+
   get: (courseId: string, moduleId: string) =>
     api.get<AdminQuiz>(`/api/courses/${courseId}/modules/${moduleId}/quiz`).then((r) => r.data),
 

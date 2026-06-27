@@ -20,16 +20,18 @@ const authHeaders = () => {
 };
 
 // Map backend lesson → frontend Lesson
-const mapLesson = (l: any): Lesson => ({
+const mapLesson = (l: any, idx: number): Lesson => ({
   id: l.id,
   moduleId: l.moduleId,
   title: l.title,
-  description: l.content || "",
-  duration: l.duration || "",
+  description: l.content ?? "",
+  duration: l.duration || "5m",
   videoUrl: l.videoUrl || "",
-  order: l.order,
+  order: l.order ?? idx,
   type: l.type === "video" ? "video" : "reading",
   locked: Boolean(l.locked),
+  documentUrl: l.documentUrl || "",
+  transcriptUrl: l.transcriptUrl || "",
 });
 
 // Map backend module → frontend Module
