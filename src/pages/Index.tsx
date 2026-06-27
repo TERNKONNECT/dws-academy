@@ -107,7 +107,6 @@ const Index = () => {
   }, [hash]);
 
   const [slideIndex, setSlideIndex] = useState(0);
-  const [slideIndex, setSlideIndex] = useState(0);
 
   const prevSlide = () =>
     setSlideIndex((i) => (i - 1 + courseSlides.length) % courseSlides.length);
