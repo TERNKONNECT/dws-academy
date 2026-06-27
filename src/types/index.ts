@@ -60,6 +60,8 @@ export interface Lesson {
   order: number;
   type: "video" | "reading" | "exercise";
   locked?: boolean;
+  documentUrl?: string;
+  transcriptUrl?: string;
 }
 
 export interface Quiz {

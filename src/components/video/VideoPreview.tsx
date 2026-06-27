@@ -8,10 +8,11 @@ type VideoPreviewProps = {
   className?: string;
   controlsList?: string;
   iframeRef?: Ref<HTMLIFrameElement>;
+  onEnded?: () => void;
 };
 
 const VideoPreview = forwardRef<HTMLVideoElement, VideoPreviewProps>(
-  ({ url = "", file = null, title, className, controlsList, iframeRef }, ref) => {
+  ({ url = "", file = null, title, className, controlsList, iframeRef, onEnded }, ref) => {
     const [objectUrl, setObjectUrl] = useState("");
     const [failed, setFailed] = useState(false);
 
@@ -53,14 +54,14 @@ const VideoPreview = forwardRef<HTMLVideoElement, VideoPreviewProps>(
         <video
           ref={ref}
           key={source}
-          controls
-          playsInline
-          preload="metadata"
+          src={source}
           className={className || "w-full rounded-lg aspect-video bg-black"}
+          controls
           controlsList={controlsList}
           onError={() => setFailed(true)}
+          onEnded={onEnded}
         >
-          <source src={source} type={file?.type || undefined} />
+          <track kind="captions" />
           Your browser does not support the video tag.
         </video>
         {failed && (

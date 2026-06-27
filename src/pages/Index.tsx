@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   ArrowRight,
   CheckCircle,
@@ -107,21 +107,17 @@ const Index = () => {
   }, [hash]);
 
   const [slideIndex, setSlideIndex] = useState(0);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    whatsapp: "",
-    interest: "",
-  });
-  const waitlistRef = useRef<HTMLElement>(null);
+  const [slideIndex, setSlideIndex] = useState(0);
 
   const prevSlide = () =>
     setSlideIndex((i) => (i - 1 + courseSlides.length) % courseSlides.length);
   const nextSlide = () =>
     setSlideIndex((i) => (i + 1) % courseSlides.length);
 
-  const scrollToWaitlist = () =>
-    waitlistRef.current?.scrollIntoView({ behavior: "smooth" });
+  const navigate = useNavigate();
+
+  const handleRegister = () =>
+    navigate("/signup");
 
   return (
     <MainLayout>
@@ -168,10 +164,10 @@ const Index = () => {
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Button
                 size="lg"
-                onClick={scrollToWaitlist}
+                onClick={handleRegister}
                 className="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold h-14 px-8 text-base"
               >
-                GET STARTED <ArrowRight className="ml-2 h-5 w-5" />
+                REGISTER NOW <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Link to="/courses">
                 <Button
@@ -312,10 +308,10 @@ const Index = () => {
             </p>
             <Button
               size="lg"
-              onClick={scrollToWaitlist}
-              className="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold h-14 px-10 text-base mt-4"
+              onClick={handleRegister}
+              className="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold h-12 px-8"
             >
-              JOIN THE WAITLIST
+              REGISTER NOW
             </Button>
           </div>
         </div>
@@ -410,93 +406,11 @@ const Index = () => {
             </div>
             <Button
               size="lg"
-              onClick={scrollToWaitlist}
+              onClick={handleRegister}
               className="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold h-12 px-10"
             >
-              JOIN THE WAITLIST
+              REGISTER NOW
             </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Waitlist Form */}
-      <section
-        ref={waitlistRef}
-        className="py-20 bg-gradient-to-br from-black via-gray-900 to-black"
-      >
-        <div className="container mx-auto px-4">
-          <div className="max-w-xl mx-auto">
-            <div className="text-center mb-10 space-y-3">
-              <h2 className="text-4xl font-bold text-white">
-                Join The <span className="text-yellow-400">Waitlist</span>
-              </h2>
-              <p className="text-gray-400">
-                Be among the first to access:
-              </p>
-              <p className="text-yellow-400 text-sm font-medium">
-                Early enrollment • Class details & bonuses • Pre-class resources • WhatsApp community access
-              </p>
-            </div>
-
-            <Card className="bg-white/5 border border-white/10 backdrop-blur-sm">
-              <CardContent className="p-8 space-y-5">
-                <div className="space-y-2">
-                  <Label className="text-white text-sm font-semibold">
-                    Full Name <span className="text-yellow-400">*</span>
-                  </Label>
-                  <Input
-                    placeholder="Your full name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="bg-white/10 border-white/20 text-white placeholder:text-gray-500 focus:border-yellow-400"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-white text-sm font-semibold">
-                    Email Address <span className="text-yellow-400">*</span>
-                  </Label>
-                  <Input
-                    type="email"
-                    placeholder="your@email.com"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="bg-white/10 border-white/20 text-white placeholder:text-gray-500 focus:border-yellow-400"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-white text-sm font-semibold">
-                    WhatsApp Number <span className="text-yellow-400">*</span>
-                  </Label>
-                  <Input
-                    placeholder="+234 000 000 0000"
-                    value={formData.whatsapp}
-                    onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
-                    className="bg-white/10 border-white/20 text-white placeholder:text-gray-500 focus:border-yellow-400"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-white text-sm font-semibold">
-                    Select your interest <span className="text-yellow-400">*</span>
-                  </Label>
-                  <select
-                    value={formData.interest}
-                    onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
-                    className="w-full h-10 rounded-md border border-white/20 bg-white/10 px-3 text-white text-sm focus:outline-none focus:border-yellow-400"
-                  >
-                    <option value="" className="bg-gray-900">Choose a class...</option>
-                    <option value="beginners" className="bg-gray-900">Beginners Class</option>
-                    <option value="intensive" className="bg-gray-900">Intensive Class</option>
-                    <option value="advanced" className="bg-gray-900">Advanced Class</option>
-                  </select>
-                </div>
-                <Button
-                  className="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold h-12 text-base"
-                  onClick={() => alert("You've joined the waitlist!")}
-                >
-                  JOIN THE WAITLIST
-                </Button>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </section>

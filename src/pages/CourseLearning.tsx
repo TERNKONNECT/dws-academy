@@ -13,6 +13,8 @@ import {
   BookOpenCheck,
   Mic,
   MicOff,
+  FileText,
+  Download,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -102,6 +104,26 @@ const CourseLearning = () => {
   const quizModules = course?.modules.filter((m) => m.quizId) ?? [];
   const hasQuizzes = quizModules.length > 0;
   const hasNoContent = !loading && course && allLessons.length === 0 && !hasQuizzes;
+  
+  const [isVideoEnded, setIsVideoEnded] = useState(false);
+  useEffect(() => {
+    setIsVideoEnded(currentLesson?.type !== "video");
+  }, [currentLesson?.id, currentLesson?.type]);
+
+  useEffect(() => {
+    const handleMessage = (e: MessageEvent) => {
+      if (e.data && typeof e.data === "string") {
+        try {
+          const data = JSON.parse(e.data);
+          if (data.event === "infoDelivery" && data.info?.playerState === 0) {
+            setIsVideoEnded(true);
+          }
+        } catch {}
+      }
+    };
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, []);
 
   // ── Expose video controls globally (same pattern as frontend VideoPlayer) ──
   useEffect(() => {
@@ -481,15 +503,21 @@ const CourseLearning = () => {
                           disabled={
                             !unlocked ||
                             (!isQuizOnlyModule &&
-                              !mod.lessons.every((l) =>
-                                courseId
-                                  ? isLessonCompleted(courseId, l.id)
-                                  : false,
-                              ))
-                          }
-                          onClick={() =>
-                            navigate(`/learn/${courseId}/quiz/${mod.quizId}`)
-                          }
+                          onClick={() => {
+                            if (!unlocked) {
+                              toast({ title: "Module Locked", description: "Please complete previous modules first.", variant: "destructive" });
+                              return;
+                            }
+                            if (!isQuizOnlyModule && !mod.lessons.every((l) => courseId ? isLessonCompleted(courseId, l.id) : false)) {
+                              toast({ title: "Lessons Incomplete", description: "Please complete all lessons in this module before taking the quiz.", variant: "destructive" });
+                              return;
+                            }
+                            if (mod.quizId) {
+                              navigate(`/learn/${courseId}/quiz/${mod.quizId}`);
+                            } else {
+                              toast({ title: "No Quiz", description: "This module does not have a quiz.", variant: "destructive" });
+                            }
+                          }}
                           className={`w-full text-left flex items-center gap-2 p-2 rounded-md text-xs transition-colors ${
                             unlocked &&
                             (isQuizOnlyModule ||
@@ -503,7 +531,7 @@ const CourseLearning = () => {
                           }`}
                         >
                           <Trophy className="h-3.5 w-3.5 shrink-0" />
-                          <span>
+                          <span className="truncate">
                             {isQuizOnlyModule ? mod.title : "Take Quiz"}
                           </span>
                         </button>
@@ -578,6 +606,7 @@ const CourseLearning = () => {
                     title={currentLesson.title}
                     className="w-full aspect-video rounded-xl bg-black"
                     controlsList="nodownload"
+                    onEnded={() => setIsVideoEnded(true)}
                   />
                 )
                 : null}
@@ -590,10 +619,43 @@ const CourseLearning = () => {
                   </span>
                 </div>
                 <h2 className="text-2xl font-bold">{currentLesson.title}</h2>
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground whitespace-pre-wrap">
                   {currentLesson.description}
                 </p>
               </div>
+
+              {/* Resources Section */}
+              {(currentLesson.documentUrl || currentLesson.transcriptUrl) && (
+                <div className="pt-4 space-y-3 border-t">
+                  <h3 className="text-lg font-semibold">Resources</h3>
+                  <div className="flex flex-wrap gap-3">
+                    {currentLesson.documentUrl && (
+                      <a
+                        href={currentLesson.documentUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2 px-4 py-2 border rounded-lg text-sm font-medium hover:bg-muted transition-colors"
+                      >
+                        <FileText className="h-4 w-4 text-blue-500" />
+                        Learning Document
+                        <Download className="h-3.5 w-3.5 ml-1 text-muted-foreground" />
+                      </a>
+                    )}
+                    {currentLesson.transcriptUrl && (
+                      <a
+                        href={currentLesson.transcriptUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2 px-4 py-2 border rounded-lg text-sm font-medium hover:bg-muted transition-colors"
+                      >
+                        <FileText className="h-4 w-4 text-emerald-500" />
+                        Video Transcript
+                        <Download className="h-3.5 w-3.5 ml-1 text-muted-foreground" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              )}
 
               <div className="flex items-center justify-between pt-4 border-t">
                 <Button
@@ -611,6 +673,7 @@ const CourseLearning = () => {
                   <Button
                     className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0 gap-2"
                     onClick={handleMarkComplete}
+                    disabled={!isVideoEnded}
                   >
                     <CheckCircle2 className="h-4 w-4" /> Mark as Complete
                   </Button>

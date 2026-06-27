@@ -50,6 +50,8 @@ export interface AdminLesson {
   videoUrl?: string;
   duration?: string;
   order: number;
+  documentUrl?: string;
+  transcriptUrl?: string;
   createdAt: string;
   updatedAt: string;
 }
