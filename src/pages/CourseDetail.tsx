@@ -273,8 +273,8 @@ const CourseDetail = () => {
   return (
     <MainLayout>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-black via-gray-900 to-black text-white py-12">
-        <div className="container grid md:grid-cols-3 gap-8">
+      <section className="bg-gradient-to-br from-black via-gray-900 to-black text-white py-10 md:py-12">
+        <div className="container grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-2 space-y-4">
             <Badge
               variant="secondary"
@@ -365,8 +365,8 @@ const CourseDetail = () => {
         </div>
       </section>
 
-      <div className="container py-10 grid md:grid-cols-3 gap-8">
-        <div className="md:col-span-2 space-y-10">
+      <div className="container py-8 md:py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="md:col-span-2 space-y-8 md:space-y-10">
           {/* What You'll Learn */}
           {course.whatYouLearn.length > 0 && (
             <section>

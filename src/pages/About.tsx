@@ -165,7 +165,7 @@ export default function About() {
   return (
     <MainLayout>
       {/* Hero Section */}
-      <section className="relative py-20 md:py-28 overflow-hidden">
+      <section className="relative py-16 md:py-28 overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
@@ -184,9 +184,9 @@ export default function About() {
               </span>
             </div>
 
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight text-white">
               Master the Art, Skill &
-              <span className="block bg-gradient-to-r from-yellow-400 to-yellow-300 bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-yellow-400 to-yellow-300 bg-clip-text text-transparent mt-2">
                 Business of Event Planning
               </span>
             </h1>
@@ -201,7 +201,7 @@ export default function About() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-white border-y border-yellow-100">
+      <section className="py-12 md:py-16 bg-white border-y border-yellow-100">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map(({ value, label }) => (
@@ -217,7 +217,7 @@ export default function About() {
       </section>
 
       {/* About DWS Events Academy */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 md:py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -305,9 +305,9 @@ export default function About() {
       </section>
 
       {/* Why DWS Academy */}
-      <section className="py-20 bg-white">
+      <section className="py-12 md:py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center space-y-6 mb-16">
+          <div className="max-w-4xl mx-auto text-center space-y-6 mb-12 md:mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-black">
               Why <span className="text-yellow-500">DWS Academy?</span>
             </h2>
@@ -389,9 +389,9 @@ export default function About() {
       </section>
 
       {/* Academy Classes */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 md:py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
+          <div className="max-w-3xl mx-auto text-center space-y-4 mb-12 md:mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-black">
               Choose Your <span className="text-yellow-500">Class</span>
             </h2>
@@ -461,9 +461,9 @@ export default function About() {
       </section>
 
       {/* Values Section */}
-      <section className="py-20 bg-white">
+      <section className="py-12 md:py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
+          <div className="max-w-3xl mx-auto text-center space-y-4 mb-12 md:mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-black">
               Our Core <span className="text-yellow-500">Values</span>
             </h2>
@@ -492,9 +492,9 @@ export default function About() {
       </section>
 
       {/* Team Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 md:py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
+          <div className="max-w-3xl mx-auto text-center space-y-4 mb-12 md:mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-black">
               Meet Our <span className="text-yellow-500">Team</span>
             </h2>
@@ -531,7 +531,7 @@ export default function About() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-yellow-400 to-yellow-500">
+      <section className="py-16 md:py-20 bg-gradient-to-r from-yellow-400 to-yellow-500">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto space-y-8">
             <h2 className="text-3xl md:text-4xl font-bold text-black">
