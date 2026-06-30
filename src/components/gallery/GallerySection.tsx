@@ -23,10 +23,12 @@ export function GallerySection({ limit, showViewMore = false }: GallerySectionPr
     );
   }
 
-  // Flatten all images from all events
-  let allImages = events?.flatMap((event) => 
-    (event.images || []).map(img => ({ ...img, eventName: event.name }))
-  ) || [];
+  // Flatten all images from all events, ensuring events is an array
+  let allImages = Array.isArray(events)
+    ? events.flatMap((event) => 
+        (event.images || []).map(img => ({ ...img, eventName: event.name }))
+      )
+    : [];
   
   if (limit && limit > 0) {
     allImages = allImages.slice(0, limit);

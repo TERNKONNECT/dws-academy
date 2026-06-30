@@ -48,8 +48,9 @@ const Courses = () => {
 
   return (
     <MainLayout>
-      <div>
+      <div className="container mx-auto px-4 py-8 md:py-12">
         <div className="mb-8">
+          <h1 className="text-3xl font-bold mb-2">Explore Classes</h1>
           <p className="text-muted-foreground">
             Find the perfect course to advance your skills
           </p>
@@ -79,7 +80,7 @@ const Courses = () => {
         <div className="flex flex-wrap gap-2 mb-8">
         </div>
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <Card key={i}>
                 <Skeleton className="aspect-video" />
@@ -115,7 +116,7 @@ const Courses = () => {
             <p className="text-sm text-muted-foreground mb-4">
               {courses.length} course{courses.length !== 1 ? "s" : ""} found
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {courses.map((course) => (
                 <CourseCard key={course.id} course={course} />
               ))}

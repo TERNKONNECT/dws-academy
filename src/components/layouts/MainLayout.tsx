@@ -68,11 +68,11 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
       <header className="sticky top-0 z-50 border-b border-yellow-200 bg-white/95 backdrop-blur-md shadow-lg">
         <div className="container mx-auto px-4 flex h-20 items-center justify-between">
-          <Link to="/" className="flex items-center gap-3 font-bold text-2xl">
+          <Link to="/" className="flex items-center gap-2 md:gap-3 font-bold text-xl md:text-2xl">
             <img
               src="https://res.cloudinary.com/pro-solve/image/upload/v1778026489/logo_jxfytc.png"
               alt="JD Events Logo"
-              className="h-12 w-auto object-contain"
+              className="h-10 md:h-12 w-auto object-contain"
             />
           </Link>
 
@@ -227,9 +227,9 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
       <main className="flex-1">{children}</main>
 
-      <footer className="border-t border-yellow-200 bg-gradient-to-br from-black via-gray-900 to-black text-white py-16">
-        <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="space-y-6">
+      <footer className="border-t border-yellow-200 bg-gradient-to-br from-black via-gray-900 to-black text-white py-12 md:py-16">
+        <div className="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
+          <div className="space-y-6 sm:col-span-2 md:col-span-1">
             <div className="flex items-center gap-3 font-bold text-xl">
               <img
                 src="https://res.cloudinary.com/pro-solve/image/upload/v1778026489/logo_jxfytc.png"
