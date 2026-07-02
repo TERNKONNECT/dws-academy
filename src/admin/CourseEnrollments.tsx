@@ -12,6 +12,15 @@ import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import {
   Table,
   TableBody,
   TableCell,
@@ -30,6 +39,8 @@ import {
   CheckCircle2,
   Clock,
   Star,
+  UserPlus,
+  Loader2,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -56,20 +67,51 @@ const CourseEnrollments = () => {
   const [search, setSearch] = useState("");
   const [tab, setTab] = useState<Tab>("students");
 
-  useEffect(() => {
+  // Enroll-by-email dialog state
+  const [enrollOpen, setEnrollOpen] = useState(false);
+  const [enrollEmail, setEnrollEmail] = useState("");
+  const [enrolling, setEnrolling] = useState(false);
+
+  const loadEnrollments = () => {
     if (!id) return;
     enrollmentsApi
       .getCourseEnrollments(id)
       .then(setData)
       .catch(() => toast.error("Failed to load enrollments"))
       .finally(() => setLoading(false));
+  };
 
+  useEffect(() => {
+    loadEnrollments();
+
+    if (!id) return;
     reviewsApi
       .getCourseReviews(id)
       .then(setReviews)
       .catch(() => {})
       .finally(() => setReviewsLoading(false));
   }, [id]);
+
+  const handleEnrollByEmail = async () => {
+    if (!enrollEmail.trim() || !id) return;
+    setEnrolling(true);
+    try {
+      const result = await enrollmentsApi.enrollByEmail(
+        enrollEmail.trim(),
+        id,
+      );
+      toast.success(result.message);
+      setEnrollOpen(false);
+      setEnrollEmail("");
+      loadEnrollments();
+    } catch (err: any) {
+      const msg =
+        err?.response?.data?.error || err?.message || "Failed to enroll user";
+      toast.error(msg);
+    } finally {
+      setEnrolling(false);
+    }
+  };
 
   const filtered = (data?.students ?? []).filter(
     (s) =>
@@ -110,6 +152,13 @@ const CourseEnrollments = () => {
           </p>
         </div>
         <div className="ml-auto flex gap-2">
+          <Button
+            onClick={() => setEnrollOpen(true)}
+            className="gap-1.5"
+          >
+            <UserPlus className="h-4 w-4" />
+            Enroll Student
+          </Button>
           <Button variant="outline" asChild>
             <Link to={`/dashboard/courses/${id}`}>Edit Course</Link>
           </Button>
@@ -118,6 +167,55 @@ const CourseEnrollments = () => {
           </Button>
         </div>
       </div>
+
+      {/* Enroll Student Dialog */}
+      <Dialog open={enrollOpen} onOpenChange={setEnrollOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Enroll a Student</DialogTitle>
+            <DialogDescription>
+              Enter the registered email address of the user you want to enroll
+              in this course.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-3 py-2">
+            <div className="space-y-2">
+              <Label htmlFor="enroll-email">User Email</Label>
+              <Input
+                id="enroll-email"
+                type="email"
+                placeholder="student@example.com"
+                value={enrollEmail}
+                onChange={(e) => setEnrollEmail(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !enrolling) handleEnrollByEmail();
+                }}
+                disabled={enrolling}
+                autoFocus
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setEnrollOpen(false);
+                setEnrollEmail("");
+              }}
+              disabled={enrolling}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleEnrollByEmail}
+              disabled={!enrollEmail.trim() || enrolling}
+            >
+              {enrolling && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              Enroll
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {/* Stats cards */}
       {data && (

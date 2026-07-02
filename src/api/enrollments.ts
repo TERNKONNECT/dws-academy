@@ -21,4 +21,12 @@ export interface CourseEnrollmentsResponse {
 export const enrollmentsApi = {
   getCourseEnrollments: (courseId: string): Promise<CourseEnrollmentsResponse> =>
     api.get(`/api/enrollments/admin/courses/${courseId}`).then((r) => r.data),
+
+  enrollByEmail: (
+    email: string,
+    courseId: string,
+  ): Promise<{ message: string; enrollment: any }> =>
+    api
+      .post("/api/enrollments/admin/enroll", { email, courseId })
+      .then((r) => r.data),
 };
