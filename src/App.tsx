@@ -42,6 +42,7 @@ import CourseBuilder from "./pages/admin/CourseBuilder";
 import CourseEnrollments from "./pages/admin/CourseEnrollments";
 import Users from "./pages/admin/Users";
 import Analytics from "./pages/admin/Analytics";
+import Revenue from "./pages/admin/Revenue";
 import Instructors from "./pages/admin/Instructors";
 import InstructorDetail from "./pages/admin/InstructorDetail";
 import AdminProfile from "./pages/admin/AdminProfile";
@@ -149,6 +150,14 @@ const App = () => (
                 element={
                   <StrictAdminRoute>
                     <Analytics />
+                  </StrictAdminRoute>
+                }
+              />
+              <Route
+                path="revenue"
+                element={
+                  <StrictAdminRoute>
+                    <Revenue />
                   </StrictAdminRoute>
                 }
               />
