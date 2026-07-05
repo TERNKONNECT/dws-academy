@@ -112,6 +112,13 @@ const MyLearning = () => {
                         {progress > 0 ? "Continue Learning" : "Start Learning"}
                       </Button>
                     </Link>
+                    {enrollment?.isCompleted && (
+                      <Link to={`/certificate/${course.id}`}>
+                        <Button size="sm" variant="outline" className="w-full">
+                          View Certificate
+                        </Button>
+                      </Link>
+                    )}
                   </CardContent>
                 </Card>
               );

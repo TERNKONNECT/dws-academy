@@ -21,6 +21,8 @@ import Courses from "./pages/Courses";
 import CourseDetail from "./pages/CourseDetail";
 import MyLearning from "./pages/MyLearning";
 import CourseLearning from "./pages/CourseLearning";
+import Certificate from "./pages/Certificate";
+import VerifyCertificate from "./pages/VerifyCertificate";
 import Gallery from "./pages/Gallery";
 import Quiz from "./pages/Quiz";
 import Profile from "./pages/Profile";
@@ -115,6 +117,16 @@ const App = () => (
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/certificate/:courseId"
+              element={
+                <ProtectedRoute>
+                  <Certificate />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/verify-certificate" element={<VerifyCertificate />} />
+            <Route path="/verify-certificate/:certificateId" element={<VerifyCertificate />} />
             <Route
               path="/profile"
               element={
