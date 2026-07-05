@@ -1,5 +1,4 @@
 import { forwardRef } from "react";
-import { GraduationCap } from "lucide-react";
 
 export interface CertificateProps {
   studentName: string;
@@ -60,33 +59,14 @@ const Certificate = forwardRef<HTMLDivElement, CertificateProps>(
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                gap: 10,
                 marginBottom: 6,
               }}
             >
-              <div
-                style={{
-                  width: 36,
-                  height: 36,
-                  borderRadius: 8,
-                  background: "#facc15",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <GraduationCap size={20} color="#111111" />
-              </div>
-              <span
-                style={{
-                  fontSize: 20,
-                  fontWeight: 700,
-                  letterSpacing: 3,
-                  color: "#111111",
-                }}
-              >
-                DWS ACADEMY
-              </span>
+              <img
+                src="/logo.png"
+                alt="DWS Logo"
+                style={{ height: 60, objectFit: "contain" }}
+              />
             </div>
             <p
               style={{
@@ -165,30 +145,10 @@ const Certificate = forwardRef<HTMLDivElement, CertificateProps>(
                 <p style={{ margin: 0, fontSize: 11, color: "#aaaaaa", letterSpacing: 1 }}>
                   Certificate ID: {certificateId}
                 </p>
-                {verifyUrl && (
-                  <p style={{ margin: "4px 0 0", fontSize: 10, color: "#bbbbbb" }}>
-                    Verify at {verifyUrl}
-                  </p>
-                )}
               </div>
             )}
 
-            <div style={{ textAlign: "center", minWidth: 180 }}>
-              <p
-                style={{
-                  margin: 0,
-                  fontSize: 15,
-                  fontStyle: "italic",
-                  borderTop: "1px solid #999999",
-                  paddingTop: 6,
-                }}
-              >
-                {instructorName ?? "DWS Academy"}
-              </p>
-              <p style={{ margin: 0, fontSize: 11, color: "#888888", letterSpacing: 1 }}>
-                INSTRUCTOR
-              </p>
-            </div>
+            {/* Removed Instructor Signature Block */}
           </div>
         </div>
       </div>
