@@ -631,6 +631,7 @@ const CourseDetail = () => {
             url={course.introVideoUrl || ""}
             title={`${course.title} preview`}
             className="w-full rounded-lg aspect-video bg-black"
+            autoLoad
           />
           <Button
             className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"

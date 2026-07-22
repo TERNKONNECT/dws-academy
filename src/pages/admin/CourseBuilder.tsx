@@ -580,6 +580,7 @@ const AddLessonForm = ({
                   file={file}
                   title="Selected lesson video preview"
                   className="w-full rounded-lg aspect-video bg-black"
+                  autoLoad
                 />
               )}
               <label className="flex items-center gap-2 cursor-pointer border rounded-lg p-3 hover:bg-muted transition-colors">
@@ -602,6 +603,7 @@ const AddLessonForm = ({
                   url={youtubeUrl}
                   title="YouTube lesson preview"
                   className="w-full rounded-lg aspect-video"
+                  autoLoad
                 />
               )}
               <Input
@@ -871,6 +873,7 @@ const ModuleCard = ({
               url={previewLesson.videoUrl}
               title={previewLesson.title}
               className="w-full rounded-lg aspect-video bg-black"
+              autoLoad
             />
           )}
         </DialogContent>
@@ -1113,6 +1116,7 @@ const CourseBuilder = () => {
               }
               title="Intro video preview"
               className="w-full rounded-lg aspect-video bg-black"
+              autoLoad
             />
           )}
           <div className="flex gap-2">
