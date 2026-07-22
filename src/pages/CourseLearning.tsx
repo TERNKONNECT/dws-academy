@@ -608,6 +608,7 @@ const CourseLearning = () => {
                     iframeRef={iframeRef}
                     url={currentLesson.videoUrl}
                     title={currentLesson.title}
+                    poster={course?.thumbnail}
                     className="w-full aspect-video rounded-xl bg-black"
                     controlsList="nodownload"
                     onEnded={() => setIsVideoEnded(true)}
