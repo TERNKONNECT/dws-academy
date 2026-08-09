@@ -62,8 +62,8 @@ const VideoPreview = forwardRef<HTMLVideoElement, VideoPreviewProps>(
               className="absolute inset-0 h-full w-full object-cover opacity-80 group-hover:opacity-60 transition-opacity"
             />
           )}
-          <span className="relative z-10 flex h-16 w-16 items-center justify-center rounded-full bg-white/90 group-hover:bg-white transition-colors">
-            <Play className="h-7 w-7 text-black fill-black translate-x-0.5" />
+          <span className="relative z-10 flex h-16 w-16 items-center justify-center rounded-full bg-[#151517]/90 group-hover:bg-[#151517] transition-colors">
+            <Play className="h-7 w-7 text-white fill-black translate-x-0.5" />
           </span>
         </button>
       );

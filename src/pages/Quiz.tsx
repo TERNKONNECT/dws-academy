@@ -214,7 +214,7 @@ const Quiz = () => {
               }`}
             >
               <Trophy
-                className={`h-10 w-10 ${!hasGradableQuestions || scorePct >= 80 ? "text-black" : "text-muted-foreground"}`}
+                className={`h-10 w-10 ${!hasGradableQuestions || scorePct >= 80 ? "text-white" : "text-muted-foreground"}`}
               />
             </div>
             <h1 className="text-3xl font-bold">
@@ -326,7 +326,7 @@ const Quiz = () => {
               <RotateCcw className="h-4 w-4" /> Retake Quiz
             </Button>
             <Link to={`/learn/${courseId}`}>
-              <Button className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0">
+              <Button className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0">
                 Back to Course
               </Button>
             </Link>
@@ -411,7 +411,7 @@ const Quiz = () => {
                 <Button
                   onClick={handleNext}
                   disabled={!isAnswered(question, selectedAnswers)}
-                  className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+                  className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0"
                 >
                   Next
                 </Button>
@@ -422,7 +422,7 @@ const Quiz = () => {
                     submitting ||
                     quiz.questions.some((q) => !isAnswered(q, selectedAnswers))
                   }
-                  className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+                  className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0"
                 >
                   {submitting ? "Submitting..." : "Submit Quiz"}
                 </Button>

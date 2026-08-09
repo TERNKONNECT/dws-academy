@@ -69,7 +69,7 @@ const Courses = () => {
             </div>
             <Button
               type="submit"
-              className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+              className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0"
             >
               <SlidersHorizontal className="h-4 w-4 md:mr-2" />
               <span className="hidden md:inline">Search</span>

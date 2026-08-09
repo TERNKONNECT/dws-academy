@@ -577,7 +577,7 @@ const CourseLearning = () => {
             <div className="flex items-center justify-center min-h-full p-8">
               <div className="text-center space-y-6 max-w-md">
                 <div className="h-20 w-20 rounded-full bg-yellow-400 flex items-center justify-center mx-auto">
-                  <Trophy className="h-10 w-10 text-black" />
+                  <Trophy className="h-10 w-10 text-white" />
                 </div>
                 <h2 className="text-3xl font-bold">Ready for your quiz</h2>
                 <p className="text-muted-foreground">
@@ -587,7 +587,7 @@ const CourseLearning = () => {
                   {quizModules.map((mod) => (
                     <Button
                       key={mod.id}
-                      className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+                      className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0"
                       onClick={() =>
                         navigate(`/learn/${courseId}/quiz/${mod.quizId}`)
                       }
@@ -676,7 +676,7 @@ const CourseLearning = () => {
                 </Button>
                 {courseId && !isLessonCompleted(courseId, currentLesson.id) ? (
                   <Button
-                    className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0 gap-2"
+                    className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0 gap-2"
                     onClick={handleMarkComplete}
                     disabled={!isVideoEnded}
                   >
@@ -710,7 +710,7 @@ const CourseLearning = () => {
                   </p>
                   {course.modules.some((m) => m.quizId) && (
                     <Button
-                      className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+                      className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0"
                       onClick={() => {
                         const lq = course.modules.filter((m) => m.quizId).pop();
                         if (lq?.quizId)
@@ -747,7 +747,7 @@ const CourseLearning = () => {
             <div className="flex items-center justify-center min-h-full p-8">
               <div className="text-center space-y-6 max-w-md">
                 <div className="h-20 w-20 rounded-full bg-yellow-400 flex items-center justify-center mx-auto">
-                  <Trophy className="h-10 w-10 text-black" />
+                  <Trophy className="h-10 w-10 text-white" />
                 </div>
                 <h2 className="text-3xl font-bold">Congratulations! 🎉</h2>
                 <p className="text-muted-foreground">
@@ -755,7 +755,7 @@ const CourseLearning = () => {
                 </p>
                 {course.modules.some((m) => m.quizId) && (
                   <Button
-                    className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+                    className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0"
                     size="lg"
                     onClick={() => {
                       const lq = course.modules.filter((m) => m.quizId).pop();

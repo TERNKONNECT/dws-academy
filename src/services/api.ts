@@ -96,7 +96,7 @@ const mapBackendCourse = (c: any): Course => ({
   introVideoUrl: c.introVideoUrl || "",
   instructor: {
     id: c.instructor?.id ?? c.createdBy ?? "instructor",
-    name: c.instructor?.name ?? "DWSAcademy  Instructor",
+    name: c.instructor?.name ?? "School of Events Africa  Instructor",
     title: c.instructor?.title ?? "",
     bio: c.instructor?.bio ?? "",
     avatar:

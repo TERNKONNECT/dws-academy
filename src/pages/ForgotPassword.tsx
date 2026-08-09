@@ -103,11 +103,11 @@ const ForgotPassword = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-black via-gray-900 to-black">
-      <Card className="w-full max-w-md border-white/10 bg-white/5 backdrop-blur-sm text-white">
+      <Card className="w-full max-w-md border-white/10 bg-[#151517]/5 backdrop-blur-sm text-white">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
             <div className="h-12 w-12 rounded-xl bg-yellow-400 flex items-center justify-center">
-              <BookOpen className="h-6 w-6 text-black" />
+              <BookOpen className="h-6 w-6 text-white" />
             </div>
           </div>
           <CardTitle className="text-2xl text-white">Reset Password</CardTitle>
@@ -125,12 +125,12 @@ const ForgotPassword = () => {
                   Email
                 </Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-500" />
+                  <Mail className="absolute left-3 top-3 h-4 w-4 text-white/60" />
                   <Input
                     id="email"
                     type="email"
                     placeholder="you@example.com"
-                    className="pl-9 bg-white/10 border-white/20 text-white placeholder:text-gray-500 focus-visible:ring-yellow-400"
+                    className="pl-9 bg-[#151517]/10 border-white/20 text-white placeholder:text-white/60 focus-visible:ring-yellow-400"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -138,7 +138,7 @@ const ForgotPassword = () => {
               </div>
               <Button
                 type="submit"
-                className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+                className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0"
                 disabled={loading}
               >
                 {loading ? "Sending..." : "Send Reset OTP"}
@@ -158,7 +158,7 @@ const ForgotPassword = () => {
                   id="otp"
                   inputMode="numeric"
                   placeholder="123456"
-                  className="bg-white/10 border-white/20 text-white placeholder:text-gray-500 focus-visible:ring-yellow-400"
+                  className="bg-[#151517]/10 border-white/20 text-white placeholder:text-white/60 focus-visible:ring-yellow-400"
                   value={otp}
                   onChange={(e) => setOtp(e.target.value)}
                 />
@@ -168,12 +168,12 @@ const ForgotPassword = () => {
                   New Password
                 </Label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-500" />
+                  <Lock className="absolute left-3 top-3 h-4 w-4 text-white/60" />
                   <Input
                     id="password"
                     type="password"
                     placeholder="New password"
-                    className="pl-9 bg-white/10 border-white/20 text-white placeholder:text-gray-500 focus-visible:ring-yellow-400"
+                    className="pl-9 bg-[#151517]/10 border-white/20 text-white placeholder:text-white/60 focus-visible:ring-yellow-400"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -181,7 +181,7 @@ const ForgotPassword = () => {
               </div>
               <Button
                 type="submit"
-                className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+                className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0"
                 disabled={loading}
               >
                 {loading ? "Resetting..." : "Reset Password"}

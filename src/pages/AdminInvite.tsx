@@ -125,11 +125,11 @@ const AdminInvite = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-black via-gray-900 to-black">
-      <Card className="w-full max-w-md border-white/10 bg-white/5 backdrop-blur-sm text-white">
+      <Card className="w-full max-w-md border-white/10 bg-[#151517]/5 backdrop-blur-sm text-white">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
             <div className="h-12 w-12 rounded-xl bg-yellow-400 flex items-center justify-center">
-              <BookOpen className="h-6 w-6 text-black" />
+              <BookOpen className="h-6 w-6 text-white" />
             </div>
           </div>
           <CardTitle className="text-2xl text-white">Admin Invitation</CardTitle>
@@ -145,7 +145,7 @@ const AdminInvite = () => {
           {status === "error" && (
             <div className="space-y-5 text-center">
               <XCircle className="h-14 w-14 text-red-400 mx-auto" />
-              <Button asChild className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0">
+              <Button asChild className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0">
                 <Link to="/login">Go to Login</Link>
               </Button>
             </div>
@@ -153,7 +153,7 @@ const AdminInvite = () => {
 
           {status === "ready" && (
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="rounded-lg border border-white/10 bg-white/10 p-3">
+              <div className="rounded-lg border border-white/10 bg-[#151517]/10 p-3">
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 text-yellow-400" />
                   <div>
@@ -168,13 +168,13 @@ const AdminInvite = () => {
                   Password
                 </Label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-500" />
+                  <Lock className="absolute left-3 top-3 h-4 w-4 text-white/60" />
                   <Input
                     id="password"
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-9 bg-white/10 border-white/20 text-white placeholder:text-gray-500 focus-visible:ring-yellow-400"
+                    className="pl-9 bg-[#151517]/10 border-white/20 text-white placeholder:text-white/60 focus-visible:ring-yellow-400"
                     placeholder="Create password"
                   />
                 </div>
@@ -185,13 +185,13 @@ const AdminInvite = () => {
                   Confirm Password
                 </Label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-500" />
+                  <Lock className="absolute left-3 top-3 h-4 w-4 text-white/60" />
                   <Input
                     id="confirm-password"
                     type="password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="pl-9 bg-white/10 border-white/20 text-white placeholder:text-gray-500 focus-visible:ring-yellow-400"
+                    className="pl-9 bg-[#151517]/10 border-white/20 text-white placeholder:text-white/60 focus-visible:ring-yellow-400"
                     placeholder="Confirm password"
                   />
                 </div>
@@ -199,7 +199,7 @@ const AdminInvite = () => {
 
               <Button
                 type="submit"
-                className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+                className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0"
                 disabled={submitting}
               >
                 {submitting ? "Creating..." : "Create Password"}

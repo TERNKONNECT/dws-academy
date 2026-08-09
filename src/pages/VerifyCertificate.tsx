@@ -50,7 +50,7 @@ const VerifyCertificate = () => {
         <div className="text-center space-y-2">
           <h1 className="text-3xl font-bold">Verify a Certificate</h1>
           <p className="text-muted-foreground">
-            Enter the certificate ID printed on a DWS Academy certificate to confirm it's genuine.
+            Enter the certificate ID printed on a School of Events Africa certificate to confirm it's genuine.
           </p>
         </div>
 

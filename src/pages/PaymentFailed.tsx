@@ -49,14 +49,14 @@ const PaymentFailed = () => {
             <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
               {courseId ? (
                 <Link to={`/courses/${courseId}`}>
-                  <Button className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0 gap-2 w-full sm:w-auto">
+                  <Button className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0 gap-2 w-full sm:w-auto">
                     <RefreshCw className="h-4 w-4" />
                     Try Again
                   </Button>
                 </Link>
               ) : (
                 <Link to="/courses">
-                  <Button className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0 gap-2 w-full sm:w-auto">
+                  <Button className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0 gap-2 w-full sm:w-auto">
                     <ArrowLeft className="h-4 w-4" />
                     Back to Courses
                   </Button>

@@ -278,7 +278,7 @@ const CourseDetail = () => {
           <div className="md:col-span-2 space-y-4">
             <Badge
               variant="secondary"
-              className="bg-white/20 text-white border-0"
+              className="bg-[#151517]/20 text-white border-0"
             >
               {course.category}
             </Badge>
@@ -310,7 +310,7 @@ const CourseDetail = () => {
           </div>
           <div className="flex flex-col gap-3">
             {enrolled ? (
-              <Card className="bg-white text-foreground">
+              <Card className="bg-[#151517] text-foreground">
                 <CardContent className="p-6 space-y-4">
                   <h3 className="font-semibold">Your Progress</h3>
                   <Progress
@@ -321,7 +321,7 @@ const CourseDetail = () => {
                     {completedLessons}/{totalLessons} lessons completed
                   </p>
                   <Button
-                    className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+                    className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0"
                     onClick={() => navigate(`/learn/${course.id}`)}
                   >
                     {completedLessons > 0
@@ -331,7 +331,7 @@ const CourseDetail = () => {
                 </CardContent>
               </Card>
             ) : (
-              <Card className="bg-white text-foreground">
+              <Card className="bg-[#151517] text-foreground">
                 <CardContent className="p-6 space-y-4">
                   <h3 className="text-2xl font-bold">
                     {isPaid
@@ -339,7 +339,7 @@ const CourseDetail = () => {
                       : "Free"}
                   </h3>
                   <Button
-                    className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+                    className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0"
                     size="lg"
                     onClick={isPaid ? openCheckoutModal : handleEnroll}
                     disabled={checkingOut}
@@ -488,7 +488,7 @@ const CourseDetail = () => {
                     onChange={(e) => setUserComment(e.target.value)}
                   />
                   <Button
-                    className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+                    className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0"
                     onClick={handleSubmitReview}
                     disabled={submittingReview || userRating === 0}
                   >
@@ -608,7 +608,7 @@ const CourseDetail = () => {
             </div>
           </div>
           <Button
-            className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+            className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0"
             size="lg"
             onClick={handleCheckout}
             disabled={checkingOut}
@@ -634,7 +634,7 @@ const CourseDetail = () => {
             autoLoad
           />
           <Button
-            className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+            className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0"
             onClick={handlePreviewAction}
             disabled={checkingOut}
           >

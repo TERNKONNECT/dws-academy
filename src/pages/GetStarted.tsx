@@ -179,7 +179,7 @@ export default function GetStarted() {
     <div className="w-full md:w-[420px] md:min-h-screen bg-gradient-to-b from-[#eef2ff] to-[#f5f3ff] flex flex-col px-10 py-12 flex-shrink-0">
       <Link to="/" className="flex items-center gap-2 font-bold text-xl mb-16">
         <BookOpen className="h-6 w-6 text-primary" />
-        <span className="text-gradient">DWSAcademy</span>
+        <span className="text-gradient">School of Events Africa</span>
       </Link>
 
       <div className="space-y-8 mb-auto">
@@ -229,7 +229,7 @@ export default function GetStarted() {
           {trustedBrands.map((brand) => (
             <div
               key={brand}
-              className="bg-white rounded-lg px-2 py-2 text-[10px] font-semibold text-muted-foreground text-center border"
+              className="bg-[#151517] rounded-lg px-2 py-2 text-[10px] font-semibold text-muted-foreground text-center border"
             >
               {brand}
             </div>
@@ -361,7 +361,7 @@ export default function GetStarted() {
                       className="mt-0.5 h-4 w-4 accent-primary"
                     />
                     <span className="text-sm text-muted-foreground">
-                      I agree to the DWSAcademy{" "}
+                      I agree to the School of Events Africa{" "}
                       <Link
                         to="/terms"
                         className="text-primary hover:underline"
