@@ -178,7 +178,7 @@ export default function EventsGallery() {
                 <Checkbox
                   checked={selectedImages.includes(img.id)}
                   onCheckedChange={() => toggleImageSelection(img.id)}
-                  className="bg-white/80 data-[state=checked]:bg-primary"
+                  className="bg-[#151517]/80 data-[state=checked]:bg-primary"
                 />
               </div>
             </div>

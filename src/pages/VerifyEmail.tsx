@@ -84,11 +84,11 @@ const VerifyEmail = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-black via-gray-900 to-black">
-      <Card className="w-full max-w-md border-white/10 bg-white/5 backdrop-blur-sm text-white">
+      <Card className="w-full max-w-md border-white/10 bg-[#151517]/5 backdrop-blur-sm text-white">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
             <div className="h-12 w-12 rounded-xl bg-yellow-400 flex items-center justify-center">
-              <BookOpen className="h-6 w-6 text-black" />
+              <BookOpen className="h-6 w-6 text-white" />
             </div>
           </div>
           <CardTitle className="text-2xl text-white">
@@ -122,13 +122,13 @@ const VerifyEmail = () => {
                     Verification Code
                   </Label>
                   <div className="relative">
-                    <KeyRound className="absolute left-3 top-3 h-4 w-4 text-gray-500" />
+                    <KeyRound className="absolute left-3 top-3 h-4 w-4 text-white/60" />
                     <Input
                       id="otp"
                       type="text"
                       inputMode="numeric"
                       placeholder="123456"
-                      className="pl-9 tracking-widest bg-white/10 border-white/20 text-white placeholder:text-gray-500 focus-visible:ring-yellow-400"
+                      className="pl-9 tracking-widest bg-[#151517]/10 border-white/20 text-white placeholder:text-white/60 focus-visible:ring-yellow-400"
                       maxLength={6}
                       autoFocus
                       value={otp}

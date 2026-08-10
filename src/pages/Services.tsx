@@ -56,7 +56,7 @@ const services = [
     price: "Starting from ₦300,000",
   },
   {
-    icon: <Sparkles className="h-8 w-8" />,
+    icon: <Star className="h-8 w-8" />,
     title: "Birthday Celebrations",
     description:
       "Memorable birthday parties for all ages. From children's themed parties to milestone adult celebrations.",
@@ -105,7 +105,7 @@ const features = [
       "Live bands, DJs, and entertainment options to keep your guests engaged throughout the event.",
   },
   {
-    icon: <Sparkles className="h-6 w-6" />,
+    icon: <Heart className="h-8 w-8" />,
     title: "Custom Decorations",
     description:
       "Unique themes and decorations tailored to your vision and personal style preferences.",
@@ -176,7 +176,7 @@ export default function Services() {
         <div className="relative container mx-auto px-4 z-10">
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <div className="inline-flex items-center gap-2 bg-yellow-400/20 backdrop-blur-sm border border-yellow-400/30 rounded-full px-6 py-3">
-              <Sparkles className="h-5 w-5 text-yellow-400" />
+              
               <span className="text-yellow-400 font-medium">
                 Premium Event Services
               </span>
@@ -199,13 +199,13 @@ export default function Services() {
       </section>
 
       {/* Services Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-[#151517]">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-black">
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
               Our <span className="text-yellow-500">Services</span>
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-white/70">
               Professional event planning services for every occasion and budget
             </p>
           </div>
@@ -226,7 +226,7 @@ export default function Services() {
                         {service.icon}
                       </div>
                       <div>
-                        <h3 className="text-2xl md:text-3xl font-bold text-black">
+                        <h3 className="text-2xl md:text-3xl font-bold text-white">
                           {service.title}
                         </h3>
                         <p className="text-yellow-600 font-semibold text-lg">
@@ -235,7 +235,7 @@ export default function Services() {
                       </div>
                     </div>
 
-                    <p className="text-lg text-gray-600 leading-relaxed">
+                    <p className="text-lg text-white/70 leading-relaxed">
                       {service.description}
                     </p>
 
@@ -243,7 +243,7 @@ export default function Services() {
                       {service.features.map((feature) => (
                         <div key={feature} className="flex items-center gap-3">
                           <CheckCircle className="h-5 w-5 text-yellow-500 flex-shrink-0" />
-                          <span className="text-gray-700 text-sm">
+                          <span className="text-white/80 text-sm">
                             {feature}
                           </span>
                         </div>
@@ -288,13 +288,13 @@ export default function Services() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-[#0B0B0C]">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-black">
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
               What's <span className="text-yellow-500">Included</span>
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-white/70">
               Everything you need for a successful and memorable event
             </p>
           </div>
@@ -303,14 +303,14 @@ export default function Services() {
             {features.map(({ icon, title, description }) => (
               <Card
                 key={title}
-                className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white"
+                className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-[#151517]"
               >
                 <CardContent className="p-6 space-y-4 text-center">
                   <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl flex items-center justify-center text-yellow-600 mx-auto">
                     {icon}
                   </div>
-                  <h3 className="text-xl font-bold text-black">{title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{description}</p>
+                  <h3 className="text-xl font-bold text-white">{title}</h3>
+                  <p className="text-white/70 leading-relaxed">{description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -331,7 +331,7 @@ export default function Services() {
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <Card className="bg-white/5 backdrop-blur-sm border border-white/10 p-8">
+            <Card className="bg-[#151517]/5 backdrop-blur-sm border border-white/10 p-8">
               <CardContent className="text-center space-y-6">
                 <div className="flex justify-center space-x-1">
                   {Array.from({ length: 5 }).map((_, i) => (
@@ -372,7 +372,7 @@ export default function Services() {
                   className={`w-3 h-3 rounded-full transition-all ${
                     index === activeTestimonial
                       ? "bg-yellow-400"
-                      : "bg-white/30"
+                      : "bg-[#151517]/30"
                   }`}
                 />
               ))}
@@ -382,13 +382,13 @@ export default function Services() {
       </section>
 
       {/* Pricing Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-[#151517]">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-black">
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
               Transparent <span className="text-yellow-500">Pricing</span>
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-white/70">
               No hidden fees. Clear, upfront pricing for all our services.
             </p>
           </div>
@@ -403,7 +403,7 @@ export default function Services() {
                   <div className="w-12 h-12 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-xl flex items-center justify-center text-yellow-600 mx-auto">
                     {service.icon}
                   </div>
-                  <h3 className="text-lg font-bold text-black">
+                  <h3 className="text-lg font-bold text-white">
                     {service.title}
                   </h3>
                   <p className="text-2xl font-bold text-yellow-600">
@@ -422,7 +422,7 @@ export default function Services() {
       </section>
 
       {/* Contact Info Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-[#0B0B0C]">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-3 gap-8 text-center">
@@ -430,18 +430,18 @@ export default function Services() {
                 <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl flex items-center justify-center text-yellow-600 mx-auto">
                   <Phone className="h-8 w-8" />
                 </div>
-                <h3 className="text-xl font-bold text-black">Call Us</h3>
-                <p className="text-gray-600">+234 704 375 7985</p>
-                <p className="text-sm text-gray-500">Mon - Fri: 9AM - 6PM</p>
+                <h3 className="text-xl font-bold text-white">Call Us</h3>
+                <p className="text-white/70">+234 704 375 7985</p>
+                <p className="text-sm text-white/60">Mon - Fri: 9AM - 6PM</p>
               </div>
 
               <div className="space-y-4">
                 <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl flex items-center justify-center text-yellow-600 mx-auto">
                   <Mail className="h-8 w-8" />
                 </div>
-                <h3 className="text-xl font-bold text-black">Email Us</h3>
-                <p className="text-gray-600">dwseventsacademy@gmail.com</p>
-                <p className="text-sm text-gray-500">
+                <h3 className="text-xl font-bold text-white">Email Us</h3>
+                <p className="text-white/70">dwseventsacademy@gmail.com</p>
+                <p className="text-sm text-white/60">
                   We respond within 24 hours
                 </p>
               </div>
@@ -450,11 +450,11 @@ export default function Services() {
                 <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl flex items-center justify-center text-yellow-600 mx-auto">
                   <MapPin className="h-8 w-8" />
                 </div>
-                <h3 className="text-xl font-bold text-black">Visit Us</h3>
-                <p className="text-gray-600">
+                <h3 className="text-xl font-bold text-white">Visit Us</h3>
+                <p className="text-white/70">
                   Ayodele Okeowo Street, Gbagada , Lagos State
                 </p>
-                <p className="text-sm text-gray-500">By appointment only</p>
+                <p className="text-sm text-white/60">By appointment only</p>
               </div>
             </div>
           </div>
@@ -465,10 +465,10 @@ export default function Services() {
       <section className="py-20 bg-gradient-to-r from-yellow-400 to-yellow-500">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto space-y-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-black">
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
               Ready to Plan Your Perfect Event?
             </h2>
-            <p className="text-xl text-black/80">
+            <p className="text-xl text-white/80">
               Let's turn your vision into an unforgettable celebration. Contact
               us today for a free consultation.
             </p>
@@ -485,7 +485,7 @@ export default function Services() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-2 border-black text-black hover:bg-black/10 font-semibold text-lg h-14 px-8"
+                className="border-2 border-black text-white hover:bg-black/10 font-semibold text-lg h-14 px-8"
               >
                 <Phone className="mr-2 h-5 w-5" />
                 Call Now

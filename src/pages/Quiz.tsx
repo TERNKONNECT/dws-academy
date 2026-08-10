@@ -214,7 +214,7 @@ const Quiz = () => {
               }`}
             >
               <Trophy
-                className={`h-10 w-10 ${!hasGradableQuestions || scorePct >= 80 ? "text-black" : "text-muted-foreground"}`}
+                className={`h-10 w-10 ${!hasGradableQuestions || scorePct >= 80 ? "text-white" : "text-muted-foreground"}`}
               />
             </div>
             <h1 className="text-3xl font-bold">

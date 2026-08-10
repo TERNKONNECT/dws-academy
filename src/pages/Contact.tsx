@@ -44,16 +44,16 @@ export default function Contact() {
       </section>
 
       {/* Contact Content */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-[#0B0B0C]">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Contact Info */}
             <div className="lg:col-span-1 space-y-8">
               <div>
-                <h2 className="text-2xl font-bold text-black mb-4">
+                <h2 className="text-2xl font-bold text-white mb-4">
                   Join the Academy
                 </h2>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-white/70 leading-relaxed">
                   Whether you're looking to master event planning, build a professional
                   network, or start your own business, we're here to equip you with
                   expert knowledge and hands-on experience.
@@ -67,10 +67,10 @@ export default function Contact() {
                     <MapPin className="h-5 w-5 text-yellow-600" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-black">
+                    <h3 className="font-semibold text-white">
                       Office Location
                     </h3>
-                    <p className="text-gray-600 text-sm">
+                    <p className="text-white/70 text-sm">
                       Ayodele Okeowo Street
                       <br />
                       Gbagada
@@ -85,18 +85,18 @@ export default function Contact() {
                     <Phone className="h-5 w-5 text-yellow-400" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-black">Phone</h3>
-                    <p className="text-gray-600 text-sm">+234 704 375 7985</p>
+                    <h3 className="font-semibold text-white">Phone</h3>
+                    <p className="text-white/70 text-sm">+234 704 375 7985</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
                   <div className="p-3 bg-yellow-400 rounded-lg">
-                    <Mail className="h-5 w-5 text-black" />
+                    <Mail className="h-5 w-5 text-white" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-black">Email</h3>
-                    <p className="text-gray-600 text-sm">
+                    <h3 className="font-semibold text-white">Email</h3>
+                    <p className="text-white/70 text-sm">
                       dwseventsacademy@gmail.com
                     </p>
                   </div>
@@ -107,8 +107,8 @@ export default function Contact() {
                     <Clock className="h-5 w-5 text-yellow-400" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-black">Business Hours</h3>
-                    <p className="text-gray-600 text-sm">
+                    <h3 className="font-semibold text-white">Business Hours</h3>
+                    <p className="text-white/70 text-sm">
                       Monday - Friday: 9:00 AM - 6:00 PM
                       <br />
                       Saturday: 10:00 AM - 4:00 PM
@@ -123,16 +123,16 @@ export default function Contact() {
 
             {/* Contact Form */}
             <div className="lg:col-span-2">
-              <div className="bg-white rounded-2xl shadow-lg p-8 border border-yellow-100">
+              <div className="bg-[#151517] rounded-2xl shadow-lg p-8 border border-yellow-100">
                 {submitted ? (
                   <div className="text-center py-12">
                     <CheckCircle className="h-16 w-16 text-yellow-500 mx-auto mb-4" />
-                    <h3 className="text-2xl font-bold text-black mb-2">
+                    <h3 className="text-2xl font-bold text-white mb-2">
                       Message Sent Successfully!
                     </h3>
-                    <p className="text-gray-600 mb-6">
+                    <p className="text-white/70 mb-6">
                       Thank you,{" "}
-                      <span className="font-semibold text-black">
+                      <span className="font-semibold text-white">
                         {form.name}
                       </span>
                       ! We've received your message and will get back to you
@@ -148,10 +148,10 @@ export default function Contact() {
                 ) : (
                   <>
                     <div className="mb-8">
-                      <h2 className="text-2xl font-bold text-black mb-2">
+                      <h2 className="text-2xl font-bold text-white mb-2">
                         Tell Us About Your Goals
                       </h2>
-                      <p className="text-gray-600">
+                      <p className="text-white/70">
                         Share your learning goals with us and we'll guide you on
                         the right path.
                       </p>
@@ -162,7 +162,7 @@ export default function Contact() {
                         <div className="space-y-2">
                           <Label
                             htmlFor="name"
-                            className="text-sm font-medium text-black"
+                            className="text-sm font-medium text-white"
                           >
                             Full Name *
                           </Label>
@@ -179,7 +179,7 @@ export default function Contact() {
                         <div className="space-y-2">
                           <Label
                             htmlFor="email"
-                            className="text-sm font-medium text-black"
+                            className="text-sm font-medium text-white"
                           >
                             Email Address *
                           </Label>
@@ -200,7 +200,7 @@ export default function Contact() {
                         <div className="space-y-2">
                           <Label
                             htmlFor="company"
-                            className="text-sm font-medium text-black"
+                            className="text-sm font-medium text-white"
                           >
                             Company/Organization
                           </Label>
@@ -216,7 +216,7 @@ export default function Contact() {
                         <div className="space-y-2">
                             <Label
                               htmlFor="subject"
-                              className="text-sm font-medium text-black"
+                              className="text-sm font-medium text-white"
                             >
                               Area of Interest *
                             </Label>
@@ -226,7 +226,7 @@ export default function Contact() {
                               value={form.subject}
                               onChange={handleChange}
                               required
-                              className="h-12 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-yellow-400 focus:ring-yellow-400 focus:outline-none"
+                              className="h-12 w-full rounded-md border border-gray-300 bg-[#151517] px-3 py-2 text-sm focus:border-yellow-400 focus:ring-yellow-400 focus:outline-none"
                             >
                               <option value="">Select area of interest</option>
                               <option value="beginners">Beginners Class</option>
@@ -240,7 +240,7 @@ export default function Contact() {
                       <div className="space-y-2">
                           <Label
                             htmlFor="message"
-                            className="text-sm font-medium text-black"
+                            className="text-sm font-medium text-white"
                           >
                             Your Details *
                           </Label>
@@ -273,13 +273,13 @@ export default function Contact() {
       </section>
 
       {/* Map Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-[#151517]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-black mb-4">
+            <h2 className="text-3xl font-bold text-white mb-4">
               Visit Our <span className="text-yellow-500">Studio</span>
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-white/70 max-w-2xl mx-auto">
               Come see our academy and learning facilities. We'd love to
               meet you and discuss your educational goals in person.
             </p>

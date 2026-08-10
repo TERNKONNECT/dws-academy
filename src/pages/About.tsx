@@ -47,7 +47,7 @@ const team = [
     name: "Olayinka Olawunmi Olatunji",
     role: "Director of Academy",
     image: "/profiles/olayinka.jpg",
-    bio: "Leading the vision and curriculum at DWS Events Academy to shape the next generation of event professionals.",
+    bio: "Leading the vision and curriculum at School of Events Africa to shape the next generation of event professionals.",
   },
   {
     name: "Esther Adebiyi",
@@ -177,13 +177,6 @@ export default function About() {
 
         <div className="relative container mx-auto px-4 z-10">
           <div className="max-w-4xl mx-auto text-center space-y-8">
-            <div className="inline-flex items-center gap-2 bg-yellow-400/20 backdrop-blur-sm border border-yellow-400/30 rounded-full px-6 py-3">
-              <Sparkles className="h-5 w-5 text-yellow-400" />
-              <span className="text-yellow-400 font-medium">
-                About DEWHITE SPARKLES
-              </span>
-            </div>
-
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight text-white">
               Master the Art, Skill &
               <span className="block bg-gradient-to-r from-yellow-400 to-yellow-300 bg-clip-text text-transparent mt-2">
@@ -201,7 +194,7 @@ export default function About() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-12 md:py-16 bg-white border-y border-yellow-100">
+      <section className="py-12 md:py-16 bg-[#151517] border-y border-yellow-100">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map(({ value, label }) => (
@@ -209,26 +202,26 @@ export default function About() {
                 <p className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-yellow-500 to-yellow-600 bg-clip-text text-transparent">
                   {value}
                 </p>
-                <p className="text-gray-600 font-medium">{label}</p>
+                <p className="text-white/70 font-medium">{label}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* About DWS Events Academy */}
-      <section className="py-12 md:py-20 bg-gray-50">
+      {/* About School of Events Africa */}
+      <section className="py-12 md:py-20 bg-[#0B0B0C]">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="space-y-6">
                 <div className="space-y-4">
-                  <h2 className="text-3xl md:text-4xl font-bold text-black">
+                  <h2 className="text-3xl md:text-4xl font-bold text-white">
                     About{" "}
-                    <span className="text-yellow-500">DWS Events Academy</span>
+                    <span className="text-yellow-500">School of Events Africa</span>
                   </h2>
-                  <p className="text-xl text-gray-600 leading-relaxed">
-                    DWS Events Academy is a training arm of DWS Events, one of
+                  <p className="text-xl text-white/70 leading-relaxed">
+                    School of Events Africa is a training arm of School of Events Africa, one of
                     Nigeria's leading event consulting and production firms. We
                     exist to raise a generation of planners who are not only
                     skilled but structured, confident, and business-minded.
@@ -236,12 +229,12 @@ export default function About() {
                 </div>
 
                 <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-r-lg">
-                  <blockquote className="text-lg text-gray-700 italic">
+                  <blockquote className="text-lg text-white/80 italic">
                     "We don't just train planners. We train event entrepreneurs
                     who understand systems, strategy, and sustainability."
                   </blockquote>
                   <cite className="text-yellow-600 font-semibold mt-2 block">
-                    — The DWS Team
+                    — The Team
                   </cite>
                 </div>
 
@@ -251,10 +244,10 @@ export default function About() {
                       <Target className="h-4 w-4 text-yellow-600" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-black mb-1">
+                      <h3 className="font-semibold text-white mb-1">
                         Skill & Business Training
                       </h3>
-                      <p className="text-gray-600">
+                      <p className="text-white/70">
                         Learn both the creative and business aspects of event
                         planning
                       </p>
@@ -266,10 +259,10 @@ export default function About() {
                       <Shield className="h-4 w-4 text-yellow-600" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-black mb-1">
+                      <h3 className="font-semibold text-white mb-1">
                         Structured Learning
                       </h3>
-                      <p className="text-gray-600">
+                      <p className="text-white/70">
                         Comprehensive curriculum designed for different skill
                         levels
                       </p>
@@ -281,10 +274,10 @@ export default function About() {
                       <Users className="h-4 w-4 text-yellow-600" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-black mb-1">
+                      <h3 className="font-semibold text-white mb-1">
                         Expert Mentorship
                       </h3>
-                      <p className="text-gray-600">
+                      <p className="text-white/70">
                         Learn from experienced professionals in the industry
                       </p>
                     </div>
@@ -304,23 +297,23 @@ export default function About() {
         </div>
       </section>
 
-      {/* Why DWS Academy */}
-      <section className="py-12 md:py-20 bg-white">
+      {/* Why School of Events Africa */}
+      <section className="py-12 md:py-20 bg-[#151517]">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center space-y-6 mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-black">
-              Why <span className="text-yellow-500">DWS Academy?</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
+              Why <span className="text-yellow-500">School of Events Africa?</span>
             </h2>
-            <p className="text-xl text-gray-600 leading-relaxed">
+            <p className="text-xl text-white/70 leading-relaxed">
               Event planning is an amazing skill, but skill alone isn't enough.
               Many talented planners struggle, not because they're not good, but
               because they don't understand the business side, how to build
               systems, manage people, lead teams, and sustain profit.
             </p>
-            <p className="text-lg text-black font-semibold">
+            <p className="text-lg text-white font-semibold">
               Here, we teach you all! The skill and the business!
             </p>
-            <p className="text-gray-600">
+            <p className="text-white/70">
               Whether you're just starting or already in business, our classes
               are tailored to your level of growth.
             </p>
@@ -332,10 +325,10 @@ export default function About() {
                 <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl flex items-center justify-center text-yellow-600 mx-auto">
                   <Heart className="h-8 w-8" />
                 </div>
-                <h3 className="text-lg font-bold text-black">
+                <h3 className="text-lg font-bold text-white">
                   Wedding Planning Mastery
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-white/70 text-sm">
                   Learn to create unforgettable moments with precision and
                   elegance
                 </p>
@@ -347,10 +340,10 @@ export default function About() {
                 <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl flex items-center justify-center text-yellow-600 mx-auto">
                   <Users className="h-8 w-8" />
                 </div>
-                <h3 className="text-lg font-bold text-black">
+                <h3 className="text-lg font-bold text-white">
                   Corporate Event Excellence
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-white/70 text-sm">
                   Master the art of professional event coordination and
                   management
                 </p>
@@ -362,10 +355,10 @@ export default function About() {
                 <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl flex items-center justify-center text-yellow-600 mx-auto">
                   <Sparkles className="h-8 w-8" />
                 </div>
-                <h3 className="text-lg font-bold text-black">
+                <h3 className="text-lg font-bold text-white">
                   Creative Event Design
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-white/70 text-sm">
                   Transform spaces with stunning setups and creative vision
                 </p>
               </CardContent>
@@ -376,10 +369,10 @@ export default function About() {
                 <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl flex items-center justify-center text-yellow-600 mx-auto">
                   <Calendar className="h-8 w-8" />
                 </div>
-                <h3 className="text-lg font-bold text-black">
+                <h3 className="text-lg font-bold text-white">
                   Professional Event Coordination
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-white/70 text-sm">
                   Build systems that ensure flawless execution every time
                 </p>
               </CardContent>
@@ -389,23 +382,23 @@ export default function About() {
       </section>
 
       {/* Academy Classes */}
-      <section className="py-12 md:py-20 bg-gray-50">
+      <section className="py-12 md:py-20 bg-[#0B0B0C]">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4 mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-black">
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
               Choose Your <span className="text-yellow-500">Class</span>
             </h2>
-            <p className="text-xl text-gray-600">
-              Tailored learning experiences for every level of expertise
+            <p className="text-xl text-black">
+              Join our academy and learn from Nigeria's leading event planning experts. Turn your passion into a profitable business.
             </p>
             <div className="bg-yellow-100 border border-yellow-300 rounded-lg p-4 mt-6">
               <p className="text-black font-semibold">
                 Next Cohort Begins: July 13th, 2026
               </p>
-              <p className="text-gray-700 text-sm">
+              <p className="text-gray-800 text-sm">
                 🕓 Duration: 4 weeks of intensive learning
               </p>
-              <p className="text-gray-700 text-sm">
+              <p className="text-gray-800 text-sm">
                 📍 Location: Online & Physical (Live & Interactive Sessions)
               </p>
             </div>
@@ -422,10 +415,10 @@ export default function About() {
                     <p className="text-xs font-semibold text-yellow-600 uppercase tracking-wider mb-2">
                       {classInfo.target}
                     </p>
-                    <h3 className="text-2xl font-bold text-black mb-4">
+                    <h3 className={`text-2xl font-bold mb-4 ${index === 1 ? "text-black" : "text-white"}`}>
                       {classInfo.level}
                     </h3>
-                    <p className="text-gray-600 leading-relaxed mb-6">
+                    <p className={`leading-relaxed mb-6 ${index === 1 ? "text-gray-800" : "text-white/70"}`}>
                       {classInfo.description}
                     </p>
                   </div>
@@ -434,7 +427,7 @@ export default function About() {
                     {classInfo.features.map((feature) => (
                       <div key={feature} className="flex items-start gap-3">
                         <CheckCircle className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
-                        <span className="text-gray-700 text-sm">{feature}</span>
+                        <span className={`text-sm ${index === 1 ? "text-gray-800" : "text-white/80"}`}>{feature}</span>
                       </div>
                     ))}
                   </div>
@@ -443,7 +436,7 @@ export default function About() {
                     <p className="text-2xl font-bold text-yellow-600 mb-2">
                       {classInfo.price}
                     </p>
-                    <p className="text-gray-600 text-sm mb-4">
+                    <p className={`text-sm mb-4 ${index === 1 ? "text-gray-800" : "text-white/70"}`}>
                       {classInfo.duration}
                     </p>
                     <Button 
@@ -461,13 +454,13 @@ export default function About() {
       </section>
 
       {/* Values Section */}
-      <section className="py-12 md:py-20 bg-white">
+      <section className="py-12 md:py-20 bg-[#151517]">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4 mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-black">
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
               Our Core <span className="text-yellow-500">Values</span>
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-white/70">
               The principles that guide everything we do
             </p>
           </div>
@@ -482,8 +475,8 @@ export default function About() {
                   <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl flex items-center justify-center text-yellow-600 mx-auto">
                     {icon}
                   </div>
-                  <h3 className="text-xl font-bold text-black">{title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{description}</p>
+                  <h3 className="text-xl font-bold text-white">{title}</h3>
+                  <p className="text-white/70 leading-relaxed">{description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -492,13 +485,13 @@ export default function About() {
       </section>
 
       {/* Team Section */}
-      <section className="py-12 md:py-20 bg-gray-50">
+      <section className="py-12 md:py-20 bg-[#0B0B0C]">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4 mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-black">
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
               Meet Our <span className="text-yellow-500">Team</span>
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-white/70">
               Passionate event professionals dedicated to excellence and
               innovation
             </p>
@@ -519,10 +512,10 @@ export default function About() {
                 </div>
                 <CardContent className="p-6 space-y-3">
                   <div className="text-center">
-                    <h3 className="text-xl font-bold text-black">{name}</h3>
+                    <h3 className="text-xl font-bold text-white">{name}</h3>
                     <p className="text-yellow-600 font-medium">{role}</p>
                   </div>
-                  <p className="text-gray-600 text-sm leading-relaxed">{bio}</p>
+                  <p className="text-white/70 text-sm leading-relaxed">{bio}</p>
                 </CardContent>
               </Card>
             ))}

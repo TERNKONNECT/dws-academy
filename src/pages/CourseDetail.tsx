@@ -278,7 +278,7 @@ const CourseDetail = () => {
           <div className="md:col-span-2 space-y-4">
             <Badge
               variant="secondary"
-              className="bg-white/20 text-white border-0"
+              className="bg-[#151517]/20 text-white border-0"
             >
               {course.category}
             </Badge>
@@ -287,7 +287,7 @@ const CourseDetail = () => {
             <div className="flex flex-wrap items-center gap-4 text-sm opacity-80">
               {avgRating > 0 && (
                 <span className="flex items-center gap-1">
-                  <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                  <Star className="h-4 w-4 fill-primary text-primary" />
                   {avgRating} ({totalReviews} review
                   {totalReviews !== 1 ? "s" : ""})
                 </span>
@@ -310,18 +310,18 @@ const CourseDetail = () => {
           </div>
           <div className="flex flex-col gap-3">
             {enrolled ? (
-              <Card className="bg-white text-foreground">
+              <Card className="bg-[#151517] text-foreground">
                 <CardContent className="p-6 space-y-4">
                   <h3 className="font-semibold">Your Progress</h3>
                   <Progress
                     value={progressPct}
-                    className="h-2 [&>div]:bg-yellow-400"
+                    className="h-2 [&>div]:bg-primary"
                   />
                   <p className="text-sm text-muted-foreground">
                     {completedLessons}/{totalLessons} lessons completed
                   </p>
                   <Button
-                    className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold border-0 rounded-full"
                     onClick={() => navigate(`/learn/${course.id}`)}
                   >
                     {completedLessons > 0
@@ -331,7 +331,7 @@ const CourseDetail = () => {
                 </CardContent>
               </Card>
             ) : (
-              <Card className="bg-white text-foreground">
+              <Card className="bg-[#151517] text-foreground">
                 <CardContent className="p-6 space-y-4">
                   <h3 className="text-2xl font-bold">
                     {isPaid
@@ -339,7 +339,7 @@ const CourseDetail = () => {
                       : "Free"}
                   </h3>
                   <Button
-                    className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold border-0 rounded-full"
                     size="lg"
                     onClick={isPaid ? openCheckoutModal : handleEnroll}
                     disabled={checkingOut}
@@ -376,7 +376,7 @@ const CourseDetail = () => {
                   <div className="grid sm:grid-cols-2 gap-3">
                     {course.whatYouLearn.map((item, i) => (
                       <div key={i} className="flex gap-2 text-sm">
-                        <CheckCircle2 className="h-5 w-5 text-yellow-500 shrink-0 mt-0.5" />
+                        <CheckCircle2 className="h-5 w-5 text-accent shrink-0 mt-0.5" />
                         <span>{item}</span>
                       </div>
                     ))}
@@ -437,7 +437,7 @@ const CourseDetail = () => {
                         </button>
                       ))}
                       {mod.quizId && (
-                        <div className="flex items-center gap-3 p-2 rounded-md hover:bg-muted/50 text-sm text-yellow-600 font-medium">
+                        <div className="flex items-center gap-3 p-2 rounded-md hover:bg-muted/50 text-sm text-accent font-medium">
                           <CheckCircle2 className="h-4 w-4" />
                           <span>Module Quiz</span>
                         </div>
@@ -462,7 +462,7 @@ const CourseDetail = () => {
             </h2>
 
             {isAuthenticated && hasCompleted && !hasReviewed && (
-              <Card className="mb-6 border-yellow-200 bg-yellow-50">
+              <Card className="mb-6 border-primary/20 bg-primary/5">
                 <CardContent className="p-5 space-y-3">
                   <p className="font-medium text-sm">
                     You completed this course! Leave a review:
@@ -473,22 +473,22 @@ const CourseDetail = () => {
                         <Star
                           className={`h-7 w-7 transition-colors ${
                             s <= userRating
-                              ? "fill-yellow-400 text-yellow-400"
-                              : "text-muted-foreground hover:text-yellow-400"
+                              ? "fill-primary text-primary"
+                              : "text-muted-foreground hover:text-primary"
                           }`}
                         />
                       </button>
                     ))}
                   </div>
                   <textarea
-                    className="w-full border rounded-lg p-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                    className="w-full border rounded-lg p-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary"
                     rows={3}
                     placeholder="Share your experience with this course..."
                     value={userComment}
                     onChange={(e) => setUserComment(e.target.value)}
                   />
                   <Button
-                    className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold border-0 rounded-full"
                     onClick={handleSubmitReview}
                     disabled={submittingReview || userRating === 0}
                   >
@@ -540,7 +540,7 @@ const CourseDetail = () => {
                               key={s}
                               className={`h-3.5 w-3.5 ${
                                 s <= review.rating
-                                  ? "fill-yellow-400 text-yellow-400"
+                                  ? "fill-primary text-primary"
                                   : "text-muted-foreground"
                               }`}
                             />
@@ -571,7 +571,7 @@ const CourseDetail = () => {
               />
               <h3 className="font-semibold">{course.instructor.name}</h3>
               {course.instructor.title && (
-                <p className="text-sm text-yellow-600">
+                <p className="text-sm text-accent">
                   {course.instructor.title}
                 </p>
               )}
@@ -608,7 +608,7 @@ const CourseDetail = () => {
             </div>
           </div>
           <Button
-            className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold border-0 rounded-full"
             size="lg"
             onClick={handleCheckout}
             disabled={checkingOut}
@@ -634,7 +634,7 @@ const CourseDetail = () => {
             autoLoad
           />
           <Button
-            className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold border-0 rounded-full"
             onClick={handlePreviewAction}
             disabled={checkingOut}
           >

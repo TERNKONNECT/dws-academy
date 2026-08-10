@@ -395,7 +395,7 @@ const CourseLearning = () => {
         <div className="flex items-center gap-3">
           <Progress
             value={progressPct}
-            className="w-24 h-2 hidden sm:block [&>div]:bg-yellow-400"
+            className="w-24 h-2 hidden sm:block [&>div]:bg-primary"
           />
           <span className="text-xs text-muted-foreground">{progressPct}%</span>
 
@@ -415,7 +415,7 @@ const CourseLearning = () => {
               !isSupported
                 ? "bg-muted text-muted-foreground opacity-50 cursor-not-allowed"
                 : voiceEnabled && isListening
-                  ? "bg-yellow-400/20 text-yellow-600 animate-pulse"
+                  ? "bg-primary/20 text-accent animate-pulse"
                   : "bg-muted text-muted-foreground hover:text-foreground"
             }`}
           >
@@ -452,7 +452,7 @@ const CourseLearning = () => {
                   <div key={mod.id}>
                     <div className="flex items-center gap-2 mb-2">
                       {modComplete ? (
-                        <CheckCircle2 className="h-4 w-4 text-yellow-500" />
+                        <CheckCircle2 className="h-4 w-4 text-accent" />
                       ) : unlocked ? (
                         <Circle className="h-4 w-4 text-muted-foreground" />
                       ) : (
@@ -480,12 +480,12 @@ const CourseLearning = () => {
                             }}
                             className={`w-full text-left flex items-center gap-2 p-2 rounded-md text-xs transition-colors ${
                               isActive
-                                ? "bg-yellow-400/10 text-yellow-700 font-medium"
+                                ? "bg-primary/10 text-accent font-medium"
                                 : "hover:bg-muted"
                             }`}
                           >
                             {completed ? (
-                              <CheckCircle2 className="h-3.5 w-3.5 text-yellow-500 shrink-0" />
+                              <CheckCircle2 className="h-3.5 w-3.5 text-accent shrink-0" />
                             ) : (
                               <Play className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
                             )}
@@ -530,7 +530,7 @@ const CourseLearning = () => {
                                   ? isLessonCompleted(courseId, l.id)
                                   : false,
                               ))
-                              ? "hover:bg-muted text-yellow-600 font-medium"
+                              ? "hover:bg-muted text-accent font-medium"
                               : "opacity-50 cursor-not-allowed"
                           }`}
                         >
@@ -576,8 +576,8 @@ const CourseLearning = () => {
           ) : !currentLesson && hasQuizzes ? (
             <div className="flex items-center justify-center min-h-full p-8">
               <div className="text-center space-y-6 max-w-md">
-                <div className="h-20 w-20 rounded-full bg-yellow-400 flex items-center justify-center mx-auto">
-                  <Trophy className="h-10 w-10 text-black" />
+                <div className="h-20 w-20 rounded-full bg-primary flex items-center justify-center mx-auto">
+                  <Trophy className="h-10 w-10 text-white" />
                 </div>
                 <h2 className="text-3xl font-bold">Ready for your quiz</h2>
                 <p className="text-muted-foreground">
@@ -587,7 +587,7 @@ const CourseLearning = () => {
                   {quizModules.map((mod) => (
                     <Button
                       key={mod.id}
-                      className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+                      className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold border-0 rounded-full"
                       onClick={() =>
                         navigate(`/learn/${courseId}/quiz/${mod.quizId}`)
                       }
@@ -676,7 +676,7 @@ const CourseLearning = () => {
                 </Button>
                 {courseId && !isLessonCompleted(courseId, currentLesson.id) ? (
                   <Button
-                    className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0 gap-2"
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold border-0 rounded-full gap-2"
                     onClick={handleMarkComplete}
                     disabled={!isVideoEnded}
                   >
@@ -684,7 +684,7 @@ const CourseLearning = () => {
                   </Button>
                 ) : (
                   <Badge variant="secondary" className="gap-1 px-3 py-1">
-                    <CheckCircle2 className="h-3 w-3 text-yellow-500" />{" "}
+                    <CheckCircle2 className="h-3 w-3 text-accent" />{" "}
                     Completed
                   </Badge>
                 )}
@@ -703,14 +703,14 @@ const CourseLearning = () => {
 
               {allLessonsComplete && (
                 <div className="rounded-xl bg-gradient-to-br from-black via-gray-900 to-black p-6 text-white text-center space-y-3">
-                  <Trophy className="h-8 w-8 mx-auto text-yellow-400" />
+                  <Trophy className="h-8 w-8 mx-auto text-primary" />
                   <p className="font-bold text-lg">All lessons completed! 🎉</p>
                   <p className="text-sm opacity-80">
                     You can rewatch any video by clicking it in the sidebar.
                   </p>
                   {course.modules.some((m) => m.quizId) && (
                     <Button
-                      className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+                      className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold border-0 rounded-full"
                       onClick={() => {
                         const lq = course.modules.filter((m) => m.quizId).pop();
                         if (lq?.quizId)
@@ -746,8 +746,8 @@ const CourseLearning = () => {
           ) : allLessonsComplete ? (
             <div className="flex items-center justify-center min-h-full p-8">
               <div className="text-center space-y-6 max-w-md">
-                <div className="h-20 w-20 rounded-full bg-yellow-400 flex items-center justify-center mx-auto">
-                  <Trophy className="h-10 w-10 text-black" />
+                <div className="h-20 w-20 rounded-full bg-primary flex items-center justify-center mx-auto">
+                  <Trophy className="h-10 w-10 text-white" />
                 </div>
                 <h2 className="text-3xl font-bold">Congratulations! 🎉</h2>
                 <p className="text-muted-foreground">
@@ -755,7 +755,7 @@ const CourseLearning = () => {
                 </p>
                 {course.modules.some((m) => m.quizId) && (
                   <Button
-                    className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold border-0 rounded-full"
                     size="lg"
                     onClick={() => {
                       const lq = course.modules.filter((m) => m.quizId).pop();

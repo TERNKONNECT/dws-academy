@@ -108,7 +108,7 @@ const Dashboard = () => {
           </h1>
           <p className="text-sm text-muted-foreground mt-1">
             {isSuperAdmin
-              ? 'Complete overview of the entire DWS Academy platform'
+              ? 'Complete overview of the entire School of Events Africa platform'
               : 'Analytics and activity for your courses'}
           </p>
         </div>
