@@ -165,7 +165,7 @@ const Index = () => {
               <Button
                 size="lg"
                 onClick={handleRegister}
-                className="w-full sm:w-auto bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-white font-bold h-14 px-8 text-base rounded-xl shadow-[0_0_40px_-10px_rgba(250,204,21,0.5)] hover:shadow-[0_0_60px_-15px_rgba(250,204,21,0.6)] transition-all hover:-translate-y-1"
+                className="w-full sm:w-auto bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold h-14 px-8 text-base rounded-xl shadow-[0_0_40px_-10px_rgba(250,204,21,0.5)] hover:shadow-[0_0_60px_-15px_rgba(250,204,21,0.6)] transition-all hover:-translate-y-1"
               >
                 REGISTER NOW <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
@@ -269,7 +269,7 @@ const Index = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
                 <div className="absolute bottom-0 left-0 p-8 sm:p-12 text-white">
-                  <span className="inline-block px-4 py-1.5 rounded-full bg-yellow-400 text-white text-xs font-bold uppercase tracking-wider mb-4 shadow-lg">
+                  <span className="inline-block px-4 py-1.5 rounded-full bg-yellow-400 text-black text-xs font-bold uppercase tracking-wider mb-4 shadow-lg">
                     {courseSlides[slideIndex].tag}
                   </span>
                   <h3 className="text-3xl sm:text-4xl font-bold">
@@ -332,7 +332,7 @@ const Index = () => {
             <Button
               size="lg"
               onClick={handleRegister}
-              className="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-white font-bold h-12 px-8"
+              className="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold h-12 px-8"
             >
               REGISTER NOW
             </Button>
@@ -347,7 +347,7 @@ const Index = () => {
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
               Choose Your <span className="text-yellow-500">Class</span>
             </h2>
-            <p className="text-xl text-white/70 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xl text-black max-w-2xl mx-auto leading-relaxed">
               Join our academy and learn from Nigeria's leading event planning experts. Turn your passion into a profitable business.
             </p>
           </div>
@@ -358,7 +358,7 @@ const Index = () => {
                 key={i}
                 className={`relative overflow-hidden border-2 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${
                   cls.featured
-                    ? "border-yellow-400 shadow-[0_0_30px_-5px_rgba(250,204,21,0.3)] ring-4 ring-yellow-400/20"
+                    ? "border-yellow-400 bg-yellow-50 shadow-[0_0_30px_-5px_rgba(250,204,21,0.3)] ring-4 ring-yellow-400/20"
                     : "border-gray-100 shadow-xl"
                 }`}
               >
@@ -374,31 +374,31 @@ const Index = () => {
                   <div className="text-yellow-600 font-bold text-sm mb-3 tracking-widest uppercase">
                     {cls.level}
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">
+                  <h3 className={`text-2xl font-bold mb-4 ${cls.featured ? "text-black" : "text-white"}`}>
                     {cls.title}
                   </h3>
-                  <p className="text-white/70 mb-8 leading-relaxed text-sm">
+                  <p className={`mb-8 leading-relaxed text-sm ${cls.featured ? "text-gray-800" : "text-white/70"}`}>
                     {cls.desc}
                   </p>
                   <ul className="space-y-4 mb-8">
                     {cls.curriculum.map((item, idx) => (
                       <li key={idx} className="flex items-start text-sm">
                         <CheckCircle className="h-5 w-5 text-yellow-500 mr-3 shrink-0" />
-                        <span className="text-white/80">{item}</span>
+                        <span className={cls.featured ? "text-gray-800" : "text-white/80"}>{item}</span>
                       </li>
                     ))}
                   </ul>
                   {cls.price && (
                     <div className="pt-6 mt-4 border-t border-yellow-100/50 text-center space-y-1">
                       <p className="text-3xl font-bold text-yellow-600">{cls.price}</p>
-                      <p className="text-sm text-white/60 font-medium">{cls.duration}</p>
+                      <p className={`text-sm font-medium ${cls.featured ? "text-gray-700" : "text-white/60"}`}>{cls.duration}</p>
                     </div>
                   )}
                   <Button
                     onClick={handleRegister}
                     className={`w-full font-bold ${
                       cls.featured
-                        ? "bg-yellow-400 hover:bg-yellow-500 text-white"
+                        ? "bg-yellow-400 hover:bg-yellow-500 text-black"
                         : "bg-black hover:bg-gray-800 text-white"
                     }`}
                   >
@@ -427,7 +427,7 @@ const Index = () => {
             <Button
               size="lg"
               onClick={handleRegister}
-              className="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-white font-bold h-12 px-10"
+              className="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold h-12 px-10"
             >
               REGISTER NOW
             </Button>

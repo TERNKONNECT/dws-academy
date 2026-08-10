@@ -388,7 +388,7 @@ export default function About() {
             <h2 className="text-3xl md:text-4xl font-bold text-white">
               Choose Your <span className="text-yellow-500">Class</span>
             </h2>
-            <p className="text-xl text-white/70">
+            <p className="text-xl text-black">
               Join our academy and learn from Nigeria's leading event planning experts. Turn your passion into a profitable business.
             </p>
             <div className="bg-yellow-100 border border-yellow-300 rounded-lg p-4 mt-6">
@@ -441,7 +441,7 @@ export default function About() {
                     </p>
                     <Button 
                       onClick={handleRegister}
-                      className="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-white font-bold"
+                      className="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold"
                     >
                       Register Now
                     </Button>
@@ -527,10 +527,10 @@ export default function About() {
       <section className="py-16 md:py-20 bg-gradient-to-r from-yellow-400 to-yellow-500">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto space-y-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
+            <h2 className="text-3xl md:text-4xl font-bold text-black">
               Ready to Master Event Planning?
             </h2>
-            <p className="text-xl text-white/80">
+            <p className="text-xl text-black/80">
               Join our academy and learn from Nigeria's leading event planning
               experts. Turn your passion into a profitable business.
             </p>
@@ -546,7 +546,7 @@ export default function About() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-2 border-black text-white hover:bg-black/10 font-semibold text-lg h-14 px-8"
+                  className="border-2 border-black text-black hover:bg-black/10 font-semibold text-lg h-14 px-8"
                 >
                   Contact Us
                 </Button>

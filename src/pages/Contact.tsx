@@ -140,7 +140,7 @@ export default function Contact() {
                     </p>
                     <Button
                       onClick={() => setSubmitted(false)}
-                      className="bg-yellow-400 hover:bg-yellow-500 text-white font-semibold"
+                      className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold"
                     >
                       Send Another Message
                     </Button>
@@ -258,7 +258,7 @@ export default function Contact() {
 
                       <Button
                         type="submit"
-                        className="w-full h-12 bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-white font-bold shadow-lg"
+                        className="w-full h-12 bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold shadow-lg"
                       >
                         <Send className="h-4 w-4 mr-2" />
                         Send Message

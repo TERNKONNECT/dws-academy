@@ -138,7 +138,7 @@ const ForgotPassword = () => {
               </div>
               <Button
                 type="submit"
-                className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0"
+                className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
                 disabled={loading}
               >
                 {loading ? "Sending..." : "Send Reset OTP"}
@@ -181,7 +181,7 @@ const ForgotPassword = () => {
               </div>
               <Button
                 type="submit"
-                className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0"
+                className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
                 disabled={loading}
               >
                 {loading ? "Resetting..." : "Reset Password"}

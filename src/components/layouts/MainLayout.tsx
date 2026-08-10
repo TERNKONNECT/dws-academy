@@ -133,7 +133,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                 {/* <Link to="/appointment">
                   <Button
                     size="sm"
-                    className="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-white font-bold border-0 shadow-lg hover:shadow-xl transition-all"
+                    className="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold border-0 shadow-lg hover:shadow-xl transition-all"
                   >
                     Start free trial
                   </Button>
@@ -208,7 +208,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                   {/* <Link to="/appointment" onClick={() => setMobileOpen(false)}>
                     <Button
                       size="sm"
-                      className="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-white font-bold border-0"
+                      className="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold border-0"
                     >
                       Appointment
                     </Button>

@@ -56,7 +56,7 @@ const services = [
     price: "Starting from ₦300,000",
   },
   {
-    icon: ,
+    icon: <Star className="h-8 w-8" />,
     title: "Birthday Celebrations",
     description:
       "Memorable birthday parties for all ages. From children's themed parties to milestone adult celebrations.",
@@ -105,7 +105,7 @@ const features = [
       "Live bands, DJs, and entertainment options to keep your guests engaged throughout the event.",
   },
   {
-    icon: ,
+    icon: <Heart className="h-8 w-8" />,
     title: "Custom Decorations",
     description:
       "Unique themes and decorations tailored to your vision and personal style preferences.",
@@ -254,7 +254,7 @@ export default function Services() {
                       <Link to="/contact">
                         <Button
                           size="lg"
-                          className="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-white font-bold"
+                          className="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold"
                         >
                           Get Quote
                           <ArrowRight className="ml-2 h-4 w-4" />
@@ -410,7 +410,7 @@ export default function Services() {
                     {service.price}
                   </p>
                   <Link to="/contact">
-                    <Button className="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-white font-semibold">
+                    <Button className="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black font-semibold">
                       Get Started
                     </Button>
                   </Link>

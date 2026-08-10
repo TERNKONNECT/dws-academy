@@ -73,7 +73,7 @@ export function GallerySection({ limit, showViewMore = false }: GallerySectionPr
         {showViewMore && events && events.length > 0 && (
           <div className="mt-16 flex justify-center">
             <Link to="/gallery">
-              <Button size="lg" className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold h-12 px-8 text-base">
+              <Button size="lg" className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold h-12 px-8 text-base">
                 View Full Gallery <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>

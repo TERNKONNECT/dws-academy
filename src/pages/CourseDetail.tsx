@@ -321,7 +321,7 @@ const CourseDetail = () => {
                     {completedLessons}/{totalLessons} lessons completed
                   </p>
                   <Button
-                    className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0"
+                    className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
                     onClick={() => navigate(`/learn/${course.id}`)}
                   >
                     {completedLessons > 0
@@ -339,7 +339,7 @@ const CourseDetail = () => {
                       : "Free"}
                   </h3>
                   <Button
-                    className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0"
+                    className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
                     size="lg"
                     onClick={isPaid ? openCheckoutModal : handleEnroll}
                     disabled={checkingOut}
@@ -488,7 +488,7 @@ const CourseDetail = () => {
                     onChange={(e) => setUserComment(e.target.value)}
                   />
                   <Button
-                    className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0"
+                    className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
                     onClick={handleSubmitReview}
                     disabled={submittingReview || userRating === 0}
                   >
@@ -608,7 +608,7 @@ const CourseDetail = () => {
             </div>
           </div>
           <Button
-            className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0"
+            className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
             size="lg"
             onClick={handleCheckout}
             disabled={checkingOut}
@@ -634,7 +634,7 @@ const CourseDetail = () => {
             autoLoad
           />
           <Button
-            className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0"
+            className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
             onClick={handlePreviewAction}
             disabled={checkingOut}
           >

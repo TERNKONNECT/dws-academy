@@ -109,7 +109,7 @@ const VerifyEmail = () => {
                 <CheckCircle2 className="h-14 w-14 text-yellow-400" />
               </div>
               <Link to="/login">
-                <Button className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0">
+                <Button className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0">
                   Continue to Login
                 </Button>
               </Link>
@@ -138,7 +138,7 @@ const VerifyEmail = () => {
                 </div>
                 <Button
                   type="submit"
-                  className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0"
+                  className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
                   disabled={verifying || otp.length !== 6}
                 >
                   {verifying ? "Verifying..." : "Verify Email"}

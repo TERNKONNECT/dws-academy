@@ -145,7 +145,7 @@ const AdminInvite = () => {
           {status === "error" && (
             <div className="space-y-5 text-center">
               <XCircle className="h-14 w-14 text-red-400 mx-auto" />
-              <Button asChild className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0">
+              <Button asChild className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0">
                 <Link to="/login">Go to Login</Link>
               </Button>
             </div>
@@ -199,7 +199,7 @@ const AdminInvite = () => {
 
               <Button
                 type="submit"
-                className="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0"
+                className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
                 disabled={submitting}
               >
                 {submitting ? "Creating..." : "Create Password"}

@@ -671,7 +671,7 @@ const Profile = () => {
                       <p className="text-xs text-muted-foreground">{a.desc}</p>
                     </div>
                     {a.unlocked && (
-                      <Badge className="text-xs bg-yellow-400 text-white hover:bg-yellow-400 shrink-0">
+                      <Badge className="text-xs bg-yellow-400 text-black hover:bg-yellow-400 shrink-0">
                         Unlocked
                       </Badge>
                     )}
@@ -764,7 +764,7 @@ const Profile = () => {
                 <Button
                   onClick={handleSaveProfile}
                   disabled={savingProfile || !profileData}
-                  className="gap-2 bg-yellow-400 hover:bg-yellow-500 text-white font-bold border-0"
+                  className="gap-2 bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
                 >
                   <Save className="h-4 w-4" />
                   {savingProfile ? "Saving..." : "Save Changes"}
