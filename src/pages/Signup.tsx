@@ -87,7 +87,7 @@ const Signup = () => {
       <Card className="w-full max-w-md border-white/10 bg-[#151517]/5 backdrop-blur-sm text-white">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
-            <div className="h-12 w-12 rounded-xl bg-yellow-400 flex items-center justify-center">
+            <div className="h-12 w-12 rounded-xl bg-primary flex items-center justify-center">
               <Link to="/">
                 <BookOpen className="h-6 w-6 text-white" />
               </Link>
@@ -109,7 +109,7 @@ const Signup = () => {
                 <Input
                   id="name"
                   placeholder="John Doe"
-                  className="pl-9 bg-[#151517]/10 border-white/20 text-white placeholder:text-white/60 focus-visible:ring-yellow-400"
+                  className="pl-9 bg-[#151517]/10 border-white/20 text-white placeholder:text-white/60 focus-visible:ring-primary"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -125,7 +125,7 @@ const Signup = () => {
                   id="email"
                   type="email"
                   placeholder="you@example.com"
-                  className="pl-9 bg-[#151517]/10 border-white/20 text-white placeholder:text-white/60 focus-visible:ring-yellow-400"
+                  className="pl-9 bg-[#151517]/10 border-white/20 text-white placeholder:text-white/60 focus-visible:ring-primary"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -141,7 +141,7 @@ const Signup = () => {
                   id="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
-                  className="pl-9 pr-9 bg-[#151517]/10 border-white/20 text-white placeholder:text-white/60 focus-visible:ring-yellow-400"
+                  className="pl-9 pr-9 bg-[#151517]/10 border-white/20 text-white placeholder:text-white/60 focus-visible:ring-primary"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -161,7 +161,7 @@ const Signup = () => {
             </div>
             <Button
               type="submit"
-              className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
+              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold border-0 rounded-full"
               disabled={loading}
             >
               {loading ? "Creating account..." : "Sign Up"}
@@ -171,7 +171,7 @@ const Signup = () => {
             Already have an account?{" "}
             <Link
               to="/login"
-              className="text-yellow-400 font-medium hover:text-yellow-300"
+              className="text-primary font-medium hover:text-primary/80"
             >
               Log In
             </Link>

@@ -64,7 +64,7 @@ const Certificate = forwardRef<HTMLDivElement, CertificateProps>(
             >
               <img
                 src="/logo.png"
-                alt="DWS Logo"
+                alt="School of Events Africa Logo"
                 style={{ height: 60, objectFit: "contain" }}
               />
             </div>

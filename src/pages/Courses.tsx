@@ -62,15 +62,12 @@ const Courses = () => {
               <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Search courses..."
-                className="pl-9 focus-visible:ring-yellow-400"
+                className="pl-9 rounded-full focus-visible:ring-primary"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
             </div>
-            <Button
-              type="submit"
-              className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold border-0"
-            >
+            <Button type="submit">
               <SlidersHorizontal className="h-4 w-4 md:mr-2" />
               <span className="hidden md:inline">Search</span>
             </Button>
@@ -101,7 +98,7 @@ const Courses = () => {
             </p>
             <Button
               variant="outline"
-              className="border-yellow-400 text-yellow-600 hover:bg-yellow-50"
+              className="border-primary text-accent hover:bg-primary/10"
               onClick={() => {
                 setQuery("");
                 setSelectedCategory("");

@@ -14,14 +14,14 @@ const CourseCard = ({ course }: { course: Course }) => {
         }).format(course.price || 0)
       : "Free";
   const levelColor = {
-    Beginner: "bg-green-100 text-green-700",
-    Intermediate: "bg-yellow-100 text-yellow-700",
+    Beginner: "bg-emerald-100 text-emerald-700",
+    Intermediate: "bg-primary/15 text-accent",
     Advanced: "bg-red-100 text-red-700",
   }[course.level];
 
   return (
     <Link to={`/courses/${course.id}`}>
-      <Card className="group overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-full">
+      <Card className="group overflow-hidden rounded-2xl hover:shadow-lg transition-all duration-300 hover:-translate-y-1 h-full">
         <div className="aspect-video overflow-hidden">
           <img
             src={course.thumbnail}
@@ -32,26 +32,26 @@ const CourseCard = ({ course }: { course: Course }) => {
         </div>
         <CardContent className="p-4 space-y-3">
           <div className="flex items-center gap-2">
-            <Badge variant="secondary" className="text-xs">
+            <Badge variant="secondary" className="rounded-full text-xs">
               {course.category}
             </Badge>
             <span
-              className={`text-xs px-2 py-0.5 rounded-full font-medium ${levelColor}`}
+              className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${levelColor}`}
             >
               {course.level}
             </span>
           </div>
-          <h3 className="font-semibold text-sm leading-tight line-clamp-2 group-hover:text-yellow-600 transition-colors">
+          <h3 className="font-bold text-sm leading-tight line-clamp-2 group-hover:text-accent transition-colors">
             {course.title}
           </h3>
 
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs font-medium text-accent">
             {course.instructor.name}
           </p>
           <p className="text-sm font-bold text-foreground">{price}</p>
           <div className="flex items-center gap-3 text-xs text-muted-foreground">
             <span className="flex items-center gap-1">
-              <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
+              <Star className="h-3.5 w-3.5 fill-primary text-primary" />
               <span className="font-medium text-foreground">
                 {course.rating}
               </span>
