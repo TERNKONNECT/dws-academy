@@ -440,7 +440,7 @@ export default function Services() {
                   <Mail className="h-8 w-8" />
                 </div>
                 <h3 className="text-xl font-bold text-white">Email Us</h3>
-                <p className="text-white/70">dwseventsacademy@gmail.com</p>
+                <p className="text-white/70">Schoolofeventsafrica@gmail.com</p>
                 <p className="text-sm text-white/60">
                   We respond within 24 hours
                 </p>

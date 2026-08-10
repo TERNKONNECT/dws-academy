@@ -55,7 +55,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
               <Phone className="h-3 w-3" /> +234 806 319 1533
             </span>
             <span className="flex items-center gap-1.5">
-              <Mail className="h-3 w-3" /> dwseventsng@gmail.com
+              <Mail className="h-3 w-3" /> Schoolofeventsafrica@gmail.com
             </span>
           </div>
           <span className="flex items-center gap-1.5">
@@ -342,7 +342,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           </p>
           <p className="text-sm text-gray-400">
             <Mail className="inline h-3.5 w-3.5 mr-1.5 -mt-0.5 text-yellow-400" />
-            dwseventsacademy@gmail.com
+            Schoolofeventsafrica@gmail.com
             <Phone className="inline h-3.5 w-3.5 ml-4 mr-1.5 -mt-0.5 text-yellow-400" />
             +234 704 375 7985
           </p>
