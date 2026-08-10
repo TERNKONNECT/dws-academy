@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { BookOpen, Mail, ArrowLeft, Lock } from "lucide-react";
+import { Mail, ArrowLeft, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -106,9 +106,9 @@ const ForgotPassword = () => {
       <Card className="w-full max-w-md border-white/10 bg-[#151517]/5 backdrop-blur-sm text-white">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
-            <div className="h-12 w-12 rounded-xl bg-primary flex items-center justify-center">
-              <BookOpen className="h-6 w-6 text-white" />
-            </div>
+            <Link to="/" className="text-xl font-bold text-white tracking-tight">
+              School of Events Africa
+            </Link>
           </div>
           <CardTitle className="text-2xl text-white">Reset Password</CardTitle>
           <CardDescription className="text-gray-400">
