@@ -11,8 +11,8 @@ import Testimonials from "@/components/home/Testimonials";
 import Insights from "@/components/home/Insights";
 import ClarityCallCta from "@/components/home/ClarityCallCta";
 import FinalCta from "@/components/home/FinalCta";
-import type { TestimonialItem } from "@/components/home/types";
 import { api } from "@/services/api";
+import { testimonialsApi, type Testimonial } from "@/api/testimonials";
 import type { Course, Instructor } from "@/types";
 
 const dedupeInstructors = (courses: Course[]): Instructor[] => {
@@ -28,7 +28,7 @@ const dedupeInstructors = (courses: Course[]): Instructor[] => {
 const Index = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [loadingCourses, setLoadingCourses] = useState(true);
-  const [testimonials, setTestimonials] = useState<TestimonialItem[]>([]);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
 
   useEffect(() => {
     let active = true;
@@ -49,53 +49,14 @@ const Index = () => {
   }, []);
 
   useEffect(() => {
-    if (courses.length === 0) return;
     let active = true;
-
-    (async () => {
-      const results = await Promise.all(
-        courses.slice(0, 5).map(async (course) => {
-          const data = await api.getCourseReviews(course.id);
-          const reviews = Array.isArray(data?.reviews) ? data.reviews : [];
-          return reviews.map(
-            (r: {
-              rating: number;
-              comment?: string;
-              User?: { name?: string };
-            }) => ({
-              rating: r.rating,
-              comment: r.comment,
-              name: r.User?.name,
-              courseTitle: course.title,
-            }),
-          );
-        }),
-      );
-      if (!active) return;
-
-      const flattened = results
-        .flat()
-        .filter(
-          (r): r is { rating: number; comment: string; name: string; courseTitle: string } =>
-            Boolean(r.comment && r.name),
-        )
-        .sort((a, b) => b.rating - a.rating)
-        .slice(0, 3)
-        .map((r, i) => ({
-          id: `${r.name}-${i}`,
-          name: r.name,
-          rating: r.rating,
-          comment: r.comment,
-          courseTitle: r.courseTitle,
-        }));
-
-      setTestimonials(flattened);
-    })();
-
+    testimonialsApi.getAll().then((data) => {
+      if (active) setTestimonials(data.slice(0, 3));
+    });
     return () => {
       active = false;
     };
-  }, [courses]);
+  }, []);
 
   const instructors = dedupeInstructors(courses);
 

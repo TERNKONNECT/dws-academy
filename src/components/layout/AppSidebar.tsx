@@ -9,6 +9,7 @@ import {
   GraduationCap,
   Image,
   Wallet,
+  MessageSquare,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
@@ -50,6 +51,7 @@ const superAdminNavItems = [
   { title: "Instructors", url: "/dashboard/instructors", icon: ShieldCheck },
   { title: "Courses", url: "/dashboard/courses", icon: BookOpen },
   { title: "Events & Gallery", url: "/dashboard/events-gallery", icon: Image },
+  { title: "Testimonials", url: "/dashboard/testimonials", icon: MessageSquare },
   { title: "Users", url: "/dashboard/users", icon: Users },
   { title: "Analytics", url: "/dashboard/analytics", icon: BarChart3 },
   { title: "Revenue", url: "/dashboard/revenue", icon: Wallet },
