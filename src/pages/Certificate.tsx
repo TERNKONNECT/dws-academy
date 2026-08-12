@@ -104,6 +104,7 @@ const CertificatePage = () => {
             className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" /> Back to My Learning
+          </Link>
           <div className="flex gap-2">
             <Button onClick={handleDownloadImage} disabled={downloadingImage} variant="outline" className="gap-2">
               {downloadingImage ? (
