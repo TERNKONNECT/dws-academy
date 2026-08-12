@@ -13,7 +13,6 @@ const initialsOf = (name: string) =>
 
 const FacultyPeople = ({ faculty }: { faculty: Faculty[] }) => {
   const shown = faculty.slice(0, 4);
-  const placeholders = Math.max(0, 4 - shown.length);
 
   if (shown.length === 0) return null;
 
@@ -53,20 +52,6 @@ const FacultyPeople = ({ faculty }: { faculty: Faculty[] }) => {
                 </h4>
                 <div className="mt-1.5 text-xs font-semibold uppercase tracking-[0.04em] text-primary/80">
                   {[person.jobTitle, person.company].filter(Boolean).join(' • ') || 'Faculty'}
-                </div>
-              </div>
-            ))}
-            {Array.from({ length: placeholders }).map((_, i) => (
-              <div
-                key={`placeholder-${i}`}
-                className="rounded-2xl border border-dashed border-black/15 p-6 text-center text-muted-foreground"
-              >
-                <div className="mx-auto mb-4 flex h-[72px] w-[72px] items-center justify-center rounded-full border-[1.5px] border-dashed border-black/15 text-[#c8c8c8]">
-                  <Plus className="h-6 w-6" />
-                </div>
-                <h4 className="text-[15.5px] font-bold">Future Faculty</h4>
-                <div className="mt-1.5 text-xs font-semibold uppercase tracking-[0.04em]">
-                  Reserved
                 </div>
               </div>
             ))}
