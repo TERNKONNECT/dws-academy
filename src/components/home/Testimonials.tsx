@@ -1,6 +1,6 @@
 import { Star } from "lucide-react";
 import Reveal from "./Reveal";
-import type { TestimonialItem } from "./types";
+import type { Testimonial } from "@/api/testimonials";
 
 const initialsOf = (name: string) =>
   name
@@ -11,36 +11,47 @@ const initialsOf = (name: string) =>
     .join("")
     .toUpperCase();
 
-// Placeholder content — shown until real student reviews exist. Swap out
-// as soon as courses have real reviews (see Index.tsx's testimonials fetch).
-const placeholderTestimonials: TestimonialItem[] = [
+// Placeholder content — shown until real student reviews exist.
+const placeholderTestimonials: Testimonial[] = [
   {
     id: "placeholder-tariq",
     name: "Tariq Folarin",
-    rating: 5,
-    comment:
+    content:
       "I stopped pricing out of fear. Six months after the Business of Events course, I restructured my packages and my company finally has margin, not just movement.",
-    courseTitle: "Event Producer, Lagos",
+    jobTitle: "Event Producer",
+    companyName: "Lagos",
+    date: new Date().toISOString(),
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
   {
     id: "placeholder-ngozi",
     name: "Ngozi Chukwu",
-    rating: 5,
-    comment:
+    content:
       "I came in as a decorator with no systems. I left with a registered company, a pricing model and the confidence to say no to the wrong clients.",
-    courseTitle: "Décor Entrepreneur, Abuja",
+    jobTitle: "Décor Entrepreneur",
+    companyName: "Abuja",
+    date: new Date().toISOString(),
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
   {
     id: "placeholder-kwame",
     name: "Kwame Mensah",
-    rating: 5,
-    comment:
+    content:
       "The Financial Structure course changed how I run my books. For the first time, I know exactly what each event actually earns.",
-    courseTitle: "Production Lead, Accra",
+    jobTitle: "Production Lead",
+    companyName: "Accra",
+    date: new Date().toISOString(),
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
 ];
 
-const Testimonials = ({ testimonials }: { testimonials: TestimonialItem[] }) => {
+const Testimonials = ({ testimonials }: { testimonials: Testimonial[] }) => {
   const shown = testimonials.length > 0 ? testimonials : placeholderTestimonials;
 
   return (
@@ -68,12 +79,12 @@ const Testimonials = ({ testimonials }: { testimonials: TestimonialItem[] }) => 
                     <Star
                       key={i}
                       className="h-3.5 w-3.5"
-                      fill={i < t.rating ? "currentColor" : "none"}
+                      fill="currentColor"
                     />
                   ))}
                 </div>
                 <p className="mb-6 text-[15px] leading-relaxed text-[#333]">
-                  {t.comment}
+                  {t.content}
                 </p>
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0B0B0C] text-sm font-bold text-primary">
@@ -84,7 +95,7 @@ const Testimonials = ({ testimonials }: { testimonials: TestimonialItem[] }) => 
                       {t.name}
                     </div>
                     <div className="text-[12.5px] text-muted-foreground">
-                      {t.courseTitle}
+                      {[t.jobTitle, t.companyName].filter(Boolean).join(', ')}
                     </div>
                   </div>
                 </div>

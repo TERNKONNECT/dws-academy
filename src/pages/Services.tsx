@@ -1,164 +1,55 @@
-import { useState } from "react";
-import {
-  Heart,
-  Users,
-  Calendar,
-  Camera,
-  Music,
-  Sparkles,
-  CheckCircle,
-  Star,
-  Award,
-  Clock,
-  MapPin,
-  Phone,
-  Mail,
-  ArrowRight,
-} from "lucide-react";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import MainLayout from "@/components/layouts/MainLayout";
+import { useState, useEffect } from "react";
+import { testimonialsApi, type Testimonial } from "@/api/testimonials";
 
-const services = [
+const fallbackTestimonials: Testimonial[] = [
   {
-    icon: <Heart className="h-8 w-8" />,
-    title: "Wedding Planning",
-    description:
-      "Create your dream wedding with our comprehensive planning services. From intimate ceremonies to grand celebrations.",
-    features: [
-      "Complete wedding coordination",
-      "Venue selection and booking",
-      "Vendor management and coordination",
-      "Timeline planning and execution",
-      "Bridal party coordination",
-      "Day-of wedding management",
-    ],
-    image:
-      "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&auto=format&fit=crop&q=80",
-    price: "Starting from ₦500,000",
-  },
-  {
-    icon: <Users className="h-8 w-8" />,
-    title: "Corporate Events",
-    description:
-      "Professional corporate events that leave lasting impressions. Perfect for product launches, conferences, and team building.",
-    features: [
-      "Conference and seminar planning",
-      "Product launch coordination",
-      "Team building activities",
-      "Corporate dinner arrangements",
-      "Brand activation events",
-      "Executive meeting planning",
-    ],
-    image:
-      "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&auto=format&fit=crop&q=80",
-    price: "Starting from ₦300,000",
-  },
-  {
-    icon: <Star className="h-8 w-8" />,
-    title: "Birthday Celebrations",
-    description:
-      "Memorable birthday parties for all ages. From children's themed parties to milestone adult celebrations.",
-    features: [
-      "Themed party planning",
-      "Age-appropriate entertainment",
-      "Custom decoration design",
-      "Cake and catering coordination",
-      "Photography and videography",
-      "Party favor arrangements",
-    ],
-    image:
-      "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&auto=format&fit=crop&q=80",
-    price: "Starting from ₦150,000",
-  },
-  {
-    icon: <Calendar className="h-8 w-8" />,
-    title: "Special Occasions",
-    description:
-      "Celebrate life's precious moments with our special occasion planning. Anniversaries, graduations, and milestone events.",
-    features: [
-      "Anniversary celebrations",
-      "Graduation parties",
-      "Retirement celebrations",
-      "Baby showers and gender reveals",
-      "Engagement parties",
-      "Holiday celebrations",
-    ],
-    image:
-      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800&auto=format&fit=crop&q=80",
-    price: "Starting from ₦200,000",
-  },
-];
-
-const features = [
-  {
-    icon: <Camera className="h-6 w-6" />,
-    title: "Professional Photography",
-    description:
-      "Capture every precious moment with our team of expert photographers and videographers.",
-  },
-  {
-    icon: <Music className="h-6 w-6" />,
-    title: "Entertainment & Music",
-    description:
-      "Live bands, DJs, and entertainment options to keep your guests engaged throughout the event.",
-  },
-  {
-    icon: <Heart className="h-8 w-8" />,
-    title: "Custom Decorations",
-    description:
-      "Unique themes and decorations tailored to your vision and personal style preferences.",
-  },
-  {
-    icon: <Award className="h-6 w-6" />,
-    title: "Premium Vendors",
-    description:
-      "Access to our network of trusted, high-quality vendors for catering, flowers, and more.",
-  },
-  {
-    icon: <Clock className="h-6 w-6" />,
-    title: "Timeline Management",
-    description:
-      "Detailed timeline planning and coordination to ensure your event runs smoothly from start to finish.",
-  },
-  {
-    icon: <Users className="h-6 w-6" />,
-    title: "Guest Coordination",
-    description:
-      "Complete guest management including invitations, RSVPs, and special accommodation arrangements.",
-  },
-];
-
-const testimonials = [
-  {
+    id: "fb-1",
     name: "Sarah & Michael Johnson",
-    event: "Wedding",
-    rating: 5,
-    text: "DEWHITE SPARKLES made our wedding absolutely magical! Every detail was perfect and stress-free.",
-    image:
-      "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
+    jobTitle: "Clients",
+    companyName: "Wedding",
+    content: "DEWHITE SPARKLES made our wedding absolutely magical! Every detail was perfect and stress-free.",
+    date: new Date().toISOString(),
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
   {
+    id: "fb-2",
     name: "Tech Solutions Ltd",
-    event: "Corporate Launch",
-    rating: 5,
-    text: "Professional, creative, and flawless execution. Our product launch exceeded all expectations!",
-    image:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
+    jobTitle: "Corporate Client",
+    companyName: "Tech Solutions",
+    content: "Professional, creative, and flawless execution. Our product launch exceeded all expectations!",
+    date: new Date().toISOString(),
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
   {
+    id: "fb-3",
     name: "The Davis Family",
-    event: "Birthday Celebration",
-    rating: 5,
-    text: "They turned our daughter's 16th birthday into a fairy tale. Absolutely incredible work!",
-    image:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
+    jobTitle: "Clients",
+    companyName: "Birthday Celebration",
+    content: "They turned our daughter's 16th birthday into a fairy tale. Absolutely incredible work!",
+    date: new Date().toISOString(),
+    isActive: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
 ];
 
 export default function Services() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>(fallbackTestimonials);
+
+  useEffect(() => {
+    let active = true;
+    testimonialsApi.getAll().then((data) => {
+      if (active && data.length > 0) {
+        setTestimonials(data);
+      }
+    }).catch(console.error);
+    return () => { active = false; };
+  }, []);
 
   return (
     <MainLayout>
@@ -343,12 +234,12 @@ export default function Services() {
                 </div>
 
                 <blockquote className="text-2xl text-white leading-relaxed">
-                  "{testimonials[activeTestimonial].text}"
+                  "{testimonials[activeTestimonial].content}"
                 </blockquote>
 
                 <div className="flex items-center justify-center space-x-4">
                   <img
-                    src={testimonials[activeTestimonial].image}
+                    src={`https://ui-avatars.com/api/?name=${encodeURIComponent(testimonials[activeTestimonial].name)}&background=random`}
                     alt={testimonials[activeTestimonial].name}
                     className="w-16 h-16 rounded-full border-2 border-yellow-400"
                   />
@@ -357,7 +248,7 @@ export default function Services() {
                       {testimonials[activeTestimonial].name}
                     </p>
                     <p className="text-yellow-400">
-                      {testimonials[activeTestimonial].event}
+                      {[testimonials[activeTestimonial].jobTitle, testimonials[activeTestimonial].companyName].filter(Boolean).join(' • ')}
                     </p>
                   </div>
                 </div>
