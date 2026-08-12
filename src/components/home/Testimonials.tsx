@@ -2,14 +2,16 @@ import { Star } from "lucide-react";
 import Reveal from "./Reveal";
 import type { Testimonial } from "@/api/testimonials";
 
-const initialsOf = (name: string) =>
-  name
+const initialsOf = (name?: string) => {
+  if (!name) return "";
+  return name
     .split(" ")
     .map((part) => part[0])
     .filter(Boolean)
     .slice(0, 2)
     .join("")
     .toUpperCase();
+};
 
 // Placeholder content — shown until real student reviews exist.
 const placeholderTestimonials: Testimonial[] = [
@@ -52,7 +54,8 @@ const placeholderTestimonials: Testimonial[] = [
 ];
 
 const Testimonials = ({ testimonials }: { testimonials: Testimonial[] }) => {
-  const shown = testimonials.length > 0 ? testimonials : placeholderTestimonials;
+  const safeTestimonials = Array.isArray(testimonials) ? testimonials : [];
+  const shown = safeTestimonials.length > 0 ? safeTestimonials : placeholderTestimonials;
 
   return (
     <section id="testimonials" className="bg-[#F7F6F3] py-24 md:py-32">

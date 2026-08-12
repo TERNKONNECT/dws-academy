@@ -4,7 +4,7 @@ import { Download, Loader2, ArrowLeft } from "lucide-react";
 import MainLayout from "@/components/layouts/MainLayout";
 import { Button } from "@/components/ui/button";
 import Certificate from "@/components/certificate/Certificate";
-import { downloadCertificatePdf } from "@/components/certificate/downloadCertificate";
+import { downloadCertificatePdf, downloadCertificateImage } from "@/components/certificate/downloadCertificate";
 import { useAuthStore } from "@/stores/authStore";
 import { useEnrollmentStore } from "@/stores/enrollmentStore";
 import { certificatesApi, type CertificateRecord } from "@/api/certificates";
@@ -23,7 +23,8 @@ const CertificatePage = () => {
   const [certificate, setCertificate] = useState<CertificateRecord | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [downloading, setDownloading] = useState(false);
+  const [downloadingPdf, setDownloadingPdf] = useState(false);
+  const [downloadingImage, setDownloadingImage] = useState(false);
   const certRef = useRef<HTMLDivElement>(null);
 
   const enrollment = courseId ? getEnrolledCourse(courseId) : undefined;
@@ -42,16 +43,29 @@ const CertificatePage = () => {
       .finally(() => setLoading(false));
   }, [courseId, isCompleted]);
 
-  const handleDownload = async () => {
+  const handleDownloadPdf = async () => {
     if (!certRef.current || !certificate) return;
-    setDownloading(true);
+    setDownloadingPdf(true);
     try {
       await downloadCertificatePdf(
         certRef.current,
         `${certificate.courseName.replace(/[^a-z0-9]+/gi, "-")}-certificate.pdf`,
       );
     } finally {
-      setDownloading(false);
+      setDownloadingPdf(false);
+    }
+  };
+
+  const handleDownloadImage = async () => {
+    if (!certRef.current || !certificate) return;
+    setDownloadingImage(true);
+    try {
+      await downloadCertificateImage(
+        certRef.current,
+        `${certificate.courseName.replace(/[^a-z0-9]+/gi, "-")}-certificate.png`,
+      );
+    } finally {
+      setDownloadingImage(false);
     }
   };
 
@@ -90,15 +104,24 @@ const CertificatePage = () => {
             className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" /> Back to My Learning
-          </Link>
-          <Button onClick={handleDownload} disabled={downloading} className="gap-2">
-            {downloading ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <Download className="h-4 w-4" />
-            )}
-            Download PDF
-          </Button>
+          <div className="flex gap-2">
+            <Button onClick={handleDownloadImage} disabled={downloadingImage} variant="outline" className="gap-2">
+              {downloadingImage ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Download className="h-4 w-4" />
+              )}
+              Save as Image
+            </Button>
+            <Button onClick={handleDownloadPdf} disabled={downloadingPdf} className="gap-2">
+              {downloadingPdf ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Download className="h-4 w-4" />
+              )}
+              Save as PDF
+            </Button>
+          </div>
         </div>
 
         <div className="w-full overflow-x-auto rounded-lg border bg-muted/30 p-6 flex justify-center">

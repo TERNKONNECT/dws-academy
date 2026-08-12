@@ -33,6 +33,11 @@ import { Switch } from '@/components/ui/switch';
 import { Plus, Pencil, Trash2, Loader2, Users } from 'lucide-react';
 import { toast } from 'sonner';
 
+const getInitials = (name: string) => {
+  if (!name) return '';
+  return name.split(' ').map(n => n[0]).filter(Boolean).join('').substring(0, 2).toUpperCase();
+};
+
 export default function AdminFaculty() {
   const queryClient = useQueryClient();
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -191,7 +196,22 @@ export default function AdminFaculty() {
             <TableBody>
               {faculties.map((f) => (
                 <TableRow key={f.id}>
-                  <TableCell className="font-medium">{f.name}</TableCell>
+                  <TableCell className="font-medium">
+                    <div className="flex items-center gap-3">
+                      {f.avatar ? (
+                        <img 
+                          src={f.avatar} 
+                          alt={f.name} 
+                          className="h-10 w-10 rounded-full object-cover border border-black/10" 
+                        />
+                      ) : (
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0B0B0C] font-bold text-primary text-sm">
+                          {getInitials(f.name)}
+                        </div>
+                      )}
+                      <span>{f.name}</span>
+                    </div>
+                  </TableCell>
                   <TableCell className="text-muted-foreground">{f.jobTitle || '-'}</TableCell>
                   <TableCell className="text-muted-foreground">{f.company || '-'}</TableCell>
                   <TableCell className="text-sm text-muted-foreground">

@@ -12,7 +12,8 @@ const initialsOf = (name: string) =>
     .toUpperCase();
 
 const FacultyPeople = ({ faculty }: { faculty: Faculty[] }) => {
-  const shown = faculty.slice(0, 4);
+  const safeFaculty = Array.isArray(faculty) ? faculty : [];
+  const shown = safeFaculty.slice(0, 4);
 
   if (shown.length === 0) return null;
 
