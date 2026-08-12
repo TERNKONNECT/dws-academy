@@ -53,7 +53,7 @@ const Index = () => {
   useEffect(() => {
     let active = true;
     testimonialsApi.getAll().then((data) => {
-      if (active) setTestimonials(data.slice(0, 3));
+      if (active) setTestimonials(data);
     });
     facultyApi.getAll().then((data) => {
       if (active) setFaculty(data);

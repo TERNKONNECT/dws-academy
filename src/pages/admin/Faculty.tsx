@@ -39,6 +39,8 @@ export default function AdminFaculty() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [editingFaculty, setEditingFaculty] = useState<Faculty | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -87,6 +89,7 @@ export default function AdminFaculty() {
   const handleOpenAdd = () => {
     setEditingFaculty(null);
     setFormData({ name: '', jobTitle: '', company: '', shortDescription: '', isActive: true });
+    setAvatarFile(null);
     setIsFormOpen(true);
   };
 
@@ -99,6 +102,7 @@ export default function AdminFaculty() {
       shortDescription: faculty.shortDescription || '',
       isActive: faculty.isActive,
     });
+    setAvatarFile(null);
     setIsFormOpen(true);
   };
 
@@ -107,12 +111,30 @@ export default function AdminFaculty() {
     setIsDeleteDialogOpen(true);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (editingFaculty) {
-      updateMutation.mutate({ id: editingFaculty.id, data: formData });
-    } else {
-      createMutation.mutate(formData);
+    setIsSaving(true);
+    try {
+      let facultyId = editingFaculty?.id;
+      
+      if (editingFaculty) {
+        await facultyApi.update(editingFaculty.id, formData);
+      } else {
+        const result = await facultyApi.create(formData);
+        facultyId = result.id;
+      }
+      
+      if (avatarFile && facultyId) {
+        await facultyApi.uploadAvatar(facultyId, avatarFile);
+      }
+      
+      queryClient.invalidateQueries({ queryKey: ['admin-faculty'] });
+      toast.success(editingFaculty ? 'Faculty member updated successfully' : 'Faculty member added successfully');
+      setIsFormOpen(false);
+    } catch (error) {
+      toast.error('Failed to save faculty member');
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -219,15 +241,26 @@ export default function AdminFaculty() {
             </DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">Full Name</Label>
-              <Input
-                id="name"
-                placeholder="e.g. John Doe"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                required
-              />
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="name">Full Name</Label>
+                <Input
+                  id="name"
+                  placeholder="e.g. John Doe"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="avatar">Profile Image (Optional)</Label>
+                <Input
+                  id="avatar"
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setAvatarFile(e.target.files?.[0] || null)}
+                />
+              </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
@@ -289,9 +322,9 @@ export default function AdminFaculty() {
               </Button>
               <Button
                 type="submit"
-                disabled={createMutation.isPending || updateMutation.isPending}
+                disabled={isSaving}
               >
-                {(createMutation.isPending || updateMutation.isPending) && (
+                {isSaving && (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 )}
                 {editingFaculty ? 'Save Changes' : 'Add Faculty'}

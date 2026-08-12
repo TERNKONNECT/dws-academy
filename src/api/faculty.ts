@@ -22,6 +22,14 @@ export const facultyApi = {
   update: (id: string, data: Partial<Faculty>): Promise<Faculty> =>
     api.put(`/api/faculty/admin/${id}`, data).then((r) => r.data),
 
+  uploadAvatar: (id: string, file: File): Promise<Faculty> => {
+    const formData = new FormData();
+    formData.append("avatar", file);
+    return api.post(`/api/faculty/admin/${id}/avatar`, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    }).then((r) => r.data);
+  },
+
   delete: (id: string): Promise<void> =>
     api.delete(`/api/faculty/admin/${id}`).then((r) => r.data),
 };
