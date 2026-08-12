@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { errorMessage } from "@/lib/utils";
 import { Link, useNavigate } from "react-router-dom";
 import { Mail, Lock, User, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -71,10 +72,10 @@ const Signup = () => {
         description: message,
       });
       navigate(`/verify-email?email=${encodeURIComponent(email)}`);
-    } catch (err: any) {
+    } catch (err: unknown) {
       toast({
         title: "Error",
-        description: err.message || "Signup failed.",
+        description: errorMessage(err, "Signup failed."),
         variant: "destructive",
       });
     } finally {

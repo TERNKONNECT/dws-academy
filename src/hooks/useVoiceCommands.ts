@@ -13,7 +13,7 @@ export function useVoiceCommands(
   const [isListening, setIsListening] = useState(false);
   const [lastTranscript, setLastTranscript] = useState("");
   const [isSupported, setIsSupported] = useState(false);
-  const recognitionRef = useRef<any>(null);
+  const recognitionRef = useRef<SpeechRecognition | null>(null);
   const isPausedRef = useRef(false);
   const enabledRef = useRef(enabled);
   const commandsRef = useRef(commands);
@@ -27,36 +27,40 @@ export function useVoiceCommands(
 
   useEffect(() => {
     const SpeechRecognition =
-      (window as any).SpeechRecognition ||
-      (window as any).webkitSpeechRecognition;
+      window.SpeechRecognition ||
+      window.webkitSpeechRecognition;
     setIsSupported(!!SpeechRecognition);
   }, []);
 
   useEffect(() => {
-    (window as any).pauseVoiceRecognition = () => {
+    window.pauseVoiceRecognition = () => {
       isPausedRef.current = true;
       try {
         recognitionRef.current?.stop();
-      } catch (e) {}
+      } catch {
+        // Recognition was already in the requested state.
+      }
     };
-    (window as any).resumeVoiceRecognition = () => {
+    window.resumeVoiceRecognition = () => {
       isPausedRef.current = false;
       if (enabledRef.current && recognitionRef.current) {
         try {
           recognitionRef.current.start();
-        } catch (e) {}
+        } catch {
+        // Recognition was already in the requested state.
+      }
       }
     };
     return () => {
-      delete (window as any).pauseVoiceRecognition;
-      delete (window as any).resumeVoiceRecognition;
+      delete window.pauseVoiceRecognition;
+      delete window.resumeVoiceRecognition;
     };
   }, []);
 
   const startRecognition = useCallback(() => {
     const SpeechRecognition =
-      (window as any).SpeechRecognition ||
-      (window as any).webkitSpeechRecognition;
+      window.SpeechRecognition ||
+      window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
       if (onError) onError("Speech recognition not supported in this browser.");
       return;
@@ -64,7 +68,9 @@ export function useVoiceCommands(
 
     try {
       recognitionRef.current?.stop();
-    } catch (e) {}
+    } catch {
+        // Recognition was already in the requested state.
+      }
 
     const recognition = new SpeechRecognition();
     recognition.continuous = true;
@@ -75,7 +81,7 @@ export function useVoiceCommands(
 
     recognition.onstart = () => setIsListening(true);
 
-    recognition.onresult = (event: any) => {
+    recognition.onresult = (event: SpeechRecognitionEvent) => {
       if (isPausedRef.current) return;
       const last = event.results.length - 1;
       const transcript = event.results[last][0].transcript.trim();
@@ -113,7 +119,7 @@ export function useVoiceCommands(
       setTimeout(() => setLastTranscript(""), 2000);
     };
 
-    recognition.onerror = (event: any) => {
+    recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
       if (event.error === "not-allowed") {
         setIsListening(false);
         if (onError)
@@ -128,21 +134,27 @@ export function useVoiceCommands(
         if (enabledRef.current && !isPausedRef.current) {
           try {
             recognition.start();
-          } catch (e) {}
+          } catch {
+        // Recognition was already in the requested state.
+      }
         }
       }, 300);
     };
 
     try {
       recognition.start();
-    } catch (e) {}
+    } catch {
+        // Recognition was already in the requested state.
+      }
   }, [onError]);
 
   useEffect(() => {
     if (!enabled) {
       try {
         recognitionRef.current?.stop();
-      } catch (e) {}
+      } catch {
+        // Recognition was already in the requested state.
+      }
       setIsListening(false);
       return;
     }
@@ -151,7 +163,9 @@ export function useVoiceCommands(
     return () => {
       try {
         recognitionRef.current?.stop();
-      } catch (e) {}
+      } catch {
+        // Recognition was already in the requested state.
+      }
       recognitionRef.current = null;
     };
   }, [enabled]);

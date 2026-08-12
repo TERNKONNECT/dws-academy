@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { errorField, errorMessage } from "@/lib/utils";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { CheckCircle2, Loader2, BookOpen, GraduationCap } from "lucide-react";
 import MainLayout from "@/components/layouts/MainLayout";
@@ -45,8 +46,8 @@ const PaymentSuccess = () => {
           courseTitle: payment.courseTitle,
         });
       })
-      .catch((err: any) => {
-        const courseId = err?.courseId;
+      .catch((err: unknown) => {
+        const courseId = errorField(err, "courseId");
         // Redirect to failed page with courseId if available
         if (courseId) {
           navigate(
@@ -56,7 +57,7 @@ const PaymentSuccess = () => {
         } else {
           setState({
             loading: false,
-            error: err.message || "Unable to verify payment.",
+            error: errorMessage(err, "Unable to verify payment."),
           });
         }
       });

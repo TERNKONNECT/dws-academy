@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { errorMessage } from "@/lib/utils";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   Star,
@@ -27,7 +28,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import MainLayout from "@/components/layouts/MainLayout";
-import { api } from "@/services/api";
+import { api, type CourseReview, type CourseReviews } from "@/services/api";
 import { useAuthStore } from "@/stores/authStore";
 import { useEnrollmentStore } from "@/stores/enrollmentStore";
 import { useToast } from "@/hooks/use-toast";
@@ -39,7 +40,7 @@ const CourseDetail = () => {
   const [course, setCourse] = useState<Course | null>(null);
   const [loading, setLoading] = useState(true);
   const [expandedModules, setExpandedModules] = useState<string[]>([]);
-  const [reviews, setReviews] = useState<any[]>([]);
+  const [reviews, setReviews] = useState<CourseReview[]>([]);
   const [avgRating, setAvgRating] = useState(0);
   const [totalReviews, setTotalReviews] = useState(0);
   const [userRating, setUserRating] = useState(0);
@@ -76,15 +77,15 @@ const CourseDetail = () => {
   // Fetch reviews from backend
   useEffect(() => {
     if (!id) return;
-    (api as any)
+    api
       .getCourseReviews(id)
-      .then((data: any) => {
+      .then((data: CourseReviews) => {
         setReviews(data.reviews ?? []);
         setAvgRating(data.avgRating ?? 0);
         setTotalReviews(data.totalReviews ?? 0);
         if (
           currentUser?.id &&
-          data.reviews?.some((r: any) => r.User?.id === currentUser.id)
+          data.reviews?.some((r) => r.User?.id === currentUser.id)
         ) {
           setHasReviewed(true);
         }
@@ -101,18 +102,9 @@ const CourseDetail = () => {
     totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
   const hasCompleted = enrollment?.isCompleted ?? false;
   const isPaid = course?.pricingType === "paid" && Number(course?.price || 0) > 0;
-  
-  const [serviceFeePercentage, setServiceFeePercentage] = useState(0);
 
-  useEffect(() => {
-    api.getPaymentConfig().then((config) => {
-      setServiceFeePercentage(config.serviceFeePercentage || 0);
-    });
-  }, []);
-
+  // The student pays the course price and nothing else.
   const courseFee = Number(course?.price || 0);
-  const serviceFee = courseFee * (serviceFeePercentage / 100);
-  const totalAmount = courseFee + serviceFee;
 
   const formatPrice = (amount = 0, currency = "NGN") =>
     new Intl.NumberFormat("en-NG", {
@@ -133,10 +125,10 @@ const CourseDetail = () => {
           title: "Enrolled!",
           description: `You've been enrolled in ${course?.title}`,
         });
-      } catch (err: any) {
+      } catch (err: unknown) {
         toast({
           title: "Error",
-          description: err.message || "Failed to enroll",
+          description: errorMessage(err, "Failed to enroll"),
           variant: "destructive",
         });
       }
@@ -168,12 +160,12 @@ const CourseDetail = () => {
     try {
       const payment = await api.initializePayment(id);
       window.location.href = payment.authorizationUrl;
-    } catch (err: any) {
+    } catch (err: unknown) {
       // User already has access (paid before, or enrollment exists) — refresh
       // and send them straight to the course instead of showing an error.
       if (
-        err.message?.toLowerCase().includes("already have access") ||
-        err.message?.toLowerCase().includes("already completed")
+        errorMessage(err).toLowerCase().includes("already have access") ||
+        errorMessage(err).toLowerCase().includes("already completed")
       ) {
         const { refreshFromServer } = useEnrollmentStore.getState();
         await refreshFromServer();
@@ -182,7 +174,7 @@ const CourseDetail = () => {
       }
       toast({
         title: "Checkout failed",
-        description: err.message || "Unable to start payment",
+        description: errorMessage(err, "Unable to start payment"),
         variant: "destructive",
       });
       setCheckingOut(false);
@@ -193,20 +185,20 @@ const CourseDetail = () => {
     if (!id || userRating === 0) return;
     setSubmittingReview(true);
     try {
-      await (api as any).submitReview(id, userRating, userComment);
+      await api.submitReview(id, userRating, userComment);
       toast({
         title: "Review submitted!",
         description: "Thank you for your feedback.",
       });
       setHasReviewed(true);
-      const data: any = await (api as any).getCourseReviews(id);
+      const data = await api.getCourseReviews(id);
       setReviews(data.reviews ?? []);
       setAvgRating(data.avgRating ?? 0);
       setTotalReviews(data.totalReviews ?? 0);
-    } catch (err: any) {
+    } catch (err: unknown) {
       toast({
         title: "Error",
-        description: err.message || "Failed to submit review",
+        description: errorMessage(err, "Failed to submit review"),
         variant: "destructive",
       });
     } finally {
@@ -514,7 +506,7 @@ const CourseDetail = () => {
                   {hasCompleted ? " Be the first to review!" : ""}
                 </p>
               ) : (
-                reviews.map((review: any) => (
+                reviews.map((review) => (
                   <Card key={review.id}>
                     <CardContent className="p-4 flex gap-4">
                       <img
@@ -590,21 +582,21 @@ const CourseDetail = () => {
           <DialogHeader>
             <DialogTitle>Payment Summary</DialogTitle>
             <DialogDescription>
-              Review your breakdown before proceeding to payment.
+              Confirm before continuing to payment.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="flex justify-between items-center text-sm">
-              <span className="text-muted-foreground">Course Fee</span>
-              <span className="font-medium">{course.currency} {courseFee.toLocaleString()}</span>
-            </div>
-            <div className="flex justify-between items-center text-sm">
-              <span className="text-muted-foreground">Service Fee ({serviceFeePercentage}%)</span>
-              <span className="font-medium">{course.currency} {serviceFee.toLocaleString()}</span>
+              <span className="text-muted-foreground">{course.title}</span>
+              <span className="font-medium">
+                {course.currency} {courseFee.toLocaleString()}
+              </span>
             </div>
             <div className="border-t pt-4 flex justify-between items-center">
-              <span className="font-bold text-lg">Total Amount</span>
-              <span className="font-bold text-lg text-primary">{course.currency} {totalAmount.toLocaleString()}</span>
+              <span className="font-bold text-lg">Total</span>
+              <span className="font-bold text-lg text-primary">
+                {course.currency} {courseFee.toLocaleString()}
+              </span>
             </div>
           </div>
           <Button
@@ -614,7 +606,9 @@ const CourseDetail = () => {
             disabled={checkingOut}
           >
             <CreditCard className="mr-2 h-4 w-4" />
-            {checkingOut ? "Processing..." : `Pay ${course.currency} ${totalAmount.toLocaleString()}`}
+            {checkingOut
+              ? "Processing..."
+              : `Pay ${course.currency} ${courseFee.toLocaleString()}`}
           </Button>
         </DialogContent>
       </Dialog>

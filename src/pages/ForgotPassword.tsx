@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { errorMessage } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { Mail, ArrowLeft, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -46,10 +47,10 @@ const ForgotPassword = () => {
         title: "Code sent",
         description: data.message || "Check your email for the reset code.",
       });
-    } catch (err: any) {
+    } catch (err: unknown) {
       toast({
         title: "Error",
-        description: err.message || "Failed to send reset code.",
+        description: errorMessage(err, "Failed to send reset code."),
         variant: "destructive",
       });
     } finally {
@@ -90,10 +91,10 @@ const ForgotPassword = () => {
       });
       setOtp("");
       setPassword("");
-    } catch (err: any) {
+    } catch (err: unknown) {
       toast({
         title: "Error",
-        description: err.message || "Failed to reset password.",
+        description: errorMessage(err, "Failed to reset password."),
         variant: "destructive",
       });
     } finally {

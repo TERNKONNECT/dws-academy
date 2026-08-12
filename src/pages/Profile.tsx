@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { errorMessage } from "@/lib/utils";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Mail,
@@ -147,10 +148,10 @@ const Profile = () => {
       setAvatarProgress(0);
       if (user) setUser({ ...user, avatar: res.avatar });
       toast({ title: "Avatar updated" });
-    } catch (err: any) {
+    } catch (err: unknown) {
       toast({
         title: "Error",
-        description: err.message || "Failed to upload avatar",
+        description: errorMessage(err, "Failed to upload avatar"),
         variant: "destructive",
       });
     } finally {
@@ -182,11 +183,11 @@ const Profile = () => {
       setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
-    } catch (err: any) {
+    } catch (err: unknown) {
       toast({
         title: "Error",
         description:
-          err.response?.data?.error || err.message || "Failed to update password",
+          errorMessage(err) || errorMessage(err, "Failed to update password"),
         variant: "destructive",
       });
     } finally {
@@ -201,11 +202,11 @@ const Profile = () => {
       toast({ title: "Account deactivated" });
       logout();
       navigate("/login");
-    } catch (err: any) {
+    } catch (err: unknown) {
       toast({
         title: "Error",
         description:
-          err.response?.data?.error || err.message || "Failed to deactivate account",
+          errorMessage(err) || errorMessage(err, "Failed to deactivate account"),
         variant: "destructive",
       });
     } finally {

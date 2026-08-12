@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
+import { errorMessage } from "@/lib/utils";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { coursesApi } from "@/api/courses";
-import type { Course } from "@/types";
+import type { AdminCourse as Course } from "@/types/admin";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -65,14 +66,14 @@ const CourseDetail = () => {
       .getById(id)
       .then((c) => {
         setCourse(c);
-        setWhatYouLearn((c as any).whatYouLearn ?? []);
+        setWhatYouLearn(c.whatYouLearn ?? []);
         form.reset({
           title: c.title,
           description: c.description,
           difficulty: c.difficulty || "Beginner",
           status: c.status,
-          pricingType: (c as any).pricingType ?? "free",
-          price: Number((c as any).price || 0),
+          pricingType: c.pricingType ?? "free",
+          price: Number(c.price || 0),
         });
       })
       .catch(() => toast.error("Course not found"))
@@ -83,7 +84,7 @@ const CourseDetail = () => {
     if (!id) return;
     setSaving(true);
     try {
-      await coursesApi.update(id, { ...data, whatYouLearn } as any);
+      await coursesApi.update(id, { ...data, whatYouLearn });
       toast.success("Course updated");
     } catch {
       toast.error("Update failed");
@@ -119,8 +120,8 @@ const CourseDetail = () => {
       setThumbnailFile(null);
       setThumbProgress(0);
       toast.success("Thumbnail uploaded");
-    } catch (err: any) {
-      toast.error(err.message || "Failed to upload thumbnail");
+    } catch (err: unknown) {
+      toast.error(errorMessage(err, "Failed to upload thumbnail"));
     } finally {
       setUploadingThumb(false);
     }

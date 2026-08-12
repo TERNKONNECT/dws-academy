@@ -96,8 +96,7 @@ const AdminInvite = () => {
         joinedAt: data.user.createdAt,
       };
 
-      localStorage.setItem("lms_token", data.token);
-      localStorage.setItem("lms_user", JSON.stringify(user));
+      // The persisted auth store is the only place the session lives.
       useAuthStore.setState({
         user,
         token: data.token,

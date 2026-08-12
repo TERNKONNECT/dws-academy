@@ -1,33 +1,30 @@
 import { create } from "zustand";
 import type { EnrolledCourse, QuizAttempt } from "@/types";
+import {
+  authHeaders as sessionAuthHeaders,
+  getPersistedUserId,
+  getToken,
+} from "@/lib/session";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:9000";
 
-const getToken = () => {
-  try {
-    const auth = JSON.parse(localStorage.getItem("lms-auth") || "{}");
-    return auth?.state?.token ?? localStorage.getItem("lms_token");
-  } catch {
-    return localStorage.getItem("lms_token");
-  }
-};
-
-const getPersistedUserId = () => {
-  try {
-    const auth = JSON.parse(localStorage.getItem("lms-auth") || "{}");
-    const authUserId = auth?.state?.user?.id;
-    if (authUserId) return authUserId;
-
-    const user = JSON.parse(localStorage.getItem("lms_user") || "{}");
-    return user?.id ?? null;
-  } catch {
-    return null;
-  }
-};
+/** One row from GET /api/enrollments/my. */
+interface ServerEnrollment {
+  enrollmentId: string;
+  enrolledAt: string;
+  isCompleted: boolean;
+  completedAt?: string;
+  completedLessonIds?: string[];
+  course?: { id: string };
+  // Older responses used the Sequelize model name; tolerated while any client is
+  // still running the previous build.
+  Course?: { id: string };
+  courseId?: string;
+}
 
 const authHeaders = () => ({
   "Content-Type": "application/json",
-  Authorization: `Bearer ${getToken()}`,
+  ...sessionAuthHeaders(),
 });
 
 const storageKey = (userId: string) => `lms-enrollment-${userId}`;
@@ -44,7 +41,10 @@ const loadFromStorage = (userId: string): EnrolledCourse[] => {
 const saveToStorage = (userId: string, courses: EnrolledCourse[]) => {
   try {
     localStorage.setItem(storageKey(userId), JSON.stringify(courses));
-  } catch {}
+  } catch {
+    // Storage full or unavailable (private browsing). Progress still lives on the
+    // server; the cache is only a first-paint optimisation.
+  }
 };
 
 interface EnrollmentState {
@@ -55,7 +55,7 @@ interface EnrollmentState {
   clearEnrollments: () => void;
   enroll: (courseId: string) => Promise<void>;
   isEnrolled: (courseId: string) => boolean;
-  completeLesson: (courseId: string, lessonId: string) => void;
+  completeLesson: (courseId: string, lessonId: string) => Promise<void>;
   isLessonCompleted: (courseId: string, lessonId: string) => boolean;
   completeModule: (courseId: string, moduleId: string) => void;
   isModuleCompleted: (courseId: string, moduleId: string) => boolean;
@@ -89,7 +89,7 @@ export const useEnrollmentStore = create<EnrollmentState>()((set, get) => ({
       });
       if (!res.ok) return;
       const data = await res.json();
-      const serverCourses: EnrolledCourse[] = data.map((item: any) => ({
+      const serverCourses: EnrolledCourse[] = (data as ServerEnrollment[]).map((item) => ({
         courseId: item.course?.id ?? item.Course?.id ?? item.courseId,
         enrolledAt: item.enrolledAt,
         completedLessons: item.completedLessonIds ?? [],
@@ -103,18 +103,30 @@ export const useEnrollmentStore = create<EnrollmentState>()((set, get) => ({
         const local = existing.find((c) => c.courseId === serverCourse.courseId);
         return {
           ...serverCourse,
-          completedLessons: local?.completedLessons ?? serverCourse.completedLessons,
+          // Server progress wins. Only the purely client-side bookkeeping below
+          // falls back to what we already had.
           completedModules: local?.completedModules ?? [],
           quizAttempts: local?.quizAttempts ?? [],
         };
       });
       set({ enrolledCourses: merged });
       saveToStorage(uid, merged);
-    } catch {}
+    } catch {
+      // Offline or the API is down. Keep whatever was cached rather than blanking
+      // the learner's course list.
+    }
   },
 
   // Call this on logout
   clearEnrollments: () => {
+    const uid = get().userId;
+    if (uid) {
+      try {
+        localStorage.removeItem(storageKey(uid));
+      } catch {
+        // Storage unavailable (private mode); in-memory clear below still applies.
+      }
+    }
     set({ userId: null, enrolledCourses: [] });
   },
 
@@ -150,8 +162,9 @@ export const useEnrollmentStore = create<EnrollmentState>()((set, get) => ({
   isEnrolled: (courseId) =>
     get().enrolledCourses.some((c) => c.courseId === courseId),
 
-  completeLesson: (courseId, lessonId) => {
+  completeLesson: async (courseId, lessonId) => {
     if (get().isLessonCompleted(courseId, lessonId)) return;
+    const snapshot = get().enrolledCourses;
 
     let found = false;
     const updated = get().enrolledCourses.map((c) => {
@@ -180,11 +193,19 @@ export const useEnrollmentStore = create<EnrollmentState>()((set, get) => ({
     if (uid) saveToStorage(uid, updated);
 
     try {
-      fetch(
+      const res = await fetch(
         `${API_URL}/api/enrollments/${courseId}/lessons/${lessonId}/complete`,
         { method: "POST", headers: authHeaders() },
       );
-    } catch {}
+      if (!res.ok) throw new Error("Could not save progress");
+      // Re-read so the course-completion flag reflects the server's own rule
+      // (all lessons done and every module quiz passed), not a local guess.
+      await get().refreshFromServer();
+    } catch (err) {
+      set({ enrolledCourses: snapshot });
+      if (uid) saveToStorage(uid, snapshot);
+      throw err;
+    }
   },
 
   isLessonCompleted: (courseId, lessonId) => {

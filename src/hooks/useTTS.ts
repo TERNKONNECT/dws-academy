@@ -3,8 +3,8 @@
 // // Unlock Web Speech on iOS/Android by speaking a silent utterance
 // // on the first user gesture — must happen synchronously in the handler
 // function unlockAudio() {
-//   if ((window as any).__tts_unlocked__) return;
-//   (window as any).__tts_unlocked__ = true;
+//   if (window.__tts_unlocked__) return;
+//   window.__tts_unlocked__ = true;
 //   const u = new SpeechSynthesisUtterance("");
 //   u.volume = 0;
 //   window.speechSynthesis.speak(u);
@@ -33,8 +33,8 @@
 //     (text: string, rate: number = 1) => {
 //       if (!synth) return;
 
-//       if ((window as any).pauseVoiceRecognition) {
-//         (window as any).pauseVoiceRecognition();
+//       if (window.pauseVoiceRecognition) {
+//         window.pauseVoiceRecognition();
 //       }
 
 //       isCancellingRef.current = true;
@@ -48,15 +48,15 @@
 //         utteranceRef.current = utterance;
 
 //         utterance.onend = () => {
-//           if ((window as any).resumeVoiceRecognition) {
-//             setTimeout(() => (window as any).resumeVoiceRecognition(), 300);
+//           if (window.resumeVoiceRecognition) {
+//             setTimeout(() => window.resumeVoiceRecognition(), 300);
 //           }
 //         };
 
 //         utterance.onerror = (e) => {
 //           if (isCancellingRef.current || e.error === "interrupted") return;
-//           if ((window as any).resumeVoiceRecognition) {
-//             (window as any).resumeVoiceRecognition();
+//           if (window.resumeVoiceRecognition) {
+//             window.resumeVoiceRecognition();
 //           }
 //         };
 
@@ -71,8 +71,8 @@
 //       isCancellingRef.current = true;
 //       synth.cancel();
 //       setTimeout(() => (isCancellingRef.current = false), 100);
-//       if ((window as any).resumeVoiceRecognition) {
-//         (window as any).resumeVoiceRecognition();
+//       if (window.resumeVoiceRecognition) {
+//         window.resumeVoiceRecognition();
 //       }
 //     }
 //   }, [synth]);
@@ -85,8 +85,8 @@ import { useCallback, useRef, useEffect } from "react";
 const TTS_ENABLED_KEY = "tts_enabled";
 
 function unlockAudio() {
-  if ((window as any).__tts_unlocked__) return;
-  (window as any).__tts_unlocked__ = true;
+  if (window.__tts_unlocked__) return;
+  window.__tts_unlocked__ = true;
   const u = new SpeechSynthesisUtterance("");
   u.volume = 0;
   window.speechSynthesis.speak(u);
@@ -98,7 +98,7 @@ export function isTTSEnabled(): boolean {
 
 export function setTTSEnabled(enabled: boolean) {
   localStorage.setItem(TTS_ENABLED_KEY, String(enabled));
-  (window as any).__tts_enabled__ = enabled;
+  window.__tts_enabled__ = enabled;
   if (!enabled) window.speechSynthesis?.cancel();
 }
 
@@ -126,8 +126,8 @@ export function useTTS() {
       // Respect the user's TTS preference
       if (!isTTSEnabled()) return;
 
-      if ((window as any).pauseVoiceRecognition) {
-        (window as any).pauseVoiceRecognition();
+      if (window.pauseVoiceRecognition) {
+        window.pauseVoiceRecognition();
       }
 
       isCancellingRef.current = true;
@@ -141,15 +141,15 @@ export function useTTS() {
         utteranceRef.current = utterance;
 
         utterance.onend = () => {
-          if ((window as any).resumeVoiceRecognition) {
-            setTimeout(() => (window as any).resumeVoiceRecognition(), 300);
+          if (window.resumeVoiceRecognition) {
+            setTimeout(() => window.resumeVoiceRecognition(), 300);
           }
         };
 
         utterance.onerror = (e) => {
           if (isCancellingRef.current || e.error === "interrupted") return;
-          if ((window as any).resumeVoiceRecognition) {
-            (window as any).resumeVoiceRecognition();
+          if (window.resumeVoiceRecognition) {
+            window.resumeVoiceRecognition();
           }
         };
 
@@ -164,8 +164,8 @@ export function useTTS() {
       isCancellingRef.current = true;
       synth.cancel();
       setTimeout(() => (isCancellingRef.current = false), 100);
-      if ((window as any).resumeVoiceRecognition) {
-        (window as any).resumeVoiceRecognition();
+      if (window.resumeVoiceRecognition) {
+        window.resumeVoiceRecognition();
       }
     }
   }, [synth]);

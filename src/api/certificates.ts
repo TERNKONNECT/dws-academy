@@ -1,17 +1,10 @@
-const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:9000";
+import { authHeaders as sessionAuthHeaders } from "@/lib/session";
 
-const getToken = () => {
-  try {
-    const auth = JSON.parse(localStorage.getItem("lms-auth") || "{}");
-    return auth?.state?.token ?? localStorage.getItem("lms_token");
-  } catch {
-    return localStorage.getItem("lms_token");
-  }
-};
+const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:9000";
 
 const authHeaders = () => ({
   "Content-Type": "application/json",
-  Authorization: `Bearer ${getToken()}`,
+  ...sessionAuthHeaders(),
 });
 
 export interface CertificateRecord {

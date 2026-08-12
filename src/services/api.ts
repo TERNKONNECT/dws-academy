@@ -1,191 +1,165 @@
-import { courses, quizzes } from "@/data/courses";
 import type { Course, Quiz, Module, Lesson } from "@/types";
+import { authHeaders, handleUnauthorized } from "@/lib/session";
+
+/**
+ * Raw JSON off the API, before it is mapped into the app's own types. Indexed
+ * rather than `any` so a typo in a field name is still caught at the map site.
+ */
+type BackendJson = Record<string, unknown>;
+
+/** A review as GET /api/reviews/:courseId returns it. */
+export interface CourseReview {
+  id: string;
+  rating: number;
+  comment: string;
+  createdAt: string;
+  User?: { id: string; name: string; avatar?: string };
+}
+
+export interface CourseReviews {
+  avgRating: number;
+  totalReviews: number;
+  reviews: CourseReview[];
+}
+
+const str = (value: unknown, fallback = "") =>
+  typeof value === "string" ? value : fallback;
+const num = (value: unknown, fallback = 0) =>
+  typeof value === "number" ? value : Number(value ?? fallback) || fallback;
+const arr = (value: unknown): BackendJson[] =>
+  Array.isArray(value) ? (value as BackendJson[]) : [];
+const obj = (value: unknown): BackendJson =>
+  value && typeof value === "object" ? (value as BackendJson) : {};
 
 const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:9000";
-
-const delay = (ms = 500) => new Promise((r) => setTimeout(r, ms));
-
-const getToken = () => {
-  try {
-    const auth = JSON.parse(localStorage.getItem("lms-auth") || "{}");
-    return auth?.state?.token ?? localStorage.getItem("lms_token");
-  } catch {
-    return localStorage.getItem("lms_token");
-  }
-};
-
-const authHeaders = () => {
-  const token = getToken();
-  return token ? { Authorization: `Bearer ${token}` } : {};
-};
 
 const _fetch = window.fetch;
 const fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
   const res = await _fetch(input, init);
-  if (res.status === 401) {
-    localStorage.removeItem("lms-auth");
-    localStorage.removeItem("lms_token");
-    window.location.href = "/login";
-  }
+  if (res.status === 401) handleUnauthorized();
   return res;
 };
 
 // Map backend lesson → frontend Lesson
-const mapLesson = (l: any, idx: number): Lesson => ({
-  id: l.id,
-  moduleId: l.moduleId,
-  title: l.title,
-  description: l.content ?? "",
-  duration: l.duration || "5m",
-  videoUrl: l.videoUrl || "",
-  order: l.order ?? idx,
+const mapLesson = (l: BackendJson, idx: number): Lesson => ({
+  id: str(l.id),
+  moduleId: str(l.moduleId),
+  title: str(l.title),
+  description: str(l.content),
+  duration: str(l.duration, "5m"),
+  videoUrl: str(l.videoUrl),
+  order: num(l.order, idx),
   type: l.type === "video" ? "video" : "reading",
   locked: Boolean(l.locked),
-  documentUrl: l.documentUrl || "",
-  transcriptUrl: l.transcriptUrl || "",
+  documentUrl: str(l.documentUrl),
+  transcriptUrl: str(l.transcriptUrl),
 });
 
 // Map backend module → frontend Module
-const mapModule = (m: any): Module => ({
-  id: m.id,
-  courseId: m.courseId,
-  title: m.title,
-  order: m.order,
-  lessons: (m.lessons ?? []).map(mapLesson),
-  quizId: m.quiz?.id ?? undefined,
+const mapModule = (m: BackendJson): Module => ({
+  id: str(m.id),
+  courseId: str(m.courseId),
+  title: str(m.title),
+  order: num(m.order),
+  lessons: arr(m.lessons).map(mapLesson),
+  quizId: str(obj(m.quiz).id) || undefined,
 });
 
 // Map backend course → frontend Course
-// const mapBackendCourse = (c: any): Course => ({
-//   id: c.id,
-//   title: c.title,
-//   shortDescription: c.description || "",
-//   description: c.description || "",
-//   thumbnail:
-//     c.thumbnail ||
-//     "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop",
-//   instructor: {
-//     id: "instructor",
-//     name: "TekConnect Instructor",
-//     title: "",
-//     bio: "",
-//     avatar: "https://api.dicebear.com/7.x/initials/svg?seed=TC",
-//     courseCount: 0,
-//     studentCount: 0,
-//   },
-//   category: c.difficulty || "General",
-//   level: (c.difficulty as Course["level"]) || "Beginner",
-//   duration: "",
-//   rating: 0,
-//   reviewCount: 0,
-//   totalStudents: 0,
-//   whatYouLearn: [],
-//   modules: (c.modules ?? []).map(mapModule),
-//   reviews: [],
-//   isFeatured: c.status === "published",
-// });
+const mapBackendCourse = (c: BackendJson): Course => {
+  const instructor = obj(c.instructor);
+  const level = str(c.difficulty, "Beginner") as Course["level"];
 
-const mapBackendCourse = (c: any): Course => ({
-  id: c.id,
-  title: c.title,
-  shortDescription: c.description || "",
-  description: c.description || "",
-  thumbnail:
-    c.thumbnail ||
-    "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop",
-  introVideoUrl: c.introVideoUrl || "",
-  instructor: {
-    id: c.instructor?.id ?? c.createdBy ?? "instructor",
-    name: c.instructor?.name ?? "School of Events Africa  Instructor",
-    title: c.instructor?.title ?? "",
-    bio: c.instructor?.bio ?? "",
-    avatar:
-      c.instructor?.avatar ??
-      `https://api.dicebear.com/7.x/initials/svg?seed=TC`,
-    courseCount: 0,
-    studentCount: 0,
-  },
-  category: c.difficulty || "General",
-  level: (c.difficulty as Course["level"]) || "Beginner",
-  duration: "",
-  rating: 0,
-  reviewCount: 0,
-  totalStudents: 0,
-  whatYouLearn: c.whatYouLearn ?? [],
-  modules: (c.modules ?? []).map(mapModule),
-  reviews: [],
-  isFeatured: c.status === "published",
-  pricingType: c.pricingType ?? "free",
-  price: Number(c.price || 0),
-  currency: c.currency ?? "NGN",
-  hasAccess: Boolean(c.hasAccess),
-});
+  return {
+    id: str(c.id),
+    title: str(c.title),
+    shortDescription: str(c.description),
+    description: str(c.description),
+    thumbnail:
+      str(c.thumbnail) ||
+      "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=400&fit=crop",
+    introVideoUrl: str(c.introVideoUrl),
+    instructor: {
+      id: str(instructor.id) || str(c.createdBy, "instructor"),
+      name: str(instructor.name, "School of Events Africa Instructor"),
+      title: str(instructor.title),
+      bio: str(instructor.bio),
+      avatar:
+        str(instructor.avatar) ||
+        "https://api.dicebear.com/7.x/initials/svg?seed=TC",
+      courseCount: 0,
+      studentCount: 0,
+    },
+    category: str(c.difficulty, "General"),
+    level,
+    duration: "",
+    rating: 0,
+    reviewCount: 0,
+    totalStudents: 0,
+    whatYouLearn: Array.isArray(c.whatYouLearn)
+      ? (c.whatYouLearn as unknown[]).map((item) => str(item))
+      : [],
+    modules: arr(c.modules).map(mapModule),
+    reviews: [],
+    isFeatured: c.status === "published",
+    pricingType: c.pricingType === "paid" ? "paid" : "free",
+    price: num(c.price),
+    currency: str(c.currency, "NGN"),
+    hasAccess: Boolean(c.hasAccess),
+  };
+};
 
-const normalizeQuizQuestion = (question: any, i: number) => {
-  const options =
-    question.options ??
-    [question.optionA, question.optionB, question.optionC, question.optionD].filter(
-      (option) => option !== undefined && option !== null,
-    );
+const normalizeQuizQuestion = (question: BackendJson, i: number) => {
+  const explicitOptions = Array.isArray(question.options)
+    ? (question.options as unknown[])
+    : [question.optionA, question.optionB, question.optionC, question.optionD];
+
   const correctAnswer =
     question.correctIndex ??
     question.correctAnswer ??
     (typeof question.answer === "number" ? question.answer : undefined);
 
   return {
-    id: question._id ?? question.id ?? `q-${i}`,
-    question: question.text ?? question.question ?? "",
-    options: Array.isArray(options) ? options : [],
-    correctAnswer: Number.isInteger(correctAnswer) ? correctAnswer : 0,
-    explanation: question.explanation ?? "",
-    type: question.type === "theory" ? "theory" : "mcq",
-    sampleAnswer: question.sampleAnswer ?? "",
+    id: str(question._id) || str(question.id, `q-${i}`),
+    question: str(question.text) || str(question.question),
+    options: explicitOptions
+      .filter((option) => option !== undefined && option !== null)
+      .map((option) => str(option)),
+    // Learner-facing quizzes no longer carry the answer key; the backend grades.
+    correctAnswer: Number.isInteger(correctAnswer) ? (correctAnswer as number) : -1,
+    explanation: str(question.explanation),
+    type: question.type === "theory" ? ("theory" as const) : ("mcq" as const),
+    sampleAnswer: str(question.sampleAnswer),
   };
 };
 
 // Map backend quiz → frontend Quiz
-const mapQuiz = (q: any, courseId: string): Quiz => ({
-  id: q.id,
-  courseId: q.courseId ?? courseId,
-  moduleId: q.moduleId,
-  title: q.title,
-  questions: (q.questions ?? []).map(normalizeQuizQuestion),
+const mapQuiz = (q: BackendJson, courseId: string): Quiz => ({
+  id: str(q.id),
+  courseId: str(q.courseId) || courseId,
+  moduleId: str(q.moduleId) || undefined,
+  title: str(q.title),
+  questions: arr(q.questions).map(normalizeQuizQuestion),
 });
 
 export const api = {
-  // Fetch all courses from backend, fall back to mock
+  // Real courses only. A failure is surfaced, not silently replaced with demo data.
   getCourses: async (): Promise<Course[]> => {
-    try {
-      const res = await fetch(`${API_URL}/api/courses`, {
-        headers: authHeaders(),
-      });
-      if (!res.ok) throw new Error("Failed");
-      const data = await res.json();
-      const backendCourses = data.map(mapBackendCourse);
-      // merge with mock courses so mock data still works
-      return [...backendCourses, ...courses];
-    } catch {
-      await delay(300);
-      return courses;
-    }
+    const res = await fetch(`${API_URL}/api/courses`, {
+      headers: authHeaders(),
+    });
+    if (!res.ok) throw new Error("Could not load courses");
+    const data = await res.json();
+    return data.map(mapBackendCourse);
   },
 
   getCourseById: async (id: string): Promise<Course | undefined> => {
-    // Check mock data first
-    const mock = courses.find((c) => c.id === id);
-    if (mock) return mock;
-
-    // Fetch from backend — GET /api/courses/:id returns full structure
-    try {
-      const res = await fetch(`${API_URL}/api/courses/${id}`, {
-        headers: authHeaders(),
-      });
-      if (!res.ok) return undefined;
-      const data = await res.json();
-      return mapBackendCourse(data);
-    } catch {
-      return undefined;
-    }
+    // GET /api/courses/:id returns the full structure, gated server-side.
+    const res = await fetch(`${API_URL}/api/courses/${id}`, {
+      headers: authHeaders(),
+    });
+    if (!res.ok) return undefined;
+    return mapBackendCourse(await res.json());
   },
 
   // Add these to the existing api object
@@ -207,7 +181,7 @@ export const api = {
     if (!res.ok) throw new Error(data.error || "Failed to submit review");
   },
 
-  getCourseReviews: async (courseId: string) => {
+  getCourseReviews: async (courseId: string): Promise<CourseReviews> => {
     try {
       const res = await fetch(`${API_URL}/api/reviews/${courseId}`);
       if (!res.ok) return { avgRating: 0, totalReviews: 0, reviews: [] };
@@ -217,14 +191,14 @@ export const api = {
     }
   },
 
-  initializePayment: async (courseId: string, totalAmount?: number) => {
+  initializePayment: async (courseId: string) => {
     const res = await fetch(`${API_URL}/api/payments/initialize`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         ...authHeaders(),
       },
-      body: JSON.stringify({ courseId, totalAmount }),
+      body: JSON.stringify({ courseId }),
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(data.error || "Failed to start payment");
@@ -236,26 +210,16 @@ export const api = {
     };
   },
 
-  getPaymentConfig: async () => {
-    try {
-      const res = await fetch(`${API_URL}/api/payments/config`);
-      if (!res.ok) return { serviceFeePercentage: 0 };
-      return res.json();
-    } catch {
-      return { serviceFeePercentage: 0 };
-    }
-  },
-
   verifyPayment: async (reference: string) => {
     const res = await fetch(`${API_URL}/api/payments/verify/${reference}`, {
       headers: authHeaders(),
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {
-      const err: any = new Error(data.error || "Payment was not successful");
-      err.courseId = data.courseId;
-      err.courseTitle = data.courseTitle;
-      throw err;
+      throw Object.assign(
+        new Error(data.error || "Payment was not successful"),
+        { courseId: data.courseId, courseTitle: data.courseTitle },
+      );
     }
     return data as {
       status: string;
@@ -301,47 +265,13 @@ export const api = {
     return all.filter((c) => c.isFeatured);
   },
 
-  // Fetch quiz by id — search through course modules
   getQuiz: async (quizId: string): Promise<Quiz | undefined> => {
-    // Check mock data first
-    const mock = quizzes.find((q) => q.id === quizId);
-    if (mock) return mock;
-
-    try {
-      const res = await fetch(`${API_URL}/api/quizzes/${quizId}`, {
-        headers: authHeaders(),
-      });
-      if (res.ok) {
-        const data = await res.json();
-        return mapQuiz(data, data.courseId ?? "");
-      }
-    } catch {}
-
-    try {
-      // Legacy fallback: fetch courses then find the module whose quiz.id matches.
-      const res = await fetch(`${API_URL}/api/courses`, {
-        headers: authHeaders(),
-      });
-      if (!res.ok) return undefined;
-      const allCourses = await res.json();
-
-      for (const course of allCourses) {
-        const courseRes = await fetch(`${API_URL}/api/courses/${course.id}`, {
-          headers: authHeaders(),
-        });
-        if (!courseRes.ok) continue;
-        const courseData = await courseRes.json();
-
-        for (const mod of courseData.modules ?? []) {
-          if (mod.quiz?.id === quizId) {
-            return mapQuiz(mod.quiz, courseData.id);
-          }
-        }
-      }
-      return undefined;
-    } catch {
-      return undefined;
-    }
+    const res = await fetch(`${API_URL}/api/quizzes/${quizId}`, {
+      headers: authHeaders(),
+    });
+    if (!res.ok) return undefined;
+    const data = await res.json();
+    return mapQuiz(data, data.courseId ?? "");
   },
 
   submitQuiz: async (

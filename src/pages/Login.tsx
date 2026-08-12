@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { errorField, errorMessage } from "@/lib/utils";
 import { Link, useNavigate } from "react-router-dom";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -71,8 +72,8 @@ const Login = () => {
       } else {
         navigate("/");
       }
-    } catch (err: any) {
-      if (err.code === "EMAIL_NOT_VERIFIED") {
+    } catch (err: unknown) {
+      if (errorField(err, "code") === "EMAIL_NOT_VERIFIED") {
         toast({
           title: "Email not verified",
           description: "Please verify your email to continue. We've taken you to the verification page.",
@@ -83,7 +84,7 @@ const Login = () => {
       }
       toast({
         title: "Error",
-        description: err.message || "Invalid credentials.",
+        description: errorMessage(err, "Invalid credentials."),
         variant: "destructive",
       });
     } finally {

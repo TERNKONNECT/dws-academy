@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { errorMessage } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import {
   paymentsApi,
@@ -134,8 +135,8 @@ const Revenue = () => {
       }
       loadList();
       loadStats();
-    } catch (err: any) {
-      toast.error(err?.response?.data?.error || err?.message || "Failed to verify payment");
+    } catch (err: unknown) {
+      toast.error(errorMessage(err, "Failed to verify payment"));
     } finally {
       setVerifyingRef(null);
     }
@@ -155,8 +156,8 @@ const Revenue = () => {
       );
       loadList();
       loadStats();
-    } catch (err: any) {
-      toast.error(err?.response?.data?.error || err?.message || "Failed to run bulk verification");
+    } catch (err: unknown) {
+      toast.error(errorMessage(err, "Failed to run bulk verification"));
     } finally {
       setBulkVerifying(false);
     }

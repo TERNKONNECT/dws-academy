@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { useAuthStore } from "@/stores/authStore";
+import { getToken } from "@/lib/session";
 import type { User } from "@/types";
 
 interface MockFetchResult {
@@ -47,7 +48,7 @@ describe("authStore.login", () => {
     expect(user.email).toBe("ada@example.com");
     expect(useAuthStore.getState().isAuthenticated).toBe(true);
     expect(useAuthStore.getState().token).toBe("jwt-token-123");
-    expect(localStorage.getItem("lms_token")).toBe("jwt-token-123");
+    expect(getToken()).toBe("jwt-token-123");
   });
 
   it("throws with the server's error message on invalid credentials", async () => {
@@ -104,13 +105,17 @@ describe("authStore.logout", () => {
       joinedAt: "2026-01-01T00:00:00Z",
     };
     useAuthStore.setState({ user, token: "jwt-token-123", isAuthenticated: true });
+    // Keys left behind by an older build, plus this user's cached progress.
     localStorage.setItem("lms_token", "jwt-token-123");
     localStorage.setItem("lms_user", "{}");
+    localStorage.setItem("lms-enrollment-u1", "[]");
 
     useAuthStore.getState().logout();
 
     expect(useAuthStore.getState().isAuthenticated).toBe(false);
     expect(useAuthStore.getState().user).toBeNull();
-    expect(localStorage.getItem("lms_token")).toBeNull();
+    expect(getToken()).toBeNull();
+    expect(localStorage.getItem("lms_user")).toBeNull();
+    expect(localStorage.getItem("lms-enrollment-u1")).toBeNull();
   });
 });

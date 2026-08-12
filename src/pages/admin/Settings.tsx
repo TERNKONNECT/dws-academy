@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { errorMessage } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 import { profileApi } from "@/api/profile";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -35,9 +36,9 @@ const Settings = () => {
       setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
-    } catch (err: any) {
+    } catch (err: unknown) {
       toast.error(
-        err.response?.data?.error || err.message || "Failed to update password",
+        errorMessage(err) || errorMessage(err, "Failed to update password"),
       );
     } finally {
       setSavingPassword(false);
@@ -51,9 +52,9 @@ const Settings = () => {
       toast.success("Account deactivated");
       logout();
       navigate("/login");
-    } catch (err: any) {
+    } catch (err: unknown) {
       toast.error(
-        err.response?.data?.error || err.message || "Failed to deactivate account",
+        errorMessage(err) || errorMessage(err, "Failed to deactivate account"),
       );
     } finally {
       setDeactivating(false);

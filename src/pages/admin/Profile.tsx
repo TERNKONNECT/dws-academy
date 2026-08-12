@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { errorMessage } from "@/lib/utils";
 import { profileApi, type AdminProfile } from "@/api/profile";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -56,8 +57,8 @@ const Profile = () => {
       setAvatarFile(null);
       setAvatarProgress(0);
       toast.success("Avatar updated");
-    } catch (err: any) {
-      toast.error(err.message || "Failed to upload avatar");
+    } catch (err: unknown) {
+      toast.error(errorMessage(err, "Failed to upload avatar"));
     } finally {
       setUploadingAvatar(false);
     }

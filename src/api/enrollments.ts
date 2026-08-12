@@ -21,6 +21,16 @@ export interface CourseEnrollmentsResponse {
 
 export type EnrollmentSourceFilter = "all" | "admin" | "self";
 
+/** The enrolment echoed back by POST /api/enrollments/admin/enroll. */
+export interface AdminEnrollment {
+  enrollmentId: string;
+  enrolledAt: string;
+  isCompleted: boolean;
+  completedAt: string | null;
+  user: { id: string; name: string; email: string };
+  course: { id: string; title: string };
+}
+
 export const enrollmentsApi = {
   getCourseEnrollments: (
     courseId: string,
@@ -35,7 +45,7 @@ export const enrollmentsApi = {
   enrollByEmail: (
     email: string,
     courseId: string,
-  ): Promise<{ message: string; enrollment: any }> =>
+  ): Promise<{ message: string; enrollment: AdminEnrollment }> =>
     api
       .post("/api/enrollments/admin/enroll", { email, courseId })
       .then((r) => r.data),

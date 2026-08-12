@@ -10,7 +10,10 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "prepare": "git config core.hooksPath .githooks || true",
+    "typecheck": "tsc --noEmit -p tsconfig.app.json",
+    "verify": "npm run typecheck && npm run lint && npm run test"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

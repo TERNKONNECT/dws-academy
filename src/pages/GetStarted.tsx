@@ -142,22 +142,18 @@ export default function GetStarted() {
     setStep(2);
   };
 
-  const sendTrialEmail = async () => {
-    try {
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          user_name: form.name,
-          user_email: form.email,
-          user_website: form.website,
-        },
-        EMAILJS_PUBLIC_KEY,
-      );
-    } catch (err) {
-      throw err;
-    }
-  };
+  // Errors propagate to handleStep2Submit, which owns the user-facing message.
+  const sendTrialEmail = async () =>
+    emailjs.send(
+      EMAILJS_SERVICE_ID,
+      EMAILJS_TEMPLATE_ID,
+      {
+        user_name: form.name,
+        user_email: form.email,
+        user_website: form.website,
+      },
+      EMAILJS_PUBLIC_KEY,
+    );
 
   const handleStep2Submit = async () => {
     setSending(true);

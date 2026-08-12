@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { User } from "@/types";
+import { AUTH_STORAGE_KEY, clearSession } from "@/lib/session";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:9000";
 
@@ -44,10 +45,7 @@ export const useAuthStore = create<AuthState>()(
           joinedAt: data.user.createdAt,
         };
 
-        // store token in both keys so admin api (axios) and learnflow both work
-        localStorage.setItem("lms_token", data.token);
-        localStorage.setItem("lms_user", JSON.stringify(user));
-
+        // The persisted store below is the only place the token lives now.
         set({ user, token: data.token, isAuthenticated: true });
 
         if (user.role === "user") {
@@ -72,19 +70,17 @@ export const useAuthStore = create<AuthState>()(
       },
 
       logout: () => {
-        localStorage.removeItem("lms_token");
-        localStorage.removeItem("lms_user");
         import("./enrollmentStore").then(({ useEnrollmentStore }) => {
           useEnrollmentStore.getState().clearEnrollments();
         });
         set({ user: null, token: null, isAuthenticated: false });
+        // Wipes the persisted blob and every legacy key in one place, so no path
+        // can leave half a session behind.
+        clearSession();
       },
 
-      setUser: (user: User) => {
-        localStorage.setItem("lms_user", JSON.stringify(user));
-        set({ user });
-      },
+      setUser: (user: User) => set({ user }),
     }),
-    { name: "lms-auth" },
+    { name: AUTH_STORAGE_KEY },
   ),
 );

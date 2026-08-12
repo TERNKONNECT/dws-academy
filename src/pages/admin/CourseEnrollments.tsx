@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { errorMessage } from "@/lib/utils";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import {
   enrollmentsApi,
@@ -139,8 +140,8 @@ const CourseEnrollments = () => {
         toast.error(result.error || "Payment was not successful.");
         loadPending();
       }
-    } catch (err: any) {
-      toast.error(err?.response?.data?.error || err?.message || "Failed to verify payment");
+    } catch (err: unknown) {
+      toast.error(errorMessage(err, "Failed to verify payment"));
     } finally {
       setVerifyingRef(null);
     }
@@ -158,10 +159,8 @@ const CourseEnrollments = () => {
       setEnrollOpen(false);
       setEnrollEmail("");
       loadEnrollments();
-    } catch (err: any) {
-      const msg =
-        err?.response?.data?.error || err?.message || "Failed to enroll user";
-      toast.error(msg);
+    } catch (err: unknown) {
+      toast.error(errorMessage(err, "Failed to enroll user"));
     } finally {
       setEnrolling(false);
     }

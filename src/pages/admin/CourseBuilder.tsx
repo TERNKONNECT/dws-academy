@@ -1,10 +1,17 @@
 import { useEffect, useState } from "react";
+import { errorMessage } from "@/lib/utils";
 import { useParams, useNavigate } from "react-router-dom";
 import { coursesApi } from "@/api/courses";
 import { modulesApi } from "@/api/modules";
 import { lessonsApi } from "@/api/lessons";
 import { quizzesApi } from "@/api/quizzes";
-import type { Course, Module, Lesson, Quiz, Question } from "@/types";
+import type {
+  AdminCourse as Course,
+  AdminModule as Module,
+  AdminLesson as Lesson,
+  AdminQuiz as Quiz,
+  Question,
+} from "@/types/admin";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -126,8 +133,8 @@ const QuizEditor = ({
       onSaved(saved);
       setOpen(false);
       toast.success(quiz ? "Quiz updated" : "Quiz created");
-    } catch (err: any) {
-      toast.error(err.response?.data?.error || "Failed to save quiz");
+    } catch (err: unknown) {
+      toast.error(errorMessage(err, "Failed to save quiz"));
     } finally {
       setSaving(false);
     }
@@ -141,8 +148,8 @@ const QuizEditor = ({
       onDeleted();
       setOpen(false);
       toast.success("Quiz deleted");
-    } catch (err: any) {
-      toast.error(err.response?.data?.error || "Failed to delete quiz");
+    } catch (err: unknown) {
+      toast.error(errorMessage(err, "Failed to delete quiz"));
     } finally {
       setSaving(false);
     }
@@ -341,9 +348,9 @@ const QuizEditor = ({
 //       }
 //       onAdded(lesson);
 //       toast.success("Lesson added");
-//     } catch (err: any) {
+//     } catch (err: unknown) {
 //       toast.error(
-//         err.response?.data?.error || err.message || "Failed to add lesson",
+//         errorMessage(err) || errorMessage(err, "Failed to add lesson"),
 //       );
 //     } finally {
 //       setSaving(false);
@@ -519,9 +526,9 @@ const AddLessonForm = ({
 
       onAdded(lesson);
       toast.success("Lesson added");
-    } catch (err: any) {
+    } catch (err: unknown) {
       toast.error(
-        err.response?.data?.error || err.message || "Failed to add lesson",
+        errorMessage(err) || errorMessage(err, "Failed to add lesson"),
       );
     } finally {
       setSaving(false);
@@ -920,8 +927,8 @@ const CourseBuilder = () => {
       setNewModuleTitle("");
       setAddingModule(false);
       toast.success("Module added");
-    } catch (err: any) {
-      toast.error(err.response?.data?.error || "Failed to add module");
+    } catch (err: unknown) {
+      toast.error(errorMessage(err, "Failed to add module"));
     }
   };
 
@@ -946,8 +953,8 @@ const CourseBuilder = () => {
   //     setCourse(updated);
   //     setIntroFile(null);
   //     toast.success("Intro video uploaded");
-  //   } catch (err: any) {
-  //     toast.error(err.message || "Upload failed");
+  //   } catch (err: unknown) {
+  //     toast.error(errorMessage(err, "Upload failed"));
   //   } finally {
   //     setUploadingIntro(false);
   //   }
@@ -970,8 +977,8 @@ const CourseBuilder = () => {
       }
       setCourse(updated);
       toast.success("Intro video saved");
-    } catch (err: any) {
-      toast.error(err.message || "Failed to save intro video");
+    } catch (err: unknown) {
+      toast.error(errorMessage(err, "Failed to save intro video"));
     } finally {
       setUploadingIntro(false);
     }

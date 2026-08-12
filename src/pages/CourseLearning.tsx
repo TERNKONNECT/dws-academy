@@ -118,7 +118,9 @@ const CourseLearning = () => {
           if (data.event === "infoDelivery" && data.info?.playerState === 0) {
             setIsVideoEnded(true);
           }
-        } catch {}
+        } catch {
+      // Autoplay was blocked; the learner can press play.
+    }
       }
     };
     window.addEventListener("message", handleMessage);
@@ -127,7 +129,7 @@ const CourseLearning = () => {
 
   // ── Expose video controls globally (same pattern as frontend VideoPlayer) ──
   useEffect(() => {
-    (window as any).videoControls = {
+    window.videoControls = {
       play: () => {
         videoRef.current?.play();
       },
@@ -170,7 +172,7 @@ const CourseLearning = () => {
       },
     };
     return () => {
-      delete (window as any).videoControls;
+      delete window.videoControls;
     };
   }, []);
 
@@ -265,7 +267,7 @@ const CourseLearning = () => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
-    (window as any).videoControls = {
+    window.videoControls = {
       play: () => {
         if (videoRef.current) {
           videoRef.current.play();
@@ -322,7 +324,7 @@ const CourseLearning = () => {
       },
     };
     return () => {
-      delete (window as any).videoControls;
+      delete window.videoControls;
     };
   }, []);
 
@@ -341,8 +343,8 @@ const CourseLearning = () => {
       const quizModule = c?.modules.find((m) => m.quizId);
       if (quizModule?.quizId) {
         navigateRef.current(`/learn/${cId}/quiz/${quizModule.quizId}`);
-      } else {
       }
+      // Otherwise this was the last lesson and there is no quiz — stay put.
     }
   }, []);
 
@@ -353,8 +355,8 @@ const CourseLearning = () => {
     if (idx > 0) {
       const prev = lessons[idx - 1];
       setCurrentLessonId(prev.id);
-    } else {
     }
+    // Already on the first lesson; nothing to go back to.
   }, []);
 
   if (loading)

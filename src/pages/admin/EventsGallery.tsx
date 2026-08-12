@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { errorMessage } from "@/lib/utils";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { eventsApi, AppEvent, EventImage } from "@/api/events";
 import { Card, CardContent } from "@/components/ui/card";
@@ -49,8 +50,8 @@ export default function EventsGallery() {
       toast({ title: "Images deleted successfully" });
       setSelectedImages([]);
     },
-    onError: (err: any) => {
-      toast({ title: "Failed to delete images", description: err.message, variant: "destructive" });
+    onError: (err: unknown) => {
+      toast({ title: "Failed to delete images", description: errorMessage(err), variant: "destructive" });
     },
   });
 
@@ -58,7 +59,7 @@ export default function EventsGallery() {
     if (!e.target.files || e.target.files.length === 0) return;
     
     // Upload to the first available event (the unified gallery)
-    let targetEventId = events?.[0]?.id;
+    const targetEventId = events?.[0]?.id;
     if (!targetEventId) {
       toast({ title: "Gallery not ready", description: "Please wait while we initialize the gallery.", variant: "destructive" });
       return;
@@ -91,8 +92,8 @@ export default function EventsGallery() {
       // 3. Save to DB
       await saveImagesMut.mutateAsync({ eventId: targetEventId, images: uploadedImages });
       toast({ title: `${uploadedImages.length} images uploaded successfully` });
-    } catch (err: any) {
-      toast({ title: "Failed to upload images", description: err.message, variant: "destructive" });
+    } catch (err: unknown) {
+      toast({ title: "Failed to upload images", description: errorMessage(err), variant: "destructive" });
     } finally {
       setIsUploading(false);
       if (fileInputRef.current) fileInputRef.current.value = "";

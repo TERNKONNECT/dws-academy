@@ -1,5 +1,135 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import {
+  ArrowRight,
+  Building2,
+  Calendar,
+  CheckCircle,
+  ClipboardList,
+  Gift,
+  Handshake,
+  Mail,
+  MapPin,
+  PartyPopper,
+  Phone,
+  Sparkles,
+  Star,
+  Users,
+} from "lucide-react";
+import MainLayout from "@/components/layouts/MainLayout";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { testimonialsApi, type Testimonial } from "@/api/testimonials";
+
+const services = [
+  {
+    icon: <Sparkles className="h-8 w-8" />,
+    title: "Weddings",
+    price: "From ₦1,500,000",
+    description:
+      "Full planning and coordination for traditional, white, and destination weddings — from the first venue visit to the last dance.",
+    features: [
+      "Venue sourcing and site visits",
+      "Vendor selection and management",
+      "Décor concept and styling",
+      "Day-of coordination team",
+      "Budget tracking",
+      "Guest and logistics management",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80",
+  },
+  {
+    icon: <Building2 className="h-8 w-8" />,
+    title: "Corporate Events",
+    price: "From ₦2,000,000",
+    description:
+      "Conferences, product launches, and end-of-year parties delivered to brand, on schedule, and within budget.",
+    features: [
+      "Programme and run-of-show design",
+      "Stage, AV, and technical production",
+      "Branding and stage design",
+      "Delegate registration",
+      "Speaker and MC coordination",
+      "Post-event reporting",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=80",
+  },
+  {
+    icon: <PartyPopper className="h-8 w-8" />,
+    title: "Private Celebrations",
+    price: "From ₦800,000",
+    description:
+      "Birthdays, anniversaries, and milestone parties planned around the story you want the night to tell.",
+    features: [
+      "Theme and concept development",
+      "Venue styling and décor",
+      "Catering and bar coordination",
+      "Entertainment booking",
+      "Photography and videography",
+      "On-the-night management",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1200&q=80",
+  },
+  {
+    icon: <Handshake className="h-8 w-8" />,
+    title: "Consulting & Training",
+    price: "From ₦350,000",
+    description:
+      "Hands-on advisory for teams and event businesses, plus bespoke training drawn from the DWS Academy curriculum.",
+    features: [
+      "Event business strategy sessions",
+      "Team training workshops",
+      "Supplier network introductions",
+      "Pricing and costing reviews",
+      "Process and checklist design",
+      "Ongoing mentorship",
+    ],
+    image:
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
+  },
+];
+
+const features = [
+  {
+    icon: <ClipboardList className="h-8 w-8" />,
+    title: "One Plan, Start to Finish",
+    description:
+      "A single written plan covering budget, timeline, vendors, and contingencies — so nothing lives only in someone's head.",
+  },
+  {
+    icon: <Users className="h-8 w-8" />,
+    title: "A Named Team",
+    description:
+      "You know exactly who is running your event and how to reach them, from the first meeting through to the pack-down.",
+  },
+  {
+    icon: <Handshake className="h-8 w-8" />,
+    title: "Vetted Suppliers",
+    description:
+      "Caterers, décor, AV, and entertainment we have worked with before and would book again for our own events.",
+  },
+  {
+    icon: <Calendar className="h-8 w-8" />,
+    title: "Run-of-Show Discipline",
+    description:
+      "Every event runs to a minute-by-minute schedule that the whole team, and every vendor, is working from.",
+  },
+  {
+    icon: <Gift className="h-8 w-8" />,
+    title: "Design That Fits the Budget",
+    description:
+      "Concepts costed before they are presented, so what you approve is what you can actually afford to build.",
+  },
+  {
+    icon: <CheckCircle className="h-8 w-8" />,
+    title: "Clear, Upfront Pricing",
+    description:
+      "Fees agreed in writing before work starts. No commissions taken behind your back, no surprises on the final invoice.",
+  },
+];
 
 const fallbackTestimonials: Testimonial[] = [
   {

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { errorMessage } from "@/lib/utils";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import {
   ChevronLeft,
@@ -123,12 +124,14 @@ const Quiz = () => {
           if (result.quiz) setQuiz(result.quiz);
         }
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       toast({
         title: "Quiz saved locally",
         description:
-          err.message ||
-          "We could not reach the server, but your score was calculated here.",
+          errorMessage(
+            err,
+            "We could not reach the server, but your score was calculated here.",
+          ),
         variant: "destructive",
       });
     } finally {

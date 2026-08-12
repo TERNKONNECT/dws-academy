@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { errorMessage } from "@/lib/utils";
 import { Link, useSearchParams } from "react-router-dom";
 import { BookOpen, CheckCircle2, KeyRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -50,10 +51,10 @@ const VerifyEmail = () => {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Verification failed");
       setVerified(true);
-    } catch (err: any) {
+    } catch (err: unknown) {
       toast({
         title: "Verification failed",
-        description: err.message || "Invalid or expired code.",
+        description: errorMessage(err, "Invalid or expired code."),
         variant: "destructive",
       });
     } finally {
@@ -75,8 +76,8 @@ const VerifyEmail = () => {
       if (!res.ok) throw new Error(data.error || "Could not resend code");
       toast({ title: "Code sent", description: "Check your inbox for a new 6-digit code." });
       setCooldown(RESEND_COOLDOWN_SECONDS);
-    } catch (err: any) {
-      toast({ title: "Error", description: err.message, variant: "destructive" });
+    } catch (err: unknown) {
+      toast({ title: "Error", description: errorMessage(err), variant: "destructive" });
     } finally {
       setResending(false);
     }

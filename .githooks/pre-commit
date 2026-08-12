@@ -1,0 +1,48 @@
+#!/bin/sh
+#
+# Pre-commit gate for dws-academy.
+#
+# Runs the same checks CI runs, so a red build is caught here rather than after a
+# push. Enabled automatically by `npm install` (see the "prepare" script), or by
+# hand with:  git config core.hooksPath .githooks
+#
+# Skip once, deliberately:  git commit --no-verify
+
+set -e
+
+RED=$(printf '\033[31m')
+GREEN=$(printf '\033[32m')
+DIM=$(printf '\033[2m')
+OFF=$(printf '\033[0m')
+
+fail() {
+  echo "${RED}✗ $1${OFF}"
+  echo "${DIM}  Fix it, or commit with --no-verify if you know what you're doing.${OFF}"
+  exit 1
+}
+
+step() { echo "${DIM}→ $1${OFF}"; }
+ok()   { echo "${GREEN}✓ $1${OFF}"; }
+
+# Only the staged TypeScript is our business; a docs-only commit shouldn't pay for
+# a full typecheck.
+STAGED=$(git diff --cached --name-only --diff-filter=ACMR -- '*.ts' '*.tsx' || true)
+if [ -z "$STAGED" ]; then
+  echo "${DIM}No TypeScript staged — skipping checks.${OFF}"
+  exit 0
+fi
+
+step "Typecheck (tsc --noEmit)"
+npx tsc --noEmit -p tsconfig.app.json || fail "Type errors"
+ok "Types clean"
+
+step "Lint (eslint, errors only)"
+# shellcheck disable=SC2086
+npx eslint --max-warnings=-1 $STAGED || fail "Lint errors"
+ok "Lint clean"
+
+step "Unit tests (vitest)"
+npx vitest run --silent || fail "Tests failing"
+ok "Tests passing"
+
+echo "${GREEN}All pre-commit checks passed.${OFF}"
