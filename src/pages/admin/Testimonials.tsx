@@ -32,6 +32,7 @@ const Testimonials = () => {
   const [formData, setFormData] = useState({
     name: '',
     jobTitle: '',
+    companyName: '',
     content: '',
     isActive: true,
   });
@@ -64,7 +65,7 @@ const Testimonials = () => {
 
   const handleOpenAdd = () => {
     setEditingTestimonial(null);
-    setFormData({ name: '', jobTitle: '', content: '', isActive: true });
+    setFormData({ name: '', jobTitle: '', companyName: '', content: '', isActive: true });
     setIsFormOpen(true);
   };
 
@@ -73,6 +74,7 @@ const Testimonials = () => {
     setFormData({
       name: testimonial.name,
       jobTitle: testimonial.jobTitle,
+      companyName: testimonial.companyName || '',
       content: testimonial.content,
       isActive: testimonial.isActive,
     });
@@ -141,6 +143,7 @@ const Testimonials = () => {
                 <TableRow>
                   <TableHead>Name</TableHead>
                   <TableHead>Job Title</TableHead>
+                  <TableHead>Company</TableHead>
                   <TableHead className="w-1/3">Content</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>Date Added</TableHead>
@@ -152,6 +155,7 @@ const Testimonials = () => {
                   <TableRow key={t.id}>
                     <TableCell className="font-medium">{t.name}</TableCell>
                     <TableCell className="text-muted-foreground">{t.jobTitle}</TableCell>
+                    <TableCell className="text-muted-foreground">{t.companyName || '-'}</TableCell>
                     <TableCell className="text-sm text-muted-foreground">
                       <div className="line-clamp-2">{t.content}</div>
                     </TableCell>
@@ -217,10 +221,18 @@ const Testimonials = () => {
               <Label htmlFor="jobTitle">Job Title</Label>
               <Input
                 id="jobTitle"
-                placeholder="e.g. Software Engineer at Google"
+                placeholder="e.g. Software Engineer"
                 value={formData.jobTitle}
                 onChange={(e) => setFormData({ ...formData, jobTitle: e.target.value })}
-                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="companyName">Company Name</Label>
+              <Input
+                id="companyName"
+                placeholder="e.g. Google (Optional)"
+                value={formData.companyName}
+                onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
               />
             </div>
             <div className="space-y-2">

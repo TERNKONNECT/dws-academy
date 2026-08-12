@@ -18,7 +18,8 @@ const placeholderTestimonials: Testimonial[] = [
     name: "Tariq Folarin",
     content:
       "I stopped pricing out of fear. Six months after the Business of Events course, I restructured my packages and my company finally has margin, not just movement.",
-    jobTitle: "Event Producer, Lagos",
+    jobTitle: "Event Producer",
+    companyName: "Lagos",
     date: new Date().toISOString(),
     isActive: true,
     createdAt: new Date().toISOString(),
@@ -29,7 +30,8 @@ const placeholderTestimonials: Testimonial[] = [
     name: "Ngozi Chukwu",
     content:
       "I came in as a decorator with no systems. I left with a registered company, a pricing model and the confidence to say no to the wrong clients.",
-    jobTitle: "Décor Entrepreneur, Abuja",
+    jobTitle: "Décor Entrepreneur",
+    companyName: "Abuja",
     date: new Date().toISOString(),
     isActive: true,
     createdAt: new Date().toISOString(),
@@ -40,7 +42,8 @@ const placeholderTestimonials: Testimonial[] = [
     name: "Kwame Mensah",
     content:
       "The Financial Structure course changed how I run my books. For the first time, I know exactly what each event actually earns.",
-    jobTitle: "Production Lead, Accra",
+    jobTitle: "Production Lead",
+    companyName: "Accra",
     date: new Date().toISOString(),
     isActive: true,
     createdAt: new Date().toISOString(),
@@ -92,7 +95,7 @@ const Testimonials = ({ testimonials }: { testimonials: Testimonial[] }) => {
                       {t.name}
                     </div>
                     <div className="text-[12.5px] text-muted-foreground">
-                      {t.jobTitle}
+                      {[t.jobTitle, t.companyName].filter(Boolean).join(', ')}
                     </div>
                   </div>
                 </div>

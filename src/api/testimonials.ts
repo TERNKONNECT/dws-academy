@@ -4,6 +4,7 @@ export interface Testimonial {
   id: string;
   name: string;
   jobTitle: string;
+  companyName: string;
   content: string;
   date: string;
   isActive: boolean;

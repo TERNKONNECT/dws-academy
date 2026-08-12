@@ -5,7 +5,8 @@ const fallbackTestimonials: Testimonial[] = [
   {
     id: "fb-1",
     name: "Sarah & Michael Johnson",
-    jobTitle: "Wedding",
+    jobTitle: "Clients",
+    companyName: "Wedding",
     content: "DEWHITE SPARKLES made our wedding absolutely magical! Every detail was perfect and stress-free.",
     date: new Date().toISOString(),
     isActive: true,
@@ -15,7 +16,8 @@ const fallbackTestimonials: Testimonial[] = [
   {
     id: "fb-2",
     name: "Tech Solutions Ltd",
-    jobTitle: "Corporate Launch",
+    jobTitle: "Corporate Client",
+    companyName: "Tech Solutions",
     content: "Professional, creative, and flawless execution. Our product launch exceeded all expectations!",
     date: new Date().toISOString(),
     isActive: true,
@@ -25,7 +27,8 @@ const fallbackTestimonials: Testimonial[] = [
   {
     id: "fb-3",
     name: "The Davis Family",
-    jobTitle: "Birthday Celebration",
+    jobTitle: "Clients",
+    companyName: "Birthday Celebration",
     content: "They turned our daughter's 16th birthday into a fairy tale. Absolutely incredible work!",
     date: new Date().toISOString(),
     isActive: true,
@@ -245,7 +248,7 @@ export default function Services() {
                       {testimonials[activeTestimonial].name}
                     </p>
                     <p className="text-yellow-400">
-                      {testimonials[activeTestimonial].jobTitle}
+                      {[testimonials[activeTestimonial].jobTitle, testimonials[activeTestimonial].companyName].filter(Boolean).join(' • ')}
                     </p>
                   </div>
                 </div>
