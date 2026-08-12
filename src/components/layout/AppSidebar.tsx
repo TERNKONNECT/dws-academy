@@ -52,6 +52,7 @@ const superAdminNavItems = [
   { title: "Courses", url: "/dashboard/courses", icon: BookOpen },
   { title: "Events & Gallery", url: "/dashboard/events-gallery", icon: Image },
   { title: "Testimonials", url: "/dashboard/testimonials", icon: MessageSquare },
+  { title: "Faculty", url: "/dashboard/faculty", icon: GraduationCap },
   { title: "Users", url: "/dashboard/users", icon: Users },
   { title: "Analytics", url: "/dashboard/analytics", icon: BarChart3 },
   { title: "Revenue", url: "/dashboard/revenue", icon: Wallet },
