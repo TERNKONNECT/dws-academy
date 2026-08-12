@@ -68,40 +68,71 @@ const Testimonials = ({ testimonials }: { testimonials: Testimonial[] }) => {
           </div>
         </Reveal>
         <Reveal delay={100}>
-          <div className="grid grid-cols-1 gap-[22px] md:grid-cols-3">
-            {shown.map((t) => (
-              <div
-                key={t.id}
-                className="rounded-2xl border border-black/10 bg-white p-7"
-              >
-                <div className="mb-4 flex gap-0.5 text-primary">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star
-                      key={i}
-                      className="h-3.5 w-3.5"
-                      fill="currentColor"
-                    />
-                  ))}
-                </div>
-                <p className="mb-6 text-[15px] leading-relaxed text-[#333]">
-                  {t.content}
-                </p>
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0B0B0C] text-sm font-bold text-primary">
-                    {initialsOf(t.name)}
-                  </div>
-                  <div>
-                    <div className="text-sm font-semibold text-[#0B0B0C]">
-                      {t.name}
+          {shown.length > 3 ? (
+            <div className="overflow-hidden py-4 -mx-4 px-4 sm:-mx-8 sm:px-8">
+              <div className="flex w-max gap-[22px] animate-marquee">
+                {[...shown, ...shown].map((t, index) => (
+                  <div
+                    key={`${t.id}-${index}`}
+                    className="w-[350px] shrink-0 rounded-2xl border border-black/10 bg-white p-7 transition-all duration-300 hover:shadow-lg"
+                  >
+                    <div className="mb-4 flex gap-0.5 text-primary">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <Star key={i} className="h-3.5 w-3.5" fill="currentColor" />
+                      ))}
                     </div>
-                    <div className="text-[12.5px] text-muted-foreground">
-                      {[t.jobTitle, t.companyName].filter(Boolean).join(', ')}
+                    <p className="mb-6 text-[15px] leading-relaxed text-[#333]">
+                      {t.content}
+                    </p>
+                    <div className="flex items-center gap-3 mt-auto">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0B0B0C] text-sm font-bold text-primary">
+                        {initialsOf(t.name)}
+                      </div>
+                      <div>
+                        <div className="text-sm font-semibold text-[#0B0B0C]">
+                          {t.name}
+                        </div>
+                        <div className="text-[12.5px] text-muted-foreground">
+                          {[t.jobTitle, t.companyName].filter(Boolean).join(", ")}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 gap-[22px] md:grid-cols-3">
+              {shown.map((t) => (
+                <div
+                  key={t.id}
+                  className="rounded-2xl border border-black/10 bg-white p-7 transition-all duration-300 hover:shadow-lg flex flex-col"
+                >
+                  <div className="mb-4 flex gap-0.5 text-primary">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star key={i} className="h-3.5 w-3.5" fill="currentColor" />
+                    ))}
+                  </div>
+                  <p className="mb-6 text-[15px] leading-relaxed text-[#333] flex-grow">
+                    {t.content}
+                  </p>
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0B0B0C] text-sm font-bold text-primary">
+                      {initialsOf(t.name)}
+                    </div>
+                    <div>
+                      <div className="text-sm font-semibold text-[#0B0B0C]">
+                        {t.name}
+                      </div>
+                      <div className="text-[12.5px] text-muted-foreground">
+                        {[t.jobTitle, t.companyName].filter(Boolean).join(", ")}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </Reveal>
       </div>
     </section>

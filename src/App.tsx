@@ -51,6 +51,7 @@ import AdminProfile from "./pages/admin/AdminProfile";
 import Settings from "./pages/admin/Settings";
 import EventsGallery from "./pages/admin/EventsGallery";
 import AdminTestimonials from "./pages/admin/Testimonials";
+import AdminFaculty from "./pages/admin/Faculty";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -187,6 +188,14 @@ const App = () => (
                 element={
                   <StrictAdminRoute>
                     <AdminTestimonials />
+                  </StrictAdminRoute>
+                }
+              />
+              <Route
+                path="faculty"
+                element={
+                  <StrictAdminRoute>
+                    <AdminFaculty />
                   </StrictAdminRoute>
                 }
               />

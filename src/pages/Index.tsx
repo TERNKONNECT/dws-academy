@@ -13,6 +13,7 @@ import ClarityCallCta from "@/components/home/ClarityCallCta";
 import FinalCta from "@/components/home/FinalCta";
 import { api } from "@/services/api";
 import { testimonialsApi, type Testimonial } from "@/api/testimonials";
+import { facultyApi, type Faculty } from "@/api/faculty";
 import type { Course, Instructor } from "@/types";
 
 const dedupeInstructors = (courses: Course[]): Instructor[] => {
@@ -29,6 +30,7 @@ const Index = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [loadingCourses, setLoadingCourses] = useState(true);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [faculty, setFaculty] = useState<Faculty[]>([]);
 
   useEffect(() => {
     let active = true;
@@ -51,14 +53,18 @@ const Index = () => {
   useEffect(() => {
     let active = true;
     testimonialsApi.getAll().then((data) => {
-      if (active) setTestimonials(data.slice(0, 3));
+      if (active) setTestimonials(data);
+    });
+    facultyApi.getAll().then((data) => {
+      if (active) setFaculty(data);
     });
     return () => {
       active = false;
     };
   }, []);
 
-  const instructors = dedupeInstructors(courses);
+  // We still use instructors for other parts if needed, but not for FacultyPeople anymore
+  // const instructors = dedupeInstructors(courses);
 
   return (
     <MainLayout>
@@ -68,7 +74,7 @@ const Index = () => {
       <Faculties />
       <FeaturedCourses courses={courses} loading={loadingCourses} />
       <Books />
-      <FacultyPeople instructors={instructors} />
+      <FacultyPeople faculty={faculty} />
       <Testimonials testimonials={testimonials} />
       <Insights />
       <ClarityCallCta />
