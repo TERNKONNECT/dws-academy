@@ -20,3 +20,15 @@ export async function downloadCertificatePdf(node: HTMLElement, filename: string
   pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
   pdf.save(filename);
 }
+
+export async function downloadCertificateImage(node: HTMLElement, filename: string) {
+  const canvas = await html2canvas(node, {
+    scale: 2,
+    useCORS: true,
+    backgroundColor: "#ffffff",
+  });
+  const link = document.createElement("a");
+  link.download = filename;
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+}

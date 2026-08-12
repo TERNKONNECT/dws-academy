@@ -9,6 +9,7 @@ import {
   Mail,
   Clock,
   LayoutDashboard,
+  BookOpen,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuthStore } from "@/stores/authStore";
@@ -335,17 +336,37 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
 
-        <div className="container mx-auto px-4 mt-12 pt-8 border-t border-yellow-400/20 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-gray-400">
-            © {new Date().getFullYear()} School of Events Africa. All rights
-            reserved.
-          </p>
-          <p className="text-sm text-gray-400">
-            <Mail className="inline h-3.5 w-3.5 mr-1.5 -mt-0.5 text-yellow-400" />
-            schoolofeventsafrica@gmail.com
-            <Phone className="inline h-3.5 w-3.5 ml-4 mr-1.5 -mt-0.5 text-yellow-400" />
-            +234 704 375 7985
-          </p>
+        <div className="container mx-auto px-4 mt-12 pt-8 border-t border-yellow-400/20 flex flex-col gap-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-sm text-gray-400">
+              © {new Date().getFullYear()} School of Events Africa. All rights reserved.
+            </p>
+            <p className="text-sm text-gray-400 text-center md:text-right">
+              <Mail className="inline h-3.5 w-3.5 mr-1.5 -mt-0.5 text-yellow-400" />
+              schoolofeventsafrica@gmail.com
+              <span className="block sm:inline mt-2 sm:mt-0">
+                <Phone className="inline h-3.5 w-3.5 sm:ml-4 mr-1.5 -mt-0.5 text-yellow-400" />
+                +234 704 375 7985
+              </span>
+            </p>
+          </div>
+          
+          <div className="flex items-center justify-center md:justify-start gap-1.5 text-[11px] text-gray-500">
+            <span>Built by</span>
+            <a 
+              href="https://ternkonnect.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="group flex items-center transition-colors"
+            >
+              <div className="flex items-center gap-1 text-[#7B5EE3] group-hover:text-[#674ac7] transition-colors">
+                <BookOpen className="h-[14px] w-[14px]" strokeWidth={2.5} />
+                <span className="font-extrabold text-[11.5px] tracking-wide mt-[1px]" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+                  TERNKONNECT
+                </span>
+              </div>
+            </a>
+          </div>
         </div>
       </footer>
     </div>

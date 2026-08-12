@@ -24,7 +24,7 @@ const Certificate = forwardRef<HTMLDivElement, CertificateProps>(
           height: HEIGHT,
           background: "#ffffff",
           fontFamily: "Georgia, 'Times New Roman', serif",
-          color: "#1a1a1a",
+          color: "#0B0B0C",
           position: "relative",
           padding: 28,
           boxSizing: "border-box",
@@ -34,7 +34,7 @@ const Certificate = forwardRef<HTMLDivElement, CertificateProps>(
           style={{
             width: "100%",
             height: "100%",
-            border: "2px solid #d4af37",
+            border: "2px solid #F4B400",
             boxSizing: "border-box",
             padding: "36px 64px",
             display: "flex",
@@ -48,8 +48,9 @@ const Certificate = forwardRef<HTMLDivElement, CertificateProps>(
             style={{
               position: "absolute",
               inset: 10,
-              border: "1px solid #d4af37",
+              border: "1px solid #F4B400",
               pointerEvents: "none",
+              opacity: 0.5,
             }}
           />
 
@@ -62,11 +63,18 @@ const Certificate = forwardRef<HTMLDivElement, CertificateProps>(
                 marginBottom: 6,
               }}
             >
-              <img
-                src="/logo.png"
-                alt="School of Events Africa Logo"
-                style={{ height: 60, objectFit: "contain" }}
-              />
+              <h1
+                style={{
+                  fontSize: 26,
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: 4,
+                  margin: 0,
+                  color: "#0B0B0C",
+                }}
+              >
+                School of Events Africa
+              </h1>
             </div>
             <p
               style={{
@@ -75,7 +83,7 @@ const Certificate = forwardRef<HTMLDivElement, CertificateProps>(
                 letterSpacing: 6,
                 textTransform: "uppercase",
                 margin: "18px 0 4px",
-                color: "#111111",
+                color: "#0B0B0C",
               }}
             >
               Certificate of Completion
@@ -92,8 +100,8 @@ const Certificate = forwardRef<HTMLDivElement, CertificateProps>(
                 fontStyle: "italic",
                 fontWeight: 400,
                 margin: 0,
-                color: "#111111",
-                borderBottom: "1px solid #d4af37",
+                color: "#0B0B0C",
+                borderBottom: "2px solid #F4B400",
                 paddingBottom: 12,
                 display: "inline-block",
               }}
@@ -108,7 +116,7 @@ const Certificate = forwardRef<HTMLDivElement, CertificateProps>(
                 fontSize: 26,
                 fontWeight: 700,
                 margin: "8px 0 0",
-                color: "#111111",
+                color: "#0B0B0C",
               }}
             >
               {courseName}
