@@ -10,6 +10,7 @@ import { EmptyState } from '@/components/shared/EmptyState';
 import { TableSkeleton } from '@/components/shared/SkeletonLoader';
 import { MessageSquare, Plus, Pencil, Trash2, X } from 'lucide-react';
 import { toast } from 'sonner';
+import { errorMessage } from '@/lib/utils';
 import {
   Dialog,
   DialogContent,
@@ -27,6 +28,9 @@ const Testimonials = () => {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [editingTestimonial, setEditingTestimonial] = useState<Testimonial | null>(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [removeExistingImage, setRemoveExistingImage] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -66,6 +70,8 @@ const Testimonials = () => {
   const handleOpenAdd = () => {
     setEditingTestimonial(null);
     setFormData({ name: '', jobTitle: '', companyName: '', content: '', isActive: true });
+    setImageFile(null);
+    setRemoveExistingImage(false);
     setIsFormOpen(true);
   };
 
@@ -78,6 +84,8 @@ const Testimonials = () => {
       content: testimonial.content,
       isActive: testimonial.isActive,
     });
+    setImageFile(null);
+    setRemoveExistingImage(false);
     setIsFormOpen(true);
   };
 
@@ -88,19 +96,35 @@ const Testimonials = () => {
       return;
     }
 
+    setIsSaving(true);
     try {
+      let saved: Testimonial;
       if (editingTestimonial) {
-        const updated = await testimonialsApi.update(editingTestimonial.id, formData);
-        setTestimonials(testimonials.map((t) => (t.id === updated.id ? updated : t)));
-        toast.success('Testimonial updated');
+        saved = await testimonialsApi.update(editingTestimonial.id, formData);
       } else {
-        const created = await testimonialsApi.create(formData);
-        setTestimonials([created, ...testimonials]);
-        toast.success('Testimonial created');
+        saved = await testimonialsApi.create(formData);
       }
+
+      // The photo is optional and uploaded separately, after the testimonial
+      // itself exists (a fresh one needs an id to upload against).
+      if (imageFile) {
+        saved = await testimonialsApi.uploadImage(saved.id, imageFile);
+      } else if (removeExistingImage && editingTestimonial?.image) {
+        saved = await testimonialsApi.removeImage(saved.id);
+      }
+
+      setTestimonials((prev) => {
+        const exists = prev.some((t) => t.id === saved.id);
+        return exists
+          ? prev.map((t) => (t.id === saved.id ? saved : t))
+          : [saved, ...prev];
+      });
+      toast.success(editingTestimonial ? 'Testimonial updated' : 'Testimonial created');
       setIsFormOpen(false);
-    } catch {
-      toast.error('Failed to save testimonial');
+    } catch (err) {
+      toast.error(errorMessage(err, 'Failed to save testimonial'));
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -141,6 +165,7 @@ const Testimonials = () => {
             <Table>
               <TableHeader>
                 <TableRow>
+                  <TableHead className="w-0" />
                   <TableHead>Name</TableHead>
                   <TableHead>Job Title</TableHead>
                   <TableHead>Company</TableHead>
@@ -153,6 +178,25 @@ const Testimonials = () => {
               <TableBody>
                 {testimonials.map((t) => (
                   <TableRow key={t.id}>
+                    <TableCell>
+                      {t.image ? (
+                        <img
+                          src={t.image}
+                          alt={t.name}
+                          className="h-9 w-9 rounded-full object-cover border border-black/10"
+                        />
+                      ) : (
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#0B0B0C] text-xs font-bold text-primary">
+                          {t.name
+                            .split(' ')
+                            .map((part) => part[0])
+                            .filter(Boolean)
+                            .slice(0, 2)
+                            .join('')
+                            .toUpperCase()}
+                        </div>
+                      )}
+                    </TableCell>
                     <TableCell className="font-medium">{t.name}</TableCell>
                     <TableCell className="text-muted-foreground">{t.jobTitle}</TableCell>
                     <TableCell className="text-muted-foreground">{t.companyName || '-'}</TableCell>
@@ -218,6 +262,42 @@ const Testimonials = () => {
               />
             </div>
             <div className="space-y-2">
+              <Label htmlFor="image">Photo (Optional)</Label>
+              {editingTestimonial?.image && !removeExistingImage && !imageFile ? (
+                <div className="flex items-center gap-3">
+                  <img
+                    src={editingTestimonial.image}
+                    alt={editingTestimonial.name}
+                    className="h-12 w-12 rounded-full object-cover border border-black/10"
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setRemoveExistingImage(true)}
+                    className="text-muted-foreground"
+                  >
+                    <X className="h-3.5 w-3.5 mr-1" />
+                    Remove photo
+                  </Button>
+                </div>
+              ) : (
+                <Input
+                  id="image"
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    setImageFile(e.target.files?.[0] || null);
+                    setRemoveExistingImage(false);
+                  }}
+                />
+              )}
+              <p className="text-xs text-muted-foreground">
+                Shown next to the quote on the public site. Without one, the
+                testimonial displays with the person's initials instead.
+              </p>
+            </div>
+            <div className="space-y-2">
               <Label htmlFor="jobTitle">Job Title</Label>
               <Input
                 id="jobTitle"
@@ -264,11 +344,20 @@ const Testimonials = () => {
               />
             </div>
             <DialogFooter className="pt-4">
-              <Button type="button" variant="outline" onClick={() => setIsFormOpen(false)}>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setIsFormOpen(false)}
+                disabled={isSaving}
+              >
                 Cancel
               </Button>
-              <Button type="submit">
-                {editingTestimonial ? 'Save Changes' : 'Create Testimonial'}
+              <Button type="submit" disabled={isSaving}>
+                {isSaving
+                  ? 'Saving...'
+                  : editingTestimonial
+                    ? 'Save Changes'
+                    : 'Create Testimonial'}
               </Button>
             </DialogFooter>
           </form>

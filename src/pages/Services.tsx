@@ -369,9 +369,12 @@ export default function Services() {
 
                 <div className="flex items-center justify-center space-x-4">
                   <img
-                    src={`https://ui-avatars.com/api/?name=${encodeURIComponent(testimonials[activeTestimonial].name)}&background=random`}
+                    src={
+                      testimonials[activeTestimonial].image ||
+                      `https://ui-avatars.com/api/?name=${encodeURIComponent(testimonials[activeTestimonial].name)}&background=random`
+                    }
                     alt={testimonials[activeTestimonial].name}
-                    className="w-16 h-16 rounded-full border-2 border-yellow-400"
+                    className="w-16 h-16 rounded-full border-2 border-yellow-400 object-cover"
                   />
                   <div className="text-left">
                     <p className="font-bold text-white">

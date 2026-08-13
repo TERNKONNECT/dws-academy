@@ -88,9 +88,17 @@ const Testimonials = ({ testimonials }: { testimonials: Testimonial[] }) => {
                       {t.content}
                     </p>
                     <div className="flex items-center gap-3 mt-auto">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0B0B0C] text-sm font-bold text-primary">
-                        {initialsOf(t.name)}
-                      </div>
+                      {t.image ? (
+                        <img
+                          src={t.image}
+                          alt={t.name}
+                          className="h-10 w-10 shrink-0 rounded-full object-cover"
+                        />
+                      ) : (
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0B0B0C] text-sm font-bold text-primary">
+                          {initialsOf(t.name)}
+                        </div>
+                      )}
                       <div>
                         <div className="text-sm font-semibold text-[#0B0B0C]">
                           {t.name}
@@ -120,9 +128,17 @@ const Testimonials = ({ testimonials }: { testimonials: Testimonial[] }) => {
                     {t.content}
                   </p>
                   <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0B0B0C] text-sm font-bold text-primary">
-                      {initialsOf(t.name)}
-                    </div>
+                    {t.image ? (
+                      <img
+                        src={t.image}
+                        alt={t.name}
+                        className="h-10 w-10 shrink-0 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0B0B0C] text-sm font-bold text-primary">
+                        {initialsOf(t.name)}
+                      </div>
+                    )}
                     <div>
                       <div className="text-sm font-semibold text-[#0B0B0C]">
                         {t.name}
