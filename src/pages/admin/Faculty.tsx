@@ -38,7 +38,7 @@ const getInitials = (name: string) => {
   return name.split(' ').map(n => n[0]).filter(Boolean).join('').substring(0, 2).toUpperCase();
 };
 
-export default function AdminFaculty() {
+export default function AdminTeam() {
   const queryClient = useQueryClient();
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -64,10 +64,10 @@ export default function AdminFaculty() {
     mutationFn: facultyApi.create,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['admin-faculty'] });
-      toast.success('Faculty member added successfully');
+      toast.success('Team member added successfully');
       setIsFormOpen(false);
     },
-    onError: () => toast.error('Failed to add faculty member'),
+    onError: () => toast.error('Failed to add team member'),
   });
 
   const updateMutation = useMutation({
@@ -75,20 +75,20 @@ export default function AdminFaculty() {
       facultyApi.update(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['admin-faculty'] });
-      toast.success('Faculty member updated successfully');
+      toast.success('Team member updated successfully');
       setIsFormOpen(false);
     },
-    onError: () => toast.error('Failed to update faculty member'),
+    onError: () => toast.error('Failed to update team member'),
   });
 
   const deleteMutation = useMutation({
     mutationFn: facultyApi.delete,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['admin-faculty'] });
-      toast.success('Faculty member deleted successfully');
+      toast.success('Team member deleted successfully');
       setIsDeleteDialogOpen(false);
     },
-    onError: () => toast.error('Failed to delete faculty member'),
+    onError: () => toast.error('Failed to delete team member'),
   });
 
   const handleOpenAdd = () => {
@@ -134,10 +134,10 @@ export default function AdminFaculty() {
       }
       
       queryClient.invalidateQueries({ queryKey: ['admin-faculty'] });
-      toast.success(editingFaculty ? 'Faculty member updated successfully' : 'Faculty member added successfully');
+      toast.success(editingFaculty ? 'Team member updated successfully' : 'Team member added successfully');
       setIsFormOpen(false);
     } catch (error) {
-      toast.error('Failed to save faculty member');
+      toast.error('Failed to save team member');
     } finally {
       setIsSaving(false);
     }
@@ -155,14 +155,14 @@ export default function AdminFaculty() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Faculty Management</h1>
+          <h1 className="text-2xl font-bold tracking-tight">Our Team Management</h1>
           <p className="text-muted-foreground">
-            Manage the people showcased in the "Learn From People Building It Now" section.
+            Manage the people showcased in the "Learn From People Building It Now" section and on the Team page.
           </p>
         </div>
         <Button onClick={handleOpenAdd}>
           <Plus className="mr-2 h-4 w-4" />
-          Add Faculty
+          Add Team Member
         </Button>
       </div>
 
@@ -172,13 +172,13 @@ export default function AdminFaculty() {
             <div className="rounded-full bg-primary/10 p-4">
               <Users className="h-8 w-8 text-primary" />
             </div>
-            <h3 className="mt-4 text-lg font-semibold">No faculty members yet</h3>
+            <h3 className="mt-4 text-lg font-semibold">No team members yet</h3>
             <p className="mt-2 text-sm text-muted-foreground">
-              Add your first faculty member to showcase them on the homepage.
+              Add your first team member to showcase them on the homepage.
             </p>
             <Button className="mt-6" onClick={handleOpenAdd}>
               <Plus className="mr-2 h-4 w-4" />
-              Add Faculty
+              Add Team Member
             </Button>
           </div>
         ) : (
@@ -257,7 +257,7 @@ export default function AdminFaculty() {
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
             <DialogTitle>
-              {editingFaculty ? 'Edit Faculty Member' : 'Add Faculty Member'}
+              {editingFaculty ? 'Edit Team Member' : 'Add Team Member'}
             </DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -322,7 +322,7 @@ export default function AdminFaculty() {
               <div className="space-y-0.5">
                 <Label className="text-base">Active Status</Label>
                 <p className="text-sm text-muted-foreground">
-                  Show this faculty member on the homepage
+                  Show this team member on the homepage
                 </p>
               </div>
               <Switch
@@ -347,7 +347,7 @@ export default function AdminFaculty() {
                 {isSaving && (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 )}
-                {editingFaculty ? 'Save Changes' : 'Add Faculty'}
+                {editingFaculty ? 'Save Changes' : 'Add Team Member'}
               </Button>
             </div>
           </form>
@@ -359,7 +359,7 @@ export default function AdminFaculty() {
           <AlertDialogHeader>
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              This will permanently delete this faculty member. This action cannot be undone.
+              This will permanently delete this team member. This action cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

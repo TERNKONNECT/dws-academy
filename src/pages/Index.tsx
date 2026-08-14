@@ -55,7 +55,7 @@ const Index = () => {
     testimonialsApi.getAll().then((data) => {
       if (active) setTestimonials(data);
     });
-    facultyApi.getAll().then((data) => {
+    facultyApi.getAll(false, 4).then((data) => {
       if (active) setFaculty(data);
     });
     return () => {
@@ -74,7 +74,7 @@ const Index = () => {
       <Faculties />
       <FeaturedCourses courses={courses} loading={loadingCourses} />
       <Books />
-      <FacultyPeople faculty={faculty} />
+      <FacultyPeople faculty={faculty} limit={4} />
       <Testimonials testimonials={testimonials} />
       <Insights />
       <ClarityCallCta />
