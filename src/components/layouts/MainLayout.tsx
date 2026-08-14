@@ -10,6 +10,7 @@ import {
   Clock,
   LayoutDashboard,
   BookOpen,
+  MessageCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuthStore } from "@/stores/authStore";
@@ -39,10 +40,11 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   };
 
   const navLinks = [
-    { to: "/#faculties", label: "Faculties" },
+    { to: "/#faculties", label: "Faculty" },
     { to: "/courses", label: "Courses" },
     { to: "/#books", label: "Books" },
-    { to: "/#faculty", label: "Faculty" },
+    { to: "/team", label: "Our Team" },
+    { to: "/gallery", label: "Gallery" },
     { to: "/#insights", label: "Insights" },
   ];
 
@@ -275,8 +277,13 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             </h4>
             <ul className="space-y-3 text-sm text-gray-300">
               <li>
-                <Link to="/#faculty" onClick={(e) => handleNavClick(e, "/#faculty")} className="hover:text-yellow-400 transition-colors">
-                  Faculty
+                <Link to="/team" className="hover:text-yellow-400 transition-colors">
+                  Our Team
+                </Link>
+              </li>
+              <li>
+                <Link to="/gallery" className="hover:text-yellow-400 transition-colors">
+                  Gallery
                 </Link>
               </li>
               <li>
@@ -369,6 +376,17 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
       </footer>
+      {/* Floating Support Button */}
+      <a
+        href="mailto:schoolofeventsafrica@gmail.com"
+        className="fixed bottom-6 left-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-yellow-400 text-black shadow-lg shadow-black/20 transition-transform hover:-translate-y-1 hover:bg-yellow-500 hover:shadow-xl group"
+        aria-label="Contact Support"
+      >
+        <MessageCircle className="h-6 w-6" />
+        <span className="absolute left-full ml-4 whitespace-nowrap rounded-lg bg-black px-3 py-1.5 text-sm font-semibold text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100 pointer-events-none">
+          Contact Support
+        </span>
+      </a>
     </div>
   );
 };

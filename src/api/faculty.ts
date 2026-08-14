@@ -13,8 +13,11 @@ export interface Faculty {
 }
 
 export const facultyApi = {
-  getAll: (isAdmin = false): Promise<Faculty[]> =>
-    api.get(isAdmin ? "/api/faculty/admin" : "/api/faculty").then((r) => r.data),
+  getAll: (isAdmin = false, limit?: number): Promise<Faculty[]> => {
+    let url = isAdmin ? "/api/faculty/admin" : "/api/faculty";
+    if (limit) url += `?limit=${limit}`;
+    return api.get(url).then((r) => r.data);
+  },
 
   create: (data: Partial<Faculty>): Promise<Faculty> =>
     api.post("/api/faculty/admin", data).then((r) => r.data),

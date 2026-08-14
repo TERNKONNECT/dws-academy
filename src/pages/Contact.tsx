@@ -22,9 +22,36 @@ export default function Contact() {
     >,
   ) => setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    try {
+      const response = await fetch(
+        import.meta.env.VITE_API_URL
+          ? `${import.meta.env.VITE_API_URL}/api/contact`
+          : "/api/contact",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        }
+      );
+      
+      if (!response.ok) {
+        throw new Error("Failed to send message");
+      }
+      
+      setSubmitted(true);
+    } catch (error) {
+      console.error(error);
+      alert("Failed to send message. Please try again or use the email link directly.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -97,7 +124,9 @@ export default function Contact() {
                   <div>
                     <h3 className="font-semibold text-white">Email</h3>
                     <p className="text-white/70 text-sm">
-                      schoolofeventsafrica@gmail.com
+                      <a href="mailto:schoolofeventsafrica@gmail.com" className="hover:text-yellow-400 transition-colors">
+                        schoolofeventsafrica@gmail.com
+                      </a>
                     </p>
                   </div>
                 </div>
@@ -258,10 +287,20 @@ export default function Contact() {
 
                       <Button
                         type="submit"
+                        disabled={isSubmitting}
                         className="w-full h-12 bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold shadow-lg"
                       >
-                        <Send className="h-4 w-4 mr-2" />
-                        Send Message
+                        {isSubmitting ? (
+                          <span className="flex items-center">
+                            <span className="animate-spin h-4 w-4 border-2 border-black border-t-transparent rounded-full mr-2"></span>
+                            Sending...
+                          </span>
+                        ) : (
+                          <>
+                            <Send className="h-4 w-4 mr-2" />
+                            Send Message
+                          </>
+                        )}
                       </Button>
                     </form>
                   </>

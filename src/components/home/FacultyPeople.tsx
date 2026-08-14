@@ -11,19 +11,19 @@ const initialsOf = (name: string) =>
     .join("")
     .toUpperCase();
 
-const FacultyPeople = ({ faculty }: { faculty: Faculty[] }) => {
+const FacultyPeople = ({ faculty, limit }: { faculty: Faculty[], limit?: number }) => {
   const safeFaculty = Array.isArray(faculty) ? faculty : [];
-  const shown = safeFaculty.slice(0, 4);
+  const shown = limit ? safeFaculty.slice(0, limit) : safeFaculty;
 
   if (shown.length === 0) return null;
 
   return (
-    <section id="faculty" className="bg-[#F7F6F3] py-24 md:py-32">
+    <section id="teampage" className="bg-[#F7F6F3] py-24 md:py-32">
       <div className="mx-auto max-w-[1180px] px-8">
         <Reveal>
           <div className="mx-auto mb-16 max-w-xl text-center">
             <span className="text-[11.5px] font-semibold uppercase tracking-[0.16em] text-primary/80">
-              Meet Our Faculty
+              Meet Our Team
             </span>
             <h2 className="mt-4 text-[clamp(28px,3.6vw,42px)] font-bold text-[#0B0B0C]">
               Learn From People Building It Now

@@ -31,6 +31,7 @@ const CourseLearning = lazy(() => import("./pages/CourseLearning"));
 const Certificate = lazy(() => import("./pages/Certificate"));
 const VerifyCertificate = lazy(() => import("./pages/VerifyCertificate"));
 const Gallery = lazy(() => import("./pages/Gallery"));
+const Team = lazy(() => import("./pages/Team"));
 const Quiz = lazy(() => import("./pages/Quiz"));
 const Profile = lazy(() => import("./pages/Profile"));
 const PaymentSuccess = lazy(() => import("./pages/PaymentSuccess"));
@@ -107,6 +108,7 @@ const App = () => (
                 <Route path="/courses" element={<Courses />} />
                 <Route path="/courses/:id" element={<CourseDetail />} />
                 <Route path="/gallery" element={<Gallery />} />
+                <Route path="/team" element={<Team />} />
                 <Route path="/services" element={<Services />} />
                 <Route path="/get" element={<GetStarted />} />
                 <Route
