@@ -7,9 +7,9 @@ import Reveal from "./Reveal";
 const FeaturedCourseCard = ({ course }: { course: Course }) => (
   <Link
     to={`/courses/${course.id}`}
-    className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#151517] transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
+    className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/40"
   >
-    <div className="relative h-[130px] overflow-hidden border-b border-white/10">
+    <div className="relative h-[130px] overflow-hidden border-b border-border">
       <img
         src={course.thumbnail}
         alt={course.title}
@@ -21,13 +21,13 @@ const FeaturedCourseCard = ({ course }: { course: Course }) => (
       <span className="text-[12.5px] font-semibold tracking-tight text-primary">
         {course.instructor.name}
       </span>
-      <h4 className="mt-2.5 text-[17.5px] font-bold text-white">
+      <h4 className="mt-2.5 text-[17.5px] font-bold text-foreground">
         {course.title}
       </h4>
-      <p className="mt-2.5 flex-1 text-sm text-white/55">
+      <p className="mt-2.5 flex-1 text-sm text-muted-foreground">
         {course.shortDescription}
       </p>
-      <div className="mt-4 flex flex-wrap items-center gap-3.5 text-xs text-white/45">
+      <div className="mt-4 flex flex-wrap items-center gap-3.5 text-xs text-muted-foreground">
         <span>{course.level}</span>
         {course.duration && <span>{course.duration}</span>}
       </div>
@@ -54,10 +54,10 @@ const FeaturedCourses = ({
             <span className="text-[11.5px] font-semibold uppercase tracking-[0.16em] text-primary">
               Featured Courses
             </span>
-            <h2 className="mt-4 text-[clamp(28px,3.6vw,42px)] font-bold text-white">
+            <h2 className="mt-4 text-[clamp(28px,3.6vw,42px)] font-bold text-foreground">
               Practical Education, Built From Practice
             </h2>
-            <p className="mt-[18px] text-[16.5px] text-white/55">
+            <p className="mt-[18px] text-[16.5px] text-muted-foreground">
               Every course is designed and taught by a professional actively
               building a business in the field they teach.
             </p>
@@ -67,11 +67,11 @@ const FeaturedCourses = ({
         {loading ? (
           <div className="grid grid-cols-1 gap-[22px] sm:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 3 }).map((_, i) => (
-              <Skeleton key={i} className="h-[340px] rounded-2xl bg-white/5" />
+              <Skeleton key={i} className="h-[340px] rounded-2xl bg-muted" />
             ))}
           </div>
         ) : courses.length === 0 ? (
-          <p className="text-center text-white/50">
+          <p className="text-center text-muted-foreground">
             New courses are on the way — check back soon.
           </p>
         ) : (

@@ -84,63 +84,64 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-black via-gray-900 to-black">
-      <Card className="w-full max-w-md border-white/10 bg-[#151517]/5 backdrop-blur-sm text-white">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-background dark:bg-gradient-to-br dark:from-black dark:via-gray-900 dark:to-black">
+      <Card className="w-full max-w-md dark:border-white/10 dark:bg-[#151517]/5 backdrop-blur-sm dark:text-white">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
-            <Link to="/" className="text-xl font-bold text-white tracking-tight">
+            <Link to="/" className="flex flex-col items-center gap-2 text-xl font-bold text-foreground dark:text-white tracking-tight">
+              <img src="/school-logo.jpeg" alt="" className="h-12 w-12 rounded-full object-cover" />
               School of Events Africa
             </Link>
           </div>
-          <CardTitle className="text-2xl text-white">Create Account</CardTitle>
-          <CardDescription className="text-gray-400">
+          <CardTitle className="text-2xl dark:text-white">Create Account</CardTitle>
+          <CardDescription className="dark:text-gray-400">
             Start your learning journey today
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="name" className="text-gray-300">
+              <Label htmlFor="name" className="dark:text-gray-300">
                 Full Name
               </Label>
               <div className="relative">
-                <User className="absolute left-3 top-3 h-4 w-4 text-white/60" />
+                <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground dark:text-white/60" />
                 <Input
                   id="name"
                   placeholder="John Doe"
-                  className="pl-9 bg-[#151517]/10 border-white/20 text-white placeholder:text-white/60 focus-visible:ring-primary"
+                  className="pl-9 dark:bg-[#151517]/10 dark:border-white/20 dark:text-white dark:placeholder:text-white/60 focus-visible:ring-primary"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-gray-300">
+              <Label htmlFor="email" className="dark:text-gray-300">
                 Email
               </Label>
               <div className="relative">
-                <Mail className="absolute left-3 top-3 h-4 w-4 text-white/60" />
+                <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground dark:text-white/60" />
                 <Input
                   id="email"
                   type="email"
                   placeholder="you@example.com"
-                  className="pl-9 bg-[#151517]/10 border-white/20 text-white placeholder:text-white/60 focus-visible:ring-primary"
+                  className="pl-9 dark:bg-[#151517]/10 dark:border-white/20 dark:text-white dark:placeholder:text-white/60 focus-visible:ring-primary"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-gray-300">
+              <Label htmlFor="password" className="dark:text-gray-300">
                 Password
               </Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-3 h-4 w-4 text-white/60" />
+                <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground dark:text-white/60" />
                 <Input
                   id="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
-                  className="pl-9 pr-9 bg-[#151517]/10 border-white/20 text-white placeholder:text-white/60 focus-visible:ring-primary"
+                  className="pl-9 pr-9 dark:bg-[#151517]/10 dark:border-white/20 dark:text-white dark:placeholder:text-white/60 focus-visible:ring-primary"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -151,9 +152,9 @@ const Signup = () => {
                   aria-label="Toggle password"
                 >
                   {showPassword ? (
-                    <EyeOff className="h-4 w-4 text-white/60" />
+                    <EyeOff className="h-4 w-4 text-muted-foreground dark:text-white/60" />
                   ) : (
-                    <Eye className="h-4 w-4 text-white/60" />
+                    <Eye className="h-4 w-4 text-muted-foreground dark:text-white/60" />
                   )}
                 </button>
               </div>
@@ -166,7 +167,7 @@ const Signup = () => {
               {loading ? "Creating account..." : "Sign Up"}
             </Button>
           </form>
-          <p className="text-center text-sm text-gray-400 mt-6">
+          <p className="text-center text-sm text-muted-foreground dark:text-gray-400 mt-6">
             Already have an account?{" "}
             <Link
               to="/login"

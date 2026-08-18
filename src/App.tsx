@@ -1,6 +1,7 @@
 import { Suspense, lazy } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ThemeProvider } from "next-themes";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -86,176 +87,178 @@ const RouteFallback = () => (
 );
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <AuthProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          {/* One page throwing must not blank the whole site. */}
-          <ErrorBoundary>
-            <Suspense fallback={<RouteFallback />}>
-              <Routes>
-                {/* Public & user routes */}
-                <Route path="/" element={<Index />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/verify-email" element={<VerifyEmail />} />
-                <Route path="/admin-invite" element={<AdminInvite />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route path="/courses" element={<Courses />} />
-                <Route path="/courses/:id" element={<CourseDetail />} />
-                <Route path="/gallery" element={<Gallery />} />
-                <Route path="/team" element={<Team />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/get" element={<GetStarted />} />
-                <Route
-                  path="/payment/success"
-                  element={
-                    <ProtectedRoute>
-                      <PaymentSuccess />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route path="/payment/failed" element={<PaymentFailed />} />
-                <Route
-                  path="/my-learning"
-                  element={
-                    <ProtectedRoute>
-                      <MyLearning />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/learn/:courseId"
-                  element={
-                    <ProtectedRoute>
-                      <CourseLearning />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/learn/:courseId/quiz/:quizId"
-                  element={
-                    <ProtectedRoute>
-                      <Quiz />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/certificate/:courseId"
-                  element={
-                    <ProtectedRoute>
-                      <Certificate />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/verify-certificate"
-                  element={<VerifyCertificate />}
-                />
-                <Route
-                  path="/verify-certificate/:certificateId"
-                  element={<VerifyCertificate />}
-                />
-                <Route
-                  path="/profile"
-                  element={
-                    <ProtectedRoute>
-                      <Profile />
-                    </ProtectedRoute>
-                  }
-                />
-
-                {/* Admin routes */}
-                <Route
-                  path="/dashboard"
-                  element={
-                    <ProtectedAdminRoute>
-                      <DashboardLayout />
-                    </ProtectedAdminRoute>
-                  }
-                >
-                  <Route index element={<Dashboard />} />
-                  <Route path="profile" element={<AdminProfile />} />
-                  <Route path="settings" element={<Settings />} />
-                  <Route path="courses" element={<AdminCourses />} />
-                  <Route path="courses/new" element={<CourseNew />} />
-                  <Route path="courses/:id" element={<AdminCourseDetail />} />
-                  <Route path="courses/:id/builder" element={<CourseBuilder />} />
+  <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} storageKey="dws-theme">
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <AuthProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            {/* One page throwing must not blank the whole site. */}
+            <ErrorBoundary>
+              <Suspense fallback={<RouteFallback />}>
+                <Routes>
+                  {/* Public & user routes */}
+                  <Route path="/" element={<Index />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/signup" element={<Signup />} />
+                  <Route path="/verify-email" element={<VerifyEmail />} />
+                  <Route path="/admin-invite" element={<AdminInvite />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/forgot-password" element={<ForgotPassword />} />
+                  <Route path="/courses" element={<Courses />} />
+                  <Route path="/courses/:id" element={<CourseDetail />} />
+                  <Route path="/gallery" element={<Gallery />} />
+                  <Route path="/team" element={<Team />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/get" element={<GetStarted />} />
                   <Route
-                    path="courses/:id/enrollments"
-                    element={<CourseEnrollments />}
-                  />
-                  <Route path="users" element={<Users />} />
-                  <Route
-                    path="analytics"
+                    path="/payment/success"
                     element={
-                      <StrictAdminRoute>
-                        <Analytics />
-                      </StrictAdminRoute>
+                      <ProtectedRoute>
+                        <PaymentSuccess />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route path="/payment/failed" element={<PaymentFailed />} />
+                  <Route
+                    path="/my-learning"
+                    element={
+                      <ProtectedRoute>
+                        <MyLearning />
+                      </ProtectedRoute>
                     }
                   />
                   <Route
-                    path="revenue"
+                    path="/learn/:courseId"
                     element={
-                      <StrictAdminRoute>
-                        <Revenue />
-                      </StrictAdminRoute>
+                      <ProtectedRoute>
+                        <CourseLearning />
+                      </ProtectedRoute>
                     }
                   />
                   <Route
-                    path="events-gallery"
+                    path="/learn/:courseId/quiz/:quizId"
                     element={
-                      <StrictAdminRoute>
-                        <EventsGallery />
-                      </StrictAdminRoute>
+                      <ProtectedRoute>
+                        <Quiz />
+                      </ProtectedRoute>
                     }
                   />
                   <Route
-                    path="testimonials"
+                    path="/certificate/:courseId"
                     element={
-                      <StrictAdminRoute>
-                        <AdminTestimonials />
-                      </StrictAdminRoute>
+                      <ProtectedRoute>
+                        <Certificate />
+                      </ProtectedRoute>
                     }
                   />
                   <Route
-                    path="faculty"
-                    element={
-                      <StrictAdminRoute>
-                        <AdminFaculty />
-                      </StrictAdminRoute>
-                    }
+                    path="/verify-certificate"
+                    element={<VerifyCertificate />}
                   />
                   <Route
-                    path="instructors"
-                    element={
-                      <StrictAdminRoute>
-                        <Instructors />
-                      </StrictAdminRoute>
-                    }
+                    path="/verify-certificate/:certificateId"
+                    element={<VerifyCertificate />}
                   />
                   <Route
-                    path="instructors/:id"
+                    path="/profile"
                     element={
-                      <StrictAdminRoute>
-                        <InstructorDetail />
-                      </StrictAdminRoute>
+                      <ProtectedRoute>
+                        <Profile />
+                      </ProtectedRoute>
                     }
                   />
-                </Route>
-
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
-          </ErrorBoundary>
-        </BrowserRouter>
-      </AuthProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
+  
+                  {/* Admin routes */}
+                  <Route
+                    path="/dashboard"
+                    element={
+                      <ProtectedAdminRoute>
+                        <DashboardLayout />
+                      </ProtectedAdminRoute>
+                    }
+                  >
+                    <Route index element={<Dashboard />} />
+                    <Route path="profile" element={<AdminProfile />} />
+                    <Route path="settings" element={<Settings />} />
+                    <Route path="courses" element={<AdminCourses />} />
+                    <Route path="courses/new" element={<CourseNew />} />
+                    <Route path="courses/:id" element={<AdminCourseDetail />} />
+                    <Route path="courses/:id/builder" element={<CourseBuilder />} />
+                    <Route
+                      path="courses/:id/enrollments"
+                      element={<CourseEnrollments />}
+                    />
+                    <Route path="users" element={<Users />} />
+                    <Route
+                      path="analytics"
+                      element={
+                        <StrictAdminRoute>
+                          <Analytics />
+                        </StrictAdminRoute>
+                      }
+                    />
+                    <Route
+                      path="revenue"
+                      element={
+                        <StrictAdminRoute>
+                          <Revenue />
+                        </StrictAdminRoute>
+                      }
+                    />
+                    <Route
+                      path="events-gallery"
+                      element={
+                        <StrictAdminRoute>
+                          <EventsGallery />
+                        </StrictAdminRoute>
+                      }
+                    />
+                    <Route
+                      path="testimonials"
+                      element={
+                        <StrictAdminRoute>
+                          <AdminTestimonials />
+                        </StrictAdminRoute>
+                      }
+                    />
+                    <Route
+                      path="faculty"
+                      element={
+                        <StrictAdminRoute>
+                          <AdminFaculty />
+                        </StrictAdminRoute>
+                      }
+                    />
+                    <Route
+                      path="instructors"
+                      element={
+                        <StrictAdminRoute>
+                          <Instructors />
+                        </StrictAdminRoute>
+                      }
+                    />
+                    <Route
+                      path="instructors/:id"
+                      element={
+                        <StrictAdminRoute>
+                          <InstructorDetail />
+                        </StrictAdminRoute>
+                      }
+                    />
+                  </Route>
+  
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Suspense>
+            </ErrorBoundary>
+          </BrowserRouter>
+        </AuthProvider>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </ThemeProvider>
 );
 
 export default App;

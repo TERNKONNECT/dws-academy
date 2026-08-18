@@ -13,6 +13,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ThemeToggle from "@/components/ThemeToggle";
 import { useAuthStore } from "@/stores/authStore";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
@@ -69,6 +70,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0B0B0C]/80 backdrop-blur-md">
         <div className="container mx-auto px-4 flex h-20 items-center justify-between">
           <Link to="/" className="flex items-center gap-2 md:gap-3 font-bold text-xl md:text-2xl">
+            <img src="/school-logo.jpeg" alt="" className="h-10 w-10 rounded-full object-cover md:h-11 md:w-11" />
             <span className="font-bold text-white tracking-tight">School of Events Africa</span>
           </Link>
 
@@ -93,6 +95,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           </nav>
 
           <div className="hidden md:flex items-center gap-4">
+            <ThemeToggle className="text-white/70 hover:text-white hover:bg-[#151517]/10 rounded-full" />
             {isAuthenticated ? (
               <>
                 <Link to={user?.role === "admin" || user?.role === "super-admin" ? "/dashboard" : "/my-learning"}>
@@ -148,17 +151,20 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             )}
           </div>
 
-          <button
-            className="md:hidden p-2 text-white/70 hover:text-white hover:bg-[#151517]/10 rounded-lg"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
-          </button>
+          <div className="flex items-center gap-1 md:hidden">
+            <ThemeToggle className="text-white/70 hover:text-white hover:bg-[#151517]/10 rounded-lg" />
+            <button
+              className="p-2 text-white/70 hover:text-white hover:bg-[#151517]/10 rounded-lg"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </button>
+          </div>
         </div>
 
         {mobileOpen && (
@@ -239,6 +245,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         <div className="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8 md:gap-10">
           <div className="space-y-4 sm:col-span-2 md:col-span-1">
             <div className="flex items-center gap-3 font-bold text-xl">
+              <img src="/school-logo.jpeg" alt="" className="h-10 w-10 rounded-full object-cover" />
               <span className="font-bold text-white tracking-tight">School of Events Africa</span>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed max-w-[260px]">
