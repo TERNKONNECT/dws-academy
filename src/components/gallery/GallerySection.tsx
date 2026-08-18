@@ -95,9 +95,7 @@ export function GallerySection({ limit, showViewMore = false }: GallerySectionPr
         <div className="space-y-14">
           {groups.map((group) => (
             <div key={group.categoryId}>
-              {groups.length > 1 && (
-                <h3 className="mb-6 text-xl font-bold text-foreground">{group.categoryName}</h3>
-              )}
+              <h3 className="mb-6 text-xl font-bold text-foreground">{group.categoryName}</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {group.images.map((img) => (
                   <div key={img.id} className="relative group aspect-square rounded-xl overflow-hidden bg-muted">

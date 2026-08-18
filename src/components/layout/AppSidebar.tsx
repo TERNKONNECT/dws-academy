@@ -27,6 +27,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useAuth } from "@/contexts/AuthContext";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const adminNavItems = [
   { title: "Profile", url: "/dashboard/profile", icon: UserCircle },
@@ -144,9 +145,12 @@ export function AppSidebar() {
       </SidebarContent>
 
       <SidebarFooter className="p-4">
-        {!collapsed && (
-          <p className="text-xs text-sidebar-foreground/50">© 2026 LMS Admin</p>
-        )}
+        <div className={collapsed ? "flex justify-center" : "flex items-center justify-between"}>
+          {!collapsed && (
+            <p className="text-xs text-sidebar-foreground/50">© 2026 LMS Admin</p>
+          )}
+          <ThemeToggle className="text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent h-8 w-8" />
+        </div>
       </SidebarFooter>
     </Sidebar>
   );
