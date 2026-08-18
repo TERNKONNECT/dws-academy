@@ -122,7 +122,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                   variant="outline"
                   size="sm"
                   onClick={handleLogout}
-                  className="gap-2 border-white/20 text-white/70 hover:text-white hover:border-white/50 hover:bg-[#151517]/10 rounded-full"
+                  className="gap-2 bg-transparent border-white/20 text-white/70 hover:text-white hover:border-white/50 hover:bg-[#151517]/10 rounded-full"
                 >
                   <LogOut className="h-4 w-4" />
                   Logout
@@ -204,7 +204,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="w-full gap-2 border-white/20 text-white/80 hover:text-white hover:border-white/50 hover:bg-[#151517]/10 rounded-full"
+                    className="w-full gap-2 bg-transparent border-white/20 text-white/80 hover:text-white hover:border-white/50 hover:bg-[#151517]/10 rounded-full"
                     onClick={() => {
                       handleLogout();
                       setMobileOpen(false);
