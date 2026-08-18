@@ -43,15 +43,15 @@ const faculties = [
 
 const Faculties = () => {
   return (
-    <section id="faculties" className="bg-white py-24 md:py-32">
+    <section id="faculties" className="bg-white py-14 md:py-20">
       <div className="mx-auto max-w-[1180px] px-8">
         <Reveal>
-          <div className="mx-auto mb-16 max-w-xl text-center">
-            <span className="text-[11.5px] font-semibold uppercase tracking-[0.16em] text-primary/80">
+          <div className="mx-auto mb-10 max-w-xl text-center">
+            <span className="text-[11.5px] font-semibold uppercase tracking-[0.16em] text-amber-700">
               Our Faculty
             </span>
             <h2 className="mt-4 text-[clamp(28px,3.6vw,42px)] font-bold text-[#0B0B0C]">
-              Six Disciplines. One Industry.
+              Multiple Disciplines. One Industry.
             </h2>
             <p className="mt-[18px] text-[16.5px] text-muted-foreground">
               Each faculty brings together the technical craft and the

@@ -3,12 +3,13 @@ import MainLayout from "@/components/layouts/MainLayout";
 import HeroSection from "@/components/home/HeroSection";
 import TrustStrip from "@/components/home/TrustStrip";
 import WhoWeAre from "@/components/home/WhoWeAre";
-import Faculties from "@/components/home/Faculties";
+import Partners from "@/components/home/Partners";
 import FeaturedCourses from "@/components/home/FeaturedCourses";
 import Books from "@/components/home/Books";
 import FacultyPeople from "@/components/home/FacultyPeople";
 import Testimonials from "@/components/home/Testimonials";
 import Insights from "@/components/home/Insights";
+import Newsletter from "@/components/home/Newsletter";
 import ClarityCallCta from "@/components/home/ClarityCallCta";
 import FinalCta from "@/components/home/FinalCta";
 import { api } from "@/services/api";
@@ -71,12 +72,13 @@ const Index = () => {
       <HeroSection />
       <TrustStrip />
       <WhoWeAre />
-      <Faculties />
+      <Partners />
       <FeaturedCourses courses={courses} loading={loadingCourses} />
       <Books />
       <FacultyPeople faculty={faculty} limit={4} />
       <Testimonials testimonials={testimonials} />
       <Insights />
+      <Newsletter />
       <ClarityCallCta />
       <FinalCta />
     </MainLayout>

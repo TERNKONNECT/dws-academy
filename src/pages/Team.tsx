@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import MainLayout from "@/components/layouts/MainLayout";
 import FacultyPeople from "@/components/home/FacultyPeople";
+import Faculties from "@/components/home/Faculties";
 import { facultyApi, type Faculty } from "@/api/faculty";
 
 const Team = () => {
@@ -20,6 +21,7 @@ const Team = () => {
     <MainLayout>
       <div className="bg-[#F7F6F3]">
         <FacultyPeople faculty={faculty} />
+        <Faculties />
       </div>
     </MainLayout>
   );

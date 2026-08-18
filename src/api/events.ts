@@ -1,10 +1,13 @@
 import axios from './axios';
+import { GalleryCategory } from './galleryCategories';
 
 export interface EventImage {
   id: string;
   eventId: string;
   url: string;
   key: string;
+  categoryId: number;
+  category?: GalleryCategory;
   createdAt: string;
   updatedAt: string;
 }
@@ -43,8 +46,8 @@ export const eventsApi = {
     return response.data;
   },
   
-  saveImages: async (eventId: string, images: { url: string; key: string }[]) => {
-    const response = await axios.post<EventImage[]>(`/api/events/${eventId}/images`, { images });
+  saveImages: async (eventId: string, images: { url: string; key: string }[], categoryId?: number) => {
+    const response = await axios.post<EventImage[]>(`/api/events/${eventId}/images`, { images, categoryId });
     return response.data;
   },
   

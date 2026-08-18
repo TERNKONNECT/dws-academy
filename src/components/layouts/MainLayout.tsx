@@ -40,7 +40,6 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   };
 
   const navLinks = [
-    { to: "/#faculties", label: "Faculty" },
     { to: "/courses", label: "Courses" },
     { to: "/#books", label: "Books" },
     { to: "/team", label: "Our Team" },
@@ -253,11 +252,6 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
               Explore
             </h4>
             <ul className="space-y-3 text-sm text-gray-300">
-              <li>
-                <Link to="/#faculties" onClick={(e) => handleNavClick(e, "/#faculties")} className="hover:text-yellow-400 transition-colors">
-                  Faculties
-                </Link>
-              </li>
               <li>
                 <Link to="/courses" className="hover:text-yellow-400 transition-colors">
                   Courses

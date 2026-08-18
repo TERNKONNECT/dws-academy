@@ -62,7 +62,7 @@ const Testimonials = ({ testimonials }: { testimonials: Testimonial[] }) => {
       <div className="mx-auto max-w-[1180px] px-8">
         <Reveal>
           <div className="mx-auto mb-16 max-w-xl text-center">
-            <span className="text-[11.5px] font-semibold uppercase tracking-[0.16em] text-primary/80">
+            <span className="text-[11.5px] font-semibold uppercase tracking-[0.16em] text-amber-700">
               Success Stories
             </span>
             <h2 className="mt-4 text-[clamp(28px,3.6vw,42px)] font-bold text-[#0B0B0C]">
