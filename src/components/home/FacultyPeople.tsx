@@ -15,14 +15,12 @@ const FacultyPeople = ({ faculty, limit }: { faculty: Faculty[], limit?: number 
   const safeFaculty = Array.isArray(faculty) ? faculty : [];
   const shown = limit ? safeFaculty.slice(0, limit) : safeFaculty;
 
-  if (shown.length === 0) return null;
-
   return (
-    <section id="teampage" className="bg-[#F7F6F3] py-24 md:py-32">
+    <section id="teampage" className="bg-[#F7F6F3] py-14 md:py-20">
       <div className="mx-auto max-w-[1180px] px-8">
         <Reveal>
-          <div className="mx-auto mb-16 max-w-xl text-center">
-            <span className="text-[11.5px] font-semibold uppercase tracking-[0.16em] text-primary/80">
+          <div className="mx-auto mb-10 max-w-xl text-center">
+            <span className="text-[11.5px] font-semibold uppercase tracking-[0.16em] text-amber-700">
               Meet Our Team
             </span>
             <h2 className="mt-4 text-[clamp(28px,3.6vw,42px)] font-bold text-[#0B0B0C]">
@@ -51,7 +49,7 @@ const FacultyPeople = ({ faculty, limit }: { faculty: Faculty[], limit?: number 
                 <h4 className="text-[15.5px] font-bold text-[#0B0B0C]">
                   {person.name}
                 </h4>
-                <div className="mt-1.5 text-xs font-semibold uppercase tracking-[0.04em] text-primary/80">
+                <div className="mt-1.5 text-xs font-semibold uppercase tracking-[0.04em] text-amber-700">
                   {[person.jobTitle, person.company].filter(Boolean).join(' • ') || 'Faculty'}
                 </div>
               </div>

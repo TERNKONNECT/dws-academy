@@ -202,7 +202,7 @@ export default function GetStarted() {
               </div>
               <div className="pt-1">
                 <p
-                  className={`font-semibold text-sm ${isActive ? "text-primary" : isCompleted ? "text-foreground" : "text-muted-foreground"}`}
+                  className={`font-semibold text-sm ${isActive ? "text-amber-700" : isCompleted ? "text-foreground" : "text-muted-foreground"}`}
                 >
                   {s.title}
                 </p>

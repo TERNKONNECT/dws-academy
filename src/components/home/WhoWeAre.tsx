@@ -25,7 +25,7 @@ const WhoWeAre = () => {
         </Reveal>
         <Reveal delay={100}>
           <div>
-            <span className="text-[11.5px] font-semibold uppercase tracking-[0.16em] text-primary/80">
+            <span className="text-[11.5px] font-semibold uppercase tracking-[0.16em] text-amber-700">
               Who We Are
             </span>
             <h2 className="mt-4 text-[clamp(26px,3.2vw,38px)] font-bold text-[#0B0B0C]">
