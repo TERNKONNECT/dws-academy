@@ -103,16 +103,17 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-black via-gray-900 to-black">
-      <Card className="w-full max-w-md border-white/10 bg-[#151517]/5 backdrop-blur-sm text-white">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-background dark:bg-gradient-to-br dark:from-black dark:via-gray-900 dark:to-black">
+      <Card className="w-full max-w-md dark:border-white/10 dark:bg-[#151517]/5 backdrop-blur-sm dark:text-white">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
-            <Link to="/" className="text-xl font-bold text-white tracking-tight">
+            <Link to="/" className="flex flex-col items-center gap-2 text-xl font-bold text-foreground dark:text-white tracking-tight">
+              <img src="/school-logo.jpeg" alt="" className="h-12 w-12 rounded-full object-cover" />
               School of Events Africa
             </Link>
           </div>
-          <CardTitle className="text-2xl text-white">Reset Password</CardTitle>
-          <CardDescription className="text-gray-400">
+          <CardTitle className="text-2xl dark:text-white">Reset Password</CardTitle>
+          <CardDescription className="dark:text-gray-400">
             {sent
               ? "Enter the OTP from your email and choose a new password."
               : "Enter your email to receive a reset OTP."}
@@ -122,16 +123,16 @@ const ForgotPassword = () => {
           {!sent ? (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-gray-300">
+                <Label htmlFor="email" className="dark:text-gray-300">
                   Email
                 </Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-3 h-4 w-4 text-white/60" />
+                  <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground dark:text-white/60" />
                   <Input
                     id="email"
                     type="email"
                     placeholder="you@example.com"
-                    className="pl-9 bg-[#151517]/10 border-white/20 text-white placeholder:text-white/60 focus-visible:ring-primary"
+                    className="pl-9 dark:bg-[#151517]/10 dark:border-white/20 dark:text-white dark:placeholder:text-white/60 focus-visible:ring-primary"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -147,34 +148,34 @@ const ForgotPassword = () => {
             </form>
           ) : (
             <form onSubmit={handleReset} className="space-y-4">
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-muted-foreground dark:text-gray-400">
                 We sent a password reset code to{" "}
-                <strong className="text-white">{email}</strong>
+                <strong className="text-foreground dark:text-white">{email}</strong>
               </p>
               <div className="space-y-2">
-                <Label htmlFor="otp" className="text-gray-300">
+                <Label htmlFor="otp" className="dark:text-gray-300">
                   OTP
                 </Label>
                 <Input
                   id="otp"
                   inputMode="numeric"
                   placeholder="123456"
-                  className="bg-[#151517]/10 border-white/20 text-white placeholder:text-white/60 focus-visible:ring-primary"
+                  className="dark:bg-[#151517]/10 dark:border-white/20 dark:text-white dark:placeholder:text-white/60 focus-visible:ring-primary"
                   value={otp}
                   onChange={(e) => setOtp(e.target.value)}
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-gray-300">
+                <Label htmlFor="password" className="dark:text-gray-300">
                   New Password
                 </Label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-4 w-4 text-white/60" />
+                  <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground dark:text-white/60" />
                   <Input
                     id="password"
                     type="password"
                     placeholder="New password"
-                    className="pl-9 bg-[#151517]/10 border-white/20 text-white placeholder:text-white/60 focus-visible:ring-primary"
+                    className="pl-9 dark:bg-[#151517]/10 dark:border-white/20 dark:text-white dark:placeholder:text-white/60 focus-visible:ring-primary"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />

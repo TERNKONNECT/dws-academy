@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ArrowLeft, BookOpen, Check, Loader2 } from "lucide-react";
+import { ArrowRight, ArrowLeft, Check, Loader2 } from "lucide-react";
 import emailjs from "@emailjs/browser";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -174,7 +174,7 @@ export default function GetStarted() {
   const LeftPanel = () => (
     <div className="w-full md:w-[420px] md:min-h-screen bg-gradient-to-b from-[#eef2ff] to-[#f5f3ff] flex flex-col px-10 py-12 flex-shrink-0">
       <Link to="/" className="flex items-center gap-2 font-bold text-xl mb-16">
-        <BookOpen className="h-6 w-6 text-primary" />
+        <img src="/school-logo.jpeg" alt="" className="h-9 w-9 rounded-full object-cover" />
         <span className="text-gradient">School of Events Africa</span>
       </Link>
 

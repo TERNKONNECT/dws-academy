@@ -14,8 +14,16 @@ const Partners = () => {
         </Reveal>
         <Reveal delay={100}>
           <div className="mt-12 flex flex-wrap items-center justify-center gap-12 opacity-80 hover:opacity-100 transition-opacity">
-            {/* Replace this src with the actual DWS logo path once uploaded */}
-            <img src="/dws-logo.png" alt="DWS Logo" className="h-16 object-contain" />
+            <img
+              src="/dws-logo-light.jpeg"
+              alt="DWS Logo"
+              className="h-28 w-28 rounded-xl object-cover dark:hidden"
+            />
+            <img
+              src="/dws-logo-dark.jpeg"
+              alt="DWS Logo"
+              className="hidden h-28 w-28 rounded-xl object-cover dark:block"
+            />
           </div>
         </Reveal>
       </div>

@@ -24,7 +24,7 @@ const ClarityCallCta = () => {
             <h2 className="mt-4 text-[clamp(26px,3.4vw,36px)] font-bold text-white">
               Need Personalised Guidance?
             </h2>
-            <p className="mt-4 text-base text-white/62">
+            <p className="mt-4 text-base text-white/70">
               If you're looking for personalised support, mentorship or
               hands-on implementation, book a Clarity Call with our team to
               discover the right pathway for your growth.
