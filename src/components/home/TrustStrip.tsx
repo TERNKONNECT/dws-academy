@@ -9,7 +9,7 @@ const stats = [
 
 const TrustStrip = () => {
   return (
-    <div className="bg-background px-6 pb-24">
+    <div className="bg-background px-6 pb-12">
       <Reveal>
         <div className="mx-auto grid max-w-[1100px] grid-cols-2 overflow-hidden rounded-[20px] border border-border md:grid-cols-4">
           {stats.map((s) => (

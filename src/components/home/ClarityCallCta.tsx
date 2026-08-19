@@ -18,17 +18,7 @@ const ClarityCallCta = () => {
             }}
           />
           <div className="relative z-10 mx-auto max-w-xl">
-            <span className="text-[11.5px] font-semibold uppercase tracking-[0.16em] text-primary">
-              Need More Than a Course?
-            </span>
-            <h2 className="mt-4 text-[clamp(26px,3.4vw,36px)] font-bold text-white">
-              Need Personalised Guidance?
-            </h2>
-            <p className="mt-4 text-base text-white/70">
-              If you're looking for personalised support, mentorship or
-              hands-on implementation, book a Clarity Call with our team to
-              discover the right pathway for your growth.
-            </p>
+
             <Link to="/contact">
               <Button size="lg" className="mt-8">
                 Book a Clarity Call
