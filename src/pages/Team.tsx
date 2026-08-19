@@ -19,7 +19,7 @@ const Team = () => {
 
   return (
     <MainLayout>
-      <div className="bg-[#F7F6F3]">
+      <div className="bg-[#F7F6F3] dark:bg-black">
         <FacultyPeople faculty={faculty} />
         <Faculties />
       </div>

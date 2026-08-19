@@ -220,13 +220,13 @@ export default function Services() {
       </section>
 
       {/* Services Section */}
-      <section className="py-20 bg-[#151517]">
+      <section className="py-20 bg-gray-50 dark:bg-[#151517]">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
               Our <span className="text-yellow-500">Services</span>
             </h2>
-            <p className="text-xl text-white/70">
+            <p className="text-xl text-slate-600 dark:text-white/70">
               Professional event planning services for every occasion and budget
             </p>
           </div>
@@ -247,7 +247,7 @@ export default function Services() {
                         {service.icon}
                       </div>
                       <div>
-                        <h3 className="text-2xl md:text-3xl font-bold text-white">
+                        <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
                           {service.title}
                         </h3>
                         <p className="text-yellow-600 font-semibold text-lg">
@@ -256,7 +256,7 @@ export default function Services() {
                       </div>
                     </div>
 
-                    <p className="text-lg text-white/70 leading-relaxed">
+                    <p className="text-lg text-slate-600 dark:text-white/70 leading-relaxed">
                       {service.description}
                     </p>
 
@@ -264,7 +264,7 @@ export default function Services() {
                       {service.features.map((feature) => (
                         <div key={feature} className="flex items-center gap-3">
                           <CheckCircle className="h-5 w-5 text-yellow-500 flex-shrink-0" />
-                          <span className="text-white/80 text-sm">
+                          <span className="text-slate-700 dark:text-white/80 text-sm">
                             {feature}
                           </span>
                         </div>
@@ -309,13 +309,13 @@ export default function Services() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-[#0B0B0C]">
+      <section className="py-20 bg-white dark:bg-[#0B0B0C]">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
               What's <span className="text-yellow-500">Included</span>
             </h2>
-            <p className="text-xl text-white/70">
+            <p className="text-xl text-slate-600 dark:text-white/70">
               Everything you need for a successful and memorable event
             </p>
           </div>
@@ -324,14 +324,14 @@ export default function Services() {
             {features.map(({ icon, title, description }) => (
               <Card
                 key={title}
-                className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-[#151517]"
+                className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-gray-50 dark:bg-[#151517]"
               >
                 <CardContent className="p-6 space-y-4 text-center">
                   <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl flex items-center justify-center text-yellow-600 mx-auto">
                     {icon}
                   </div>
-                  <h3 className="text-xl font-bold text-white">{title}</h3>
-                  <p className="text-white/70 leading-relaxed">{description}</p>
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">{title}</h3>
+                  <p className="text-slate-600 dark:text-white/70 leading-relaxed">{description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -340,19 +340,19 @@ export default function Services() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-gradient-to-br from-black via-gray-900 to-black">
+      <section className="py-20 bg-gradient-to-br from-gray-100 via-white to-gray-100 dark:from-black dark:via-gray-900 dark:to-black">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
               Client <span className="text-yellow-400">Testimonials</span>
             </h2>
-            <p className="text-xl text-gray-300">
+            <p className="text-xl text-slate-600 dark:text-gray-300">
               Hear what our satisfied people say about their experiences
             </p>
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <Card className="bg-[#151517]/5 backdrop-blur-sm border border-white/10 p-8">
+            <Card className="bg-white/50 dark:bg-[#151517]/50 backdrop-blur-sm border border-gray-200 dark:border-white/10 p-8">
               <CardContent className="text-center space-y-6">
                 <div className="flex justify-center space-x-1">
                   {Array.from({ length: 5 }).map((_, i) => (
@@ -363,22 +363,22 @@ export default function Services() {
                   ))}
                 </div>
 
-                <blockquote className="text-2xl text-white leading-relaxed">
-                  "{testimonials[activeTestimonial].content}"
+                <blockquote className="text-2xl text-slate-900 dark:text-white leading-relaxed">
+                  "{testimonials[activeTestimonial]?.content}"
                 </blockquote>
 
                 <div className="flex items-center justify-center space-x-4">
                   <img
                     src={
-                      testimonials[activeTestimonial].image ||
-                      `https://ui-avatars.com/api/?name=${encodeURIComponent(testimonials[activeTestimonial].name)}&background=random`
+                      testimonials[activeTestimonial]?.image ||
+                      `https://ui-avatars.com/api/?name=${encodeURIComponent(testimonials[activeTestimonial]?.name || 'User')}&background=random`
                     }
-                    alt={testimonials[activeTestimonial].name}
+                    alt={testimonials[activeTestimonial]?.name}
                     className="w-16 h-16 rounded-full border-2 border-yellow-400 object-cover"
                   />
                   <div className="text-left">
-                    <p className="font-bold text-white">
-                      {testimonials[activeTestimonial].name}
+                    <p className="font-bold text-slate-900 dark:text-white">
+                      {testimonials[activeTestimonial]?.name}
                     </p>
                     <p className="text-yellow-400">
                       {[testimonials[activeTestimonial].jobTitle, testimonials[activeTestimonial].companyName].filter(Boolean).join(' • ')}
@@ -406,13 +406,13 @@ export default function Services() {
       </section>
 
       {/* Pricing Section */}
-      <section className="py-20 bg-[#151517]">
+      <section className="py-20 bg-white dark:bg-[#151517]">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
               Transparent <span className="text-yellow-500">Pricing</span>
             </h2>
-            <p className="text-xl text-white/70">
+            <p className="text-xl text-slate-600 dark:text-white/70">
               No hidden fees. Clear, upfront pricing for all our services.
             </p>
           </div>
@@ -421,13 +421,13 @@ export default function Services() {
             {services.map((service) => (
               <Card
                 key={service.title}
-                className="border-2 border-yellow-200 hover:border-yellow-400 transition-colors"
+                className="border-2 border-gray-200 dark:border-yellow-200 hover:border-yellow-400 dark:hover:border-yellow-400 transition-colors bg-white dark:bg-[#1C1C1E]"
               >
                 <CardContent className="p-6 text-center space-y-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-xl flex items-center justify-center text-yellow-600 mx-auto">
                     {service.icon}
                   </div>
-                  <h3 className="text-lg font-bold text-white">
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                     {service.title}
                   </h3>
                   <p className="text-2xl font-bold text-yellow-600">
@@ -446,7 +446,7 @@ export default function Services() {
       </section>
 
       {/* Contact Info Section */}
-      <section className="py-20 bg-[#0B0B0C]">
+      <section className="py-20 bg-gray-50 dark:bg-[#0B0B0C]">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-3 gap-8 text-center">
@@ -454,18 +454,18 @@ export default function Services() {
                 <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl flex items-center justify-center text-yellow-600 mx-auto">
                   <Phone className="h-8 w-8" />
                 </div>
-                <h3 className="text-xl font-bold text-white">Call Us</h3>
-                <p className="text-white/70">+234 704 375 7985</p>
-                <p className="text-sm text-white/60">Mon - Fri: 9AM - 6PM</p>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white">Call Us</h3>
+                <p className="text-slate-600 dark:text-white/70">+234 704 375 7985</p>
+                <p className="text-sm text-slate-500 dark:text-white/60">Mon - Fri: 9AM - 6PM</p>
               </div>
 
               <div className="space-y-4">
                 <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl flex items-center justify-center text-yellow-600 mx-auto">
                   <Mail className="h-8 w-8" />
                 </div>
-                <h3 className="text-xl font-bold text-white">Email Us</h3>
-                <p className="text-white/70">schoolofeventsafrica@gmail.com</p>
-                <p className="text-sm text-white/60">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white">Email Us</h3>
+                <p className="text-slate-600 dark:text-white/70">schoolofeventsafrica@gmail.com</p>
+                <p className="text-sm text-slate-500 dark:text-white/60">
                   We respond within 24 hours
                 </p>
               </div>
@@ -474,11 +474,11 @@ export default function Services() {
                 <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl flex items-center justify-center text-yellow-600 mx-auto">
                   <MapPin className="h-8 w-8" />
                 </div>
-                <h3 className="text-xl font-bold text-white">Visit Us</h3>
-                <p className="text-white/70">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white">Visit Us</h3>
+                <p className="text-slate-600 dark:text-white/70">
                   Ayodele Okeowo Street, Gbagada , Lagos State
                 </p>
-                <p className="text-sm text-white/60">By appointment only</p>
+                <p className="text-sm text-slate-500 dark:text-white/60">By appointment only</p>
               </div>
             </div>
           </div>
@@ -489,10 +489,10 @@ export default function Services() {
       <section className="py-20 bg-gradient-to-r from-yellow-400 to-yellow-500">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto space-y-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
               Ready to Plan Your Perfect Event?
             </h2>
-            <p className="text-xl text-white/80">
+            <p className="text-xl text-slate-800">
               Let's turn your vision into an unforgettable celebration. Contact
               us today for a free consultation.
             </p>

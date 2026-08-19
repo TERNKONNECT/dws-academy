@@ -84,18 +84,18 @@ const VerifyEmail = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-black via-gray-900 to-black">
-      <Card className="w-full max-w-md border-white/10 bg-[#151517]/5 backdrop-blur-sm text-white">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-gray-100 via-white to-gray-100 dark:from-black dark:via-gray-900 dark:to-black">
+      <Card className="w-full max-w-md bg-white/50 border-gray-200 text-slate-900 dark:border-white/10 dark:bg-[#151517]/5 backdrop-blur-sm dark:text-white">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
             <div className="h-12 w-12 rounded-xl bg-yellow-400 flex items-center justify-center">
               <BookOpen className="h-6 w-6 text-white" />
             </div>
           </div>
-          <CardTitle className="text-2xl text-white">
+          <CardTitle className="text-2xl text-slate-900 dark:text-white">
             {verified ? "Email verified" : "Verify your email"}
           </CardTitle>
-          <CardDescription className="text-gray-400">
+          <CardDescription className="text-slate-600 dark:text-gray-400">
             {verified
               ? "You can now log in."
               : email
@@ -119,17 +119,17 @@ const VerifyEmail = () => {
             <>
               <form onSubmit={handleVerify} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="otp" className="text-gray-300">
+                  <Label htmlFor="otp" className="text-slate-700 dark:text-gray-300">
                     Verification Code
                   </Label>
                   <div className="relative">
-                    <KeyRound className="absolute left-3 top-3 h-4 w-4 text-white/60" />
+                    <KeyRound className="absolute left-3 top-3 h-4 w-4 text-slate-400 dark:text-white/60" />
                     <Input
                       id="otp"
                       type="text"
                       inputMode="numeric"
                       placeholder="123456"
-                      className="pl-9 tracking-widest bg-[#151517]/10 border-white/20 text-white placeholder:text-white/60 focus-visible:ring-yellow-400"
+                      className="pl-9 tracking-widest bg-white border-gray-200 text-slate-900 placeholder:text-slate-400 dark:bg-[#151517]/10 dark:border-white/20 dark:text-white dark:placeholder:text-white/60 focus-visible:ring-yellow-400"
                       maxLength={6}
                       autoFocus
                       value={otp}
@@ -147,7 +147,7 @@ const VerifyEmail = () => {
               </form>
               <button
                 type="button"
-                className="w-full text-sm text-gray-400 hover:text-yellow-400 disabled:opacity-50 disabled:hover:text-gray-400"
+                className="w-full text-sm text-slate-600 dark:text-gray-400 hover:text-yellow-500 dark:hover:text-yellow-400 disabled:opacity-50 disabled:hover:text-slate-600 dark:disabled:hover:text-gray-400"
                 onClick={handleResend}
                 disabled={resending || cooldown > 0}
               >

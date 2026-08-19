@@ -297,6 +297,11 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                   Contact
                 </Link>
               </li>
+              <li>
+                <Link to="/faq" className="hover:text-yellow-400 transition-colors">
+                  FAQ
+                </Link>
+              </li>
             </ul>
           </div>
 

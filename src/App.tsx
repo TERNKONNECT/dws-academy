@@ -41,6 +41,7 @@ const About = lazy(() => import("./pages/About"));
 const Services = lazy(() => import("./pages/Services"));
 const Contact = lazy(() => import("./pages/Contact"));
 const GetStarted = lazy(() => import("./pages/GetStarted"));
+const FAQ = lazy(() => import("./pages/FAQ"));
 
 // Admin dashboard — never loaded for a signed-out visitor.
 const DashboardLayout = lazy(() =>
@@ -112,6 +113,7 @@ const App = () => (
                   <Route path="/gallery" element={<Gallery />} />
                   <Route path="/team" element={<Team />} />
                   <Route path="/services" element={<Services />} />
+                  <Route path="/faq" element={<FAQ />} />
                   <Route path="/get" element={<GetStarted />} />
                   <Route
                     path="/payment/success"

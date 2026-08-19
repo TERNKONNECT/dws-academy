@@ -186,7 +186,7 @@ const Testimonials = () => {
                           className="h-9 w-9 rounded-full object-cover border border-black/10"
                         />
                       ) : (
-                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#0B0B0C] text-xs font-bold text-primary">
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gray-100 dark:bg-[#0B0B0C] text-xs font-bold text-primary">
                           {t.name
                             .split(' ')
                             .map((part) => part[0])

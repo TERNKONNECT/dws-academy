@@ -9,11 +9,12 @@ import MainLayout from "@/components/layouts/MainLayout";
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
+    countryCode: "+234",
+    phone: "",
     email: "",
-    company: "",
-    subject: "",
-    message: "",
+    category: "",
   });
 
   const handleChange = (
@@ -57,13 +58,13 @@ export default function Contact() {
   return (
     <MainLayout>
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-black via-gray-900 to-black">
+      <section className="relative py-20 bg-gradient-to-br from-gray-100 via-white to-gray-100 dark:from-black dark:via-gray-900 dark:to-black">
         <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 to-yellow-300/5" />
         <div className="relative container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-            Get in <span className="text-yellow-400">Touch</span>
+          <h1 className="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6">
+            Get in <span className="text-yellow-500 dark:text-yellow-400">Touch</span>
           </h1>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-600 dark:text-gray-300 max-w-2xl mx-auto">
             Ready to start your journey in event planning? Let's discuss how the
             Academy can help you.
           </p>
@@ -71,16 +72,16 @@ export default function Contact() {
       </section>
 
       {/* Contact Content */}
-      <section className="py-16 bg-[#0B0B0C]">
+      <section className="py-16 bg-gray-50 dark:bg-[#0B0B0C]">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Contact Info */}
             <div className="lg:col-span-1 space-y-8">
               <div>
-                <h2 className="text-2xl font-bold text-white mb-4">
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
                   Join the Academy
                 </h2>
-                <p className="text-white/70 leading-relaxed">
+                <p className="text-slate-600 dark:text-white/70 leading-relaxed">
                   Whether you're looking to master event planning, build a professional
                   network, or start your own business, we're here to equip you with
                   expert knowledge and hands-on experience.
@@ -90,14 +91,14 @@ export default function Contact() {
               {/* Contact Details */}
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <div className="p-3 bg-yellow-100 rounded-lg">
-                    <MapPin className="h-5 w-5 text-yellow-600" />
+                  <div className="p-3 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg">
+                    <MapPin className="h-5 w-5 text-yellow-600 dark:text-yellow-500" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-white">
+                    <h3 className="font-semibold text-slate-900 dark:text-white">
                       Office Location
                     </h3>
-                    <p className="text-white/70 text-sm">
+                    <p className="text-slate-600 dark:text-white/70 text-sm">
                       Ayodele Okeowo Street
                       <br />
                       Gbagada
@@ -108,12 +109,12 @@ export default function Contact() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="p-3 bg-black rounded-lg">
-                    <Phone className="h-5 w-5 text-yellow-400" />
+                  <div className="p-3 bg-slate-200 dark:bg-black rounded-lg">
+                    <Phone className="h-5 w-5 text-yellow-600 dark:text-yellow-400" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-white">Phone</h3>
-                    <p className="text-white/70 text-sm">+234 704 375 7985</p>
+                    <h3 className="font-semibold text-slate-900 dark:text-white">Phone</h3>
+                    <p className="text-slate-600 dark:text-white/70 text-sm">+234 704 375 7985</p>
                   </div>
                 </div>
 
@@ -122,9 +123,9 @@ export default function Contact() {
                     <Mail className="h-5 w-5 text-white" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-white">Email</h3>
-                    <p className="text-white/70 text-sm">
-                      <a href="mailto:schoolofeventsafrica@gmail.com" className="hover:text-yellow-400 transition-colors">
+                    <h3 className="font-semibold text-slate-900 dark:text-white">Email</h3>
+                    <p className="text-slate-600 dark:text-white/70 text-sm">
+                      <a href="mailto:schoolofeventsafrica@gmail.com" className="hover:text-yellow-500 dark:hover:text-yellow-400 transition-colors">
                         schoolofeventsafrica@gmail.com
                       </a>
                     </p>
@@ -132,12 +133,12 @@ export default function Contact() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="p-3 bg-gray-800 rounded-lg">
-                    <Clock className="h-5 w-5 text-yellow-400" />
+                  <div className="p-3 bg-slate-200 dark:bg-gray-800 rounded-lg">
+                    <Clock className="h-5 w-5 text-yellow-600 dark:text-yellow-400" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-white">Business Hours</h3>
-                    <p className="text-white/70 text-sm">
+                    <h3 className="font-semibold text-slate-900 dark:text-white">Business Hours</h3>
+                    <p className="text-slate-600 dark:text-white/70 text-sm">
                       Monday - Friday: 9:00 AM - 6:00 PM
                       <br />
                       Saturday: 10:00 AM - 4:00 PM
@@ -152,20 +153,20 @@ export default function Contact() {
 
             {/* Contact Form */}
             <div className="lg:col-span-2">
-              <div className="bg-[#151517] rounded-2xl shadow-lg p-8 border border-yellow-100">
+              <div className="bg-white dark:bg-[#151517] rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-white/10">
                 {submitted ? (
                   <div className="text-center py-12">
                     <CheckCircle className="h-16 w-16 text-yellow-500 mx-auto mb-4" />
-                    <h3 className="text-2xl font-bold text-white mb-2">
+                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
                       Message Sent Successfully!
                     </h3>
-                    <p className="text-white/70 mb-6">
+                    <p className="text-slate-600 dark:text-gray-300 mb-6">
                       Thank you,{" "}
-                      <span className="font-semibold text-white">
-                        {form.name}
+                      <span className="font-semibold text-slate-900 dark:text-white">
+                        {form.firstName}
                       </span>
                       ! We've received your message and will get back to you
-                      within 24 hours to discuss your learning journey.
+                      within 24 hours.
                     </p>
                     <Button
                       onClick={() => setSubmitted(false)}
@@ -175,135 +176,129 @@ export default function Contact() {
                     </Button>
                   </div>
                 ) : (
-                  <>
-                    <div className="mb-8">
-                      <h2 className="text-2xl font-bold text-white mb-2">
-                        Tell Us About Your Goals
-                      </h2>
-                      <p className="text-white/70">
-                        Share your learning goals with us and we'll guide you on
-                        the right path.
-                      </p>
+                  <form onSubmit={handleSubmit} className="space-y-8">
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <Label
+                          htmlFor="firstName"
+                          className="text-base font-bold text-[#0A2640] dark:text-white"
+                        >
+                          First Name
+                        </Label>
+                        <Input
+                          id="firstName"
+                          name="firstName"
+                          placeholder="eg. Jane"
+                          value={form.firstName}
+                          onChange={handleChange}
+                          required
+                          className="h-14 border-gray-200 dark:border-white/10 bg-white dark:bg-[#0B0B0C] text-slate-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-600 focus:border-yellow-400 focus:ring-yellow-400 text-base"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label
+                          htmlFor="lastName"
+                          className="text-base font-bold text-[#0A2640] dark:text-white"
+                        >
+                          Last Name
+                        </Label>
+                        <Input
+                          id="lastName"
+                          name="lastName"
+                          placeholder="eg. Olusegun"
+                          value={form.lastName}
+                          onChange={handleChange}
+                          required
+                          className="h-14 border-gray-200 dark:border-white/10 bg-white dark:bg-[#0B0B0C] text-slate-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-600 focus:border-yellow-400 focus:ring-yellow-400 text-base"
+                        />
+                      </div>
                     </div>
 
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                          <Label
-                            htmlFor="name"
-                            className="text-sm font-medium text-white"
-                          >
-                            Full Name *
-                          </Label>
-                          <Input
-                            id="name"
-                            name="name"
-                            placeholder="Your full name"
-                            value={form.name}
-                            onChange={handleChange}
-                            required
-                            className="h-12 border-gray-300 focus:border-yellow-400 focus:ring-yellow-400"
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label
-                            htmlFor="email"
-                            className="text-sm font-medium text-white"
-                          >
-                            Email Address *
-                          </Label>
-                          <Input
-                            id="email"
-                            name="email"
-                            type="email"
-                            placeholder="your@email.com"
-                            value={form.email}
-                            onChange={handleChange}
-                            required
-                            className="h-12 border-gray-300 focus:border-yellow-400 focus:ring-yellow-400"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                          <Label
-                            htmlFor="company"
-                            className="text-sm font-medium text-white"
-                          >
-                            Company/Organization
-                          </Label>
-                          <Input
-                            id="company"
-                            name="company"
-                            placeholder="Your company (optional)"
-                            value={form.company}
-                            onChange={handleChange}
-                            className="h-12 border-gray-300 focus:border-yellow-400 focus:ring-yellow-400"
-                          />
-                        </div>
-                        <div className="space-y-2">
-                            <Label
-                              htmlFor="subject"
-                              className="text-sm font-medium text-white"
-                            >
-                              Area of Interest *
-                            </Label>
-                            <select
-                              id="subject"
-                              name="subject"
-                              value={form.subject}
-                              onChange={handleChange}
-                              required
-                              className="h-12 w-full rounded-md border border-gray-300 bg-[#151517] px-3 py-2 text-sm focus:border-yellow-400 focus:ring-yellow-400 focus:outline-none"
-                            >
-                              <option value="">Select area of interest</option>
-                              <option value="beginners">Beginners Class</option>
-                              <option value="intensive">Intensive Class</option>
-                              <option value="advanced">Advanced Class</option>
-                              <option value="other">Other</option>
-                            </select>
-                        </div>
-                      </div>
-
-                      <div className="space-y-2">
-                          <Label
-                            htmlFor="message"
-                            className="text-sm font-medium text-white"
-                          >
-                            Your Details *
-                          </Label>
-                          <Textarea
-                            id="message"
-                            name="message"
-                            placeholder="Tell us about your background and what you hope to learn..."
-                            rows={6}
-                            value={form.message}
-                            onChange={handleChange}
-                            required
-                            className="resize-none border-gray-300 focus:border-yellow-400 focus:ring-yellow-400"
-                          />
-                      </div>
-
-                      <Button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="w-full h-12 bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold shadow-lg"
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="phone"
+                        className="text-base font-bold text-[#0A2640] dark:text-white"
                       >
-                        {isSubmitting ? (
-                          <span className="flex items-center">
-                            <span className="animate-spin h-4 w-4 border-2 border-black border-t-transparent rounded-full mr-2"></span>
-                            Sending...
-                          </span>
-                        ) : (
-                          <>
-                            <Send className="h-4 w-4 mr-2" />
-                            Send Message
-                          </>
-                        )}
-                      </Button>
-                    </form>
-                  </>
+                        What's your phone number? (Optional)
+                      </Label>
+                      <div className="flex gap-4">
+                        <select
+                          name="countryCode"
+                          value={form.countryCode}
+                          onChange={handleChange}
+                          className="h-14 w-28 rounded-md border border-gray-200 dark:border-white/10 bg-white dark:bg-[#0B0B0C] px-3 py-2 text-base text-gray-500 dark:text-gray-400 focus:border-yellow-400 focus:ring-yellow-400 focus:outline-none"
+                        >
+                          <option value="+234">+234</option>
+                          <option value="+1">+1</option>
+                          <option value="+44">+44</option>
+                        </select>
+                        <Input
+                          id="phone"
+                          name="phone"
+                          placeholder="805 250 6710"
+                          value={form.phone}
+                          onChange={handleChange}
+                          className="h-14 flex-1 border-gray-200 dark:border-white/10 bg-white dark:bg-[#0B0B0C] text-slate-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-600 focus:border-yellow-400 focus:ring-yellow-400 text-base"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="email"
+                        className="text-base font-bold text-[#0A2640] dark:text-white"
+                      >
+                        Email
+                      </Label>
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="mail@mail.com"
+                        value={form.email}
+                        onChange={handleChange}
+                        required
+                        className="h-14 border-gray-200 dark:border-white/10 bg-white dark:bg-[#0B0B0C] text-slate-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-600 focus:border-yellow-400 focus:ring-yellow-400 text-base"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="category"
+                        className="text-base font-bold text-[#0A2640] dark:text-white"
+                      >
+                        How can we help?
+                      </Label>
+                      <select
+                        id="category"
+                        name="category"
+                        value={form.category}
+                        onChange={handleChange}
+                        required
+                        className="h-14 w-full rounded-md border border-yellow-400 bg-white dark:bg-[#0B0B0C] px-3 py-2 text-base text-slate-900 dark:text-white focus:border-yellow-400 focus:ring-yellow-400 focus:outline-none"
+                      >
+                        <option value="" disabled>Select Category</option>
+                        <option value="Quick help">Quick help</option>
+                        <option value="Contact us">Contact us</option>
+                        <option value="What was I debited">What was I debited</option>
+                      </select>
+                    </div>
+
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full h-14 rounded-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold text-lg shadow-none"
+                    >
+                      {isSubmitting ? (
+                        <span className="flex items-center">
+                          <span className="animate-spin h-5 w-5 border-2 border-black border-t-transparent rounded-full mr-2"></span>
+                          Sending...
+                        </span>
+                      ) : (
+                        "Send your message"
+                      )}
+                    </Button>
+                  </form>
                 )}
               </div>
             </div>
@@ -311,33 +306,6 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Map Section */}
-      <section className="py-16 bg-[#151517]">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Visit Our <span className="text-yellow-500">Studio</span>
-            </h2>
-            <p className="text-white/70 max-w-2xl mx-auto">
-              Come see our academy and learning facilities. We'd love to
-              meet you and discuss your educational goals in person.
-            </p>
-          </div>
-
-          <div className="rounded-2xl overflow-hidden shadow-lg border-2 border-yellow-200">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.7!2d3.3792!3d6.5244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b8b2ae68280c1%3A0xdc9e87a367c3d9cb!2sLagos%2C%20Nigeria!5e0!3m2!1sen!2sus!4v1234567890"
-              width="100%"
-              height="400"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="w-full"
-            />
-          </div>
-        </div>
-      </section>
     </MainLayout>
   );
 }

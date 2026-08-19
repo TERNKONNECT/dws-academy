@@ -43,14 +43,14 @@ const faculties = [
 
 const Faculties = () => {
   return (
-    <section id="faculties" className="bg-white py-14 md:py-20">
+    <section id="faculties" className="bg-white dark:bg-[#0B0B0C] py-14 md:py-20">
       <div className="mx-auto max-w-[1180px] px-8">
         <Reveal>
           <div className="mx-auto mb-10 max-w-xl text-center">
             <span className="text-[11.5px] font-semibold uppercase tracking-[0.16em] text-amber-700">
               Our Faculty
             </span>
-            <h2 className="mt-4 text-[clamp(28px,3.6vw,42px)] font-bold text-[#0B0B0C]">
+            <h2 className="mt-4 text-[clamp(28px,3.6vw,42px)] font-bold text-[#0B0B0C] dark:text-white">
               Multiple Disciplines. One Industry.
             </h2>
             <p className="mt-[18px] text-[16.5px] text-muted-foreground">
@@ -64,21 +64,21 @@ const Faculties = () => {
             {faculties.map((f) => (
               <div
                 key={f.title}
-                className="group relative rounded-2xl border border-black/10 bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:border-black/20 hover:shadow-xl"
+                className="group relative rounded-2xl border border-black/10 dark:border-white/10 bg-white dark:bg-[#151517] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-black/20 dark:hover:border-white/20 hover:shadow-xl"
               >
                 <Badge
                   className={
                     f.available
-                      ? "absolute right-6 top-6 border-transparent bg-emerald-100 text-emerald-700 hover:bg-emerald-100"
-                      : "absolute right-6 top-6 border-transparent bg-black/5 text-black/45 hover:bg-black/5"
+                      ? "absolute right-6 top-6 border-transparent bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-900/30"
+                      : "absolute right-6 top-6 border-transparent bg-black/5 dark:bg-white/5 text-black/45 dark:text-white/45 hover:bg-black/5 dark:hover:bg-white/5"
                   }
                 >
                   {f.available ? "Available" : "Coming Soon"}
                 </Badge>
-                <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-[11px] bg-[#0B0B0C]">
+                <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-[11px] bg-[#0B0B0C] dark:bg-black/50">
                   <f.icon className="h-5 w-5 text-primary" strokeWidth={1.8} />
                 </div>
-                <h4 className="text-lg font-bold text-[#0B0B0C]">{f.title}</h4>
+                <h4 className="text-lg font-bold text-[#0B0B0C] dark:text-white">{f.title}</h4>
                 <p className="mt-2 text-[14.5px] text-muted-foreground">
                   {f.desc}
                 </p>
