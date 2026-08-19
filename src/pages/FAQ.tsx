@@ -340,25 +340,25 @@ export default function FAQ() {
   return (
     <MainLayout>
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-black via-gray-900 to-black">
+      <section className="relative py-20 bg-gradient-to-br from-gray-100 via-white to-gray-100 dark:from-black dark:via-gray-900 dark:to-black">
         <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 to-yellow-300/5" />
         <div className="relative container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-            Frequently Asked <span className="text-yellow-400">Questions</span>
+          <h1 className="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6">
+            Frequently Asked <span className="text-yellow-500 dark:text-yellow-400">Questions</span>
           </h1>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-600 dark:text-gray-300 max-w-2xl mx-auto">
             Find answers to common questions about School of Events Africa.
           </p>
         </div>
       </section>
 
       {/* FAQ Content */}
-      <section className="py-16 bg-[#0B0B0C]">
+      <section className="py-16 bg-gray-50 dark:bg-[#0B0B0C]">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="space-y-12">
             {faqData.map((section, index) => (
               <div key={index}>
-                <h2 className="text-2xl font-bold text-white mb-6">
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
                   {section.category}
                 </h2>
                 <Accordion type="single" collapsible className="w-full">
@@ -366,12 +366,12 @@ export default function FAQ() {
                     <AccordionItem
                       key={faqIndex}
                       value={`item-${index}-${faqIndex}`}
-                      className="border-b border-white/10"
+                      className="border-b border-gray-200 dark:border-white/10"
                     >
-                      <AccordionTrigger className="text-left text-white/90 hover:text-yellow-400">
+                      <AccordionTrigger className="text-left text-slate-900 dark:text-white/90 hover:text-yellow-500 dark:hover:text-yellow-400">
                         {faq.q}
                       </AccordionTrigger>
-                      <AccordionContent className="text-white/70 whitespace-pre-line">
+                      <AccordionContent className="text-slate-600 dark:text-white/70 whitespace-pre-line">
                         {faq.a}
                       </AccordionContent>
                     </AccordionItem>

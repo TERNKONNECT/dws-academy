@@ -205,7 +205,7 @@ export default function AdminTeam() {
                           className="h-10 w-10 rounded-full object-cover border border-black/10" 
                         />
                       ) : (
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0B0B0C] font-bold text-primary text-sm">
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gray-100 dark:bg-[#0B0B0C] font-bold text-primary text-sm">
                           {getInitials(f.name)}
                         </div>
                       )}

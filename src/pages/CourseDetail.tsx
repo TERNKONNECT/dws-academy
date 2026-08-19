@@ -265,12 +265,12 @@ const CourseDetail = () => {
   return (
     <MainLayout>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-black via-gray-900 to-black text-white py-10 md:py-12">
+      <section className="bg-gradient-to-br from-gray-100 via-white to-gray-100 dark:from-black dark:via-gray-900 dark:to-black text-slate-900 dark:text-white py-10 md:py-12">
         <div className="container grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-2 space-y-4">
             <Badge
               variant="secondary"
-              className="bg-[#151517]/20 text-white border-0"
+              className="bg-black/10 dark:bg-[#151517]/20 text-slate-900 dark:text-white border-0"
             >
               {course.category}
             </Badge>
@@ -302,7 +302,7 @@ const CourseDetail = () => {
           </div>
           <div className="flex flex-col gap-3">
             {enrolled ? (
-              <Card className="bg-[#151517] text-foreground">
+              <Card className="bg-white dark:bg-[#151517] text-foreground">
                 <CardContent className="p-6 space-y-4">
                   <h3 className="font-semibold">Your Progress</h3>
                   <Progress
@@ -323,7 +323,7 @@ const CourseDetail = () => {
                 </CardContent>
               </Card>
             ) : (
-              <Card className="bg-[#151517] text-foreground">
+              <Card className="bg-white dark:bg-[#151517] text-foreground">
                 <CardContent className="p-6 space-y-4">
                   <h3 className="text-2xl font-bold">
                     {isPaid

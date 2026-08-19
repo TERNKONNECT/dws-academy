@@ -194,7 +194,7 @@ export default function About() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-12 md:py-16 bg-[#151517] border-y border-yellow-100">
+      <section className="py-12 md:py-16 bg-gray-50 dark:bg-[#151517] border-y border-gray-200 dark:border-yellow-100/10">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map(({ value, label }) => (
@@ -202,7 +202,7 @@ export default function About() {
                 <p className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-yellow-500 to-yellow-600 bg-clip-text text-transparent">
                   {value}
                 </p>
-                <p className="text-white/70 font-medium">{label}</p>
+                <p className="text-slate-600 dark:text-white/70 font-medium">{label}</p>
               </div>
             ))}
           </div>
@@ -210,17 +210,17 @@ export default function About() {
       </section>
 
       {/* About School of Events Africa */}
-      <section className="py-12 md:py-20 bg-[#0B0B0C]">
+      <section className="py-12 md:py-20 bg-white dark:bg-[#0B0B0C]">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="space-y-6">
                 <div className="space-y-4">
-                  <h2 className="text-3xl md:text-4xl font-bold text-white">
+                  <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
                     About{" "}
                     <span className="text-yellow-500">School of Events Africa</span>
                   </h2>
-                  <p className="text-xl text-white/70 leading-relaxed">
+                  <p className="text-xl text-slate-600 dark:text-white/70 leading-relaxed">
                     School of Events Africa is a training arm of School of Events Africa, one of
                     Nigeria's leading event consulting and production firms. We
                     exist to raise a generation of planners who are not only
@@ -228,26 +228,26 @@ export default function About() {
                   </p>
                 </div>
 
-                <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-r-lg">
-                  <blockquote className="text-lg text-white/80 italic">
+                <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 p-6 rounded-r-lg">
+                  <blockquote className="text-lg text-slate-700 dark:text-white/80 italic">
                     "We don't just train planners. We train event entrepreneurs
                     who understand systems, strategy, and sustainability."
                   </blockquote>
-                  <cite className="text-yellow-600 font-semibold mt-2 block">
+                  <cite className="text-yellow-600 dark:text-yellow-500 font-semibold mt-2 block">
                     — The Team
                   </cite>
                 </div>
 
                 <div className="space-y-4">
                   <div className="flex items-start gap-4">
-                    <div className="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Target className="h-4 w-4 text-yellow-600" />
+                    <div className="w-8 h-8 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Target className="h-4 w-4 text-yellow-600 dark:text-yellow-500" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-white mb-1">
+                      <h3 className="font-semibold text-slate-900 dark:text-white mb-1">
                         Skill & Business Training
                       </h3>
-                      <p className="text-white/70">
+                      <p className="text-slate-600 dark:text-white/70">
                         Learn both the creative and business aspects of event
                         planning
                       </p>
@@ -255,14 +255,14 @@ export default function About() {
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <div className="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Shield className="h-4 w-4 text-yellow-600" />
+                    <div className="w-8 h-8 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Shield className="h-4 w-4 text-yellow-600 dark:text-yellow-500" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-white mb-1">
+                      <h3 className="font-semibold text-slate-900 dark:text-white mb-1">
                         Structured Learning
                       </h3>
-                      <p className="text-white/70">
+                      <p className="text-slate-600 dark:text-white/70">
                         Comprehensive curriculum designed for different skill
                         levels
                       </p>
@@ -270,14 +270,14 @@ export default function About() {
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <div className="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Users className="h-4 w-4 text-yellow-600" />
+                    <div className="w-8 h-8 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Users className="h-4 w-4 text-yellow-600 dark:text-yellow-500" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-white mb-1">
+                      <h3 className="font-semibold text-slate-900 dark:text-white mb-1">
                         Expert Mentorship
                       </h3>
-                      <p className="text-white/70">
+                      <p className="text-slate-600 dark:text-white/70">
                         Learn from experienced professionals in the industry
                       </p>
                     </div>
@@ -298,81 +298,81 @@ export default function About() {
       </section>
 
       {/* Why School of Events Africa */}
-      <section className="py-12 md:py-20 bg-[#151517]">
+      <section className="py-12 md:py-20 bg-gray-50 dark:bg-[#151517]">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center space-y-6 mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
               Why <span className="text-yellow-500">School of Events Africa?</span>
             </h2>
-            <p className="text-xl text-white/70 leading-relaxed">
+            <p className="text-xl text-slate-600 dark:text-white/70 leading-relaxed">
               Event planning is an amazing skill, but skill alone isn't enough.
               Many talented planners struggle, not because they're not good, but
               because they don't understand the business side, how to build
               systems, manage people, lead teams, and sustain profit.
             </p>
-            <p className="text-lg text-white font-semibold">
+            <p className="text-lg text-slate-900 dark:text-white font-semibold">
               Here, we teach you all! The skill and the business!
             </p>
-            <p className="text-white/70">
+            <p className="text-slate-600 dark:text-white/70">
               Whether you're just starting or already in business, our classes
               are tailored to your level of growth.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-            <Card className="border-2 border-yellow-200 hover:border-yellow-400 transition-colors">
+            <Card className="border-2 border-gray-200 dark:border-yellow-200 hover:border-yellow-400 dark:hover:border-yellow-400 transition-colors bg-white dark:bg-[#1C1C1E]">
               <CardContent className="p-6 text-center space-y-4">
                 <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl flex items-center justify-center text-yellow-600 mx-auto">
                   <Heart className="h-8 w-8" />
                 </div>
-                <h3 className="text-lg font-bold text-white">
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                   Wedding Planning Mastery
                 </h3>
-                <p className="text-white/70 text-sm">
+                <p className="text-slate-600 dark:text-white/70 text-sm">
                   Learn to create unforgettable moments with precision and
                   elegance
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-yellow-200 hover:border-yellow-400 transition-colors">
+            <Card className="border-2 border-gray-200 dark:border-yellow-200 hover:border-yellow-400 dark:hover:border-yellow-400 transition-colors bg-white dark:bg-[#1C1C1E]">
               <CardContent className="p-6 text-center space-y-4">
                 <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl flex items-center justify-center text-yellow-600 mx-auto">
                   <Users className="h-8 w-8" />
                 </div>
-                <h3 className="text-lg font-bold text-white">
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                   Corporate Event Excellence
                 </h3>
-                <p className="text-white/70 text-sm">
+                <p className="text-slate-600 dark:text-white/70 text-sm">
                   Master the art of professional event coordination and
                   management
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-yellow-200 hover:border-yellow-400 transition-colors">
+            <Card className="border-2 border-gray-200 dark:border-yellow-200 hover:border-yellow-400 dark:hover:border-yellow-400 transition-colors bg-white dark:bg-[#1C1C1E]">
               <CardContent className="p-6 text-center space-y-4">
                 <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl flex items-center justify-center text-yellow-600 mx-auto">
                   <Sparkles className="h-8 w-8" />
                 </div>
-                <h3 className="text-lg font-bold text-white">
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                   Creative Event Design
                 </h3>
-                <p className="text-white/70 text-sm">
+                <p className="text-slate-600 dark:text-white/70 text-sm">
                   Transform spaces with stunning setups and creative vision
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-2 border-yellow-200 hover:border-yellow-400 transition-colors">
+            <Card className="border-2 border-gray-200 dark:border-yellow-200 hover:border-yellow-400 dark:hover:border-yellow-400 transition-colors bg-white dark:bg-[#1C1C1E]">
               <CardContent className="p-6 text-center space-y-4">
                 <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl flex items-center justify-center text-yellow-600 mx-auto">
                   <Calendar className="h-8 w-8" />
                 </div>
-                <h3 className="text-lg font-bold text-white">
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                   Professional Event Coordination
                 </h3>
-                <p className="text-white/70 text-sm">
+                <p className="text-slate-600 dark:text-white/70 text-sm">
                   Build systems that ensure flawless execution every time
                 </p>
               </CardContent>
@@ -382,23 +382,23 @@ export default function About() {
       </section>
 
       {/* Academy Classes */}
-      <section className="py-12 md:py-20 bg-[#0B0B0C]">
+      <section className="py-12 md:py-20 bg-white dark:bg-[#0B0B0C]">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4 mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
               Choose Your <span className="text-yellow-500">Class</span>
             </h2>
-            <p className="text-xl text-black">
+            <p className="text-xl text-slate-800 dark:text-gray-200">
               Join our academy and learn from Nigeria's leading event planning experts. Turn your passion into a profitable business.
             </p>
-            <div className="bg-yellow-100 border border-yellow-300 rounded-lg p-4 mt-6">
-              <p className="text-black font-semibold">
+            <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-600/30 rounded-lg p-4 mt-6">
+              <p className="text-slate-900 dark:text-white font-semibold">
                 Next Cohort Begins: July 13th, 2026
               </p>
-              <p className="text-gray-800 text-sm">
+              <p className="text-slate-600 dark:text-gray-300 text-sm">
                 🕓 Duration: 4 weeks of intensive learning
               </p>
-              <p className="text-gray-800 text-sm">
+              <p className="text-slate-600 dark:text-gray-300 text-sm">
                 📍 Location: Online & Physical (Live & Interactive Sessions)
               </p>
             </div>
@@ -408,17 +408,17 @@ export default function About() {
             {academyClasses.map((classInfo, index) => (
               <Card
                 key={classInfo.level}
-                className={`border-2 ${index === 1 ? "border-yellow-400 bg-yellow-50" : "border-yellow-200"} hover:border-yellow-400 transition-colors`}
+                className={`border-2 ${index === 1 ? "border-yellow-400 bg-yellow-50 dark:bg-yellow-900/10" : "border-gray-200 dark:border-yellow-200/20 bg-white dark:bg-[#1C1C1E]"} hover:border-yellow-400 dark:hover:border-yellow-400 transition-colors`}
               >
                 <CardContent className="p-8 space-y-6">
                   <div className="text-center">
-                    <p className="text-xs font-semibold text-yellow-600 uppercase tracking-wider mb-2">
+                    <p className="text-xs font-semibold text-yellow-600 dark:text-yellow-500 uppercase tracking-wider mb-2">
                       {classInfo.target}
                     </p>
-                    <h3 className={`text-2xl font-bold mb-4 ${index === 1 ? "text-black" : "text-white"}`}>
+                    <h3 className={`text-2xl font-bold mb-4 ${index === 1 ? "text-slate-900 dark:text-white" : "text-slate-900 dark:text-white"}`}>
                       {classInfo.level}
                     </h3>
-                    <p className={`leading-relaxed mb-6 ${index === 1 ? "text-gray-800" : "text-white/70"}`}>
+                    <p className={`leading-relaxed mb-6 ${index === 1 ? "text-slate-700 dark:text-gray-300" : "text-slate-600 dark:text-white/70"}`}>
                       {classInfo.description}
                     </p>
                   </div>
@@ -427,16 +427,16 @@ export default function About() {
                     {classInfo.features.map((feature) => (
                       <div key={feature} className="flex items-start gap-3">
                         <CheckCircle className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
-                        <span className={`text-sm ${index === 1 ? "text-gray-800" : "text-white/80"}`}>{feature}</span>
+                        <span className={`text-sm ${index === 1 ? "text-slate-700 dark:text-gray-300" : "text-slate-600 dark:text-white/80"}`}>{feature}</span>
                       </div>
                     ))}
                   </div>
 
-                  <div className="text-center pt-4 border-t border-yellow-200">
+                  <div className="text-center pt-4 border-t border-gray-200 dark:border-yellow-200/20">
                     <p className="text-2xl font-bold text-yellow-600 mb-2">
                       {classInfo.price}
                     </p>
-                    <p className={`text-sm mb-4 ${index === 1 ? "text-gray-800" : "text-white/70"}`}>
+                    <p className={`text-sm mb-4 ${index === 1 ? "text-slate-600 dark:text-gray-400" : "text-slate-500 dark:text-white/70"}`}>
                       {classInfo.duration}
                     </p>
                     <Button 
@@ -454,13 +454,13 @@ export default function About() {
       </section>
 
       {/* Values Section */}
-      <section className="py-12 md:py-20 bg-[#151517]">
+      <section className="py-12 md:py-20 bg-gray-50 dark:bg-[#151517]">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4 mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
               Our Core <span className="text-yellow-500">Values</span>
             </h2>
-            <p className="text-xl text-white/70">
+            <p className="text-xl text-slate-600 dark:text-white/70">
               The principles that guide everything we do
             </p>
           </div>
@@ -469,14 +469,14 @@ export default function About() {
             {values.map(({ icon, title, description }) => (
               <Card
                 key={title}
-                className="border-0 shadow-lg hover:shadow-xl transition-shadow"
+                className="border-0 shadow-lg hover:shadow-xl transition-shadow bg-white dark:bg-[#1C1C1E]"
               >
                 <CardContent className="p-8 text-center space-y-4">
                   <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl flex items-center justify-center text-yellow-600 mx-auto">
                     {icon}
                   </div>
-                  <h3 className="text-xl font-bold text-white">{title}</h3>
-                  <p className="text-white/70 leading-relaxed">{description}</p>
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">{title}</h3>
+                  <p className="text-slate-600 dark:text-white/70 leading-relaxed">{description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -485,13 +485,13 @@ export default function About() {
       </section>
 
       {/* Team Section */}
-      <section className="py-12 md:py-20 bg-[#0B0B0C]">
+      <section className="py-12 md:py-20 bg-white dark:bg-[#0B0B0C]">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center space-y-4 mb-12 md:mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
               Meet Our <span className="text-yellow-500">Team</span>
             </h2>
-            <p className="text-xl text-white/70">
+            <p className="text-xl text-slate-600 dark:text-white/70">
               Passionate event professionals dedicated to excellence and
               innovation
             </p>
@@ -501,7 +501,7 @@ export default function About() {
             {team.map(({ name, role, image, bio }) => (
               <Card
                 key={name}
-                className="border-0 shadow-lg hover:shadow-xl transition-shadow overflow-hidden"
+                className="border-0 shadow-lg hover:shadow-xl transition-shadow overflow-hidden bg-white dark:bg-[#1C1C1E]"
               >
                 <div className="aspect-square overflow-hidden">
                   <img
@@ -512,10 +512,10 @@ export default function About() {
                 </div>
                 <CardContent className="p-6 space-y-3">
                   <div className="text-center">
-                    <h3 className="text-xl font-bold text-white">{name}</h3>
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">{name}</h3>
                     <p className="text-yellow-600 font-medium">{role}</p>
                   </div>
-                  <p className="text-white/70 text-sm leading-relaxed">{bio}</p>
+                  <p className="text-slate-600 dark:text-white/70 text-sm leading-relaxed">{bio}</p>
                 </CardContent>
               </Card>
             ))}

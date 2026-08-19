@@ -172,7 +172,7 @@ export default function GetStarted() {
 
   // ── Left panel ──
   const LeftPanel = () => (
-    <div className="w-full md:w-[420px] md:min-h-screen bg-gradient-to-b from-[#eef2ff] to-[#f5f3ff] flex flex-col px-10 py-12 flex-shrink-0">
+    <div className="w-full md:w-[420px] md:min-h-screen bg-gradient-to-b from-[#eef2ff] to-[#f5f3ff] dark:from-[#0B0B0C] dark:to-[#151517] border-r border-border flex flex-col px-10 py-12 flex-shrink-0">
       <Link to="/" className="flex items-center gap-2 font-bold text-xl mb-16">
         <img src="/school-logo.jpeg" alt="" className="h-9 w-9 rounded-full object-cover" />
         <span className="text-gradient">School of Events Africa</span>
@@ -202,7 +202,7 @@ export default function GetStarted() {
               </div>
               <div className="pt-1">
                 <p
-                  className={`font-semibold text-sm ${isActive ? "text-amber-700" : isCompleted ? "text-foreground" : "text-muted-foreground"}`}
+                  className={`font-semibold text-sm ${isActive ? "text-amber-700 dark:text-amber-500" : isCompleted ? "text-foreground" : "text-muted-foreground"}`}
                 >
                   {s.title}
                 </p>

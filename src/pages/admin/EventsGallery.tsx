@@ -286,7 +286,7 @@ export default function EventsGallery() {
                     <Checkbox
                       checked={selectedImages.includes(img.id)}
                       onCheckedChange={() => toggleImageSelection(img.id)}
-                      className="bg-[#151517]/80 data-[state=checked]:bg-primary"
+                      className="bg-black/10 dark:bg-[#151517]/80 data-[state=checked]:bg-primary"
                     />
                   </div>
                   <Badge className="absolute bottom-2 left-2 bg-black/70 text-white hover:bg-black/70 text-[11px]">
