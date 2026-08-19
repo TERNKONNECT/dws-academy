@@ -11,7 +11,6 @@ export default function Contact() {
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
-    countryCode: "+234",
     phone: "",
     email: "",
     category: "",
@@ -221,26 +220,14 @@ export default function Contact() {
                       >
                         What's your phone number? (Optional)
                       </Label>
-                      <div className="flex gap-4">
-                        <select
-                          name="countryCode"
-                          value={form.countryCode}
-                          onChange={handleChange}
-                          className="h-14 w-28 rounded-md border border-gray-200 dark:border-white/10 bg-white dark:bg-[#0B0B0C] px-3 py-2 text-base text-gray-500 dark:text-gray-400 focus:border-yellow-400 focus:ring-yellow-400 focus:outline-none"
-                        >
-                          <option value="+234">+234</option>
-                          <option value="+1">+1</option>
-                          <option value="+44">+44</option>
-                        </select>
-                        <Input
-                          id="phone"
-                          name="phone"
-                          placeholder="805 250 6710"
-                          value={form.phone}
-                          onChange={handleChange}
-                          className="h-14 flex-1 border-gray-200 dark:border-white/10 bg-white dark:bg-[#0B0B0C] text-slate-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-600 focus:border-yellow-400 focus:ring-yellow-400 text-base"
-                        />
-                      </div>
+                      <Input
+                        id="phone"
+                        name="phone"
+                        placeholder="+234 805 250 6710"
+                        value={form.phone}
+                        onChange={handleChange}
+                        className="h-14 border-gray-200 dark:border-white/10 bg-white dark:bg-[#0B0B0C] text-slate-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-600 focus:border-yellow-400 focus:ring-yellow-400 text-base"
+                      />
                     </div>
 
                     <div className="space-y-2">
