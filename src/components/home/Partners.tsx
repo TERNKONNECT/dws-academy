@@ -2,7 +2,7 @@ import Reveal from "./Reveal";
 
 const Partners = () => {
   return (
-    <section className="bg-white py-24 md:py-32 border-t border-black/5">
+    <section className="bg-white py-12 md:py-16 border-t border-black/5">
       <div className="mx-auto max-w-[1180px] px-8 text-center">
         <Reveal>
           <span className="text-[11.5px] font-semibold uppercase tracking-[0.16em] text-amber-700">

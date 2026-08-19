@@ -2,7 +2,7 @@ import Reveal from "./Reveal";
 
 const WhoWeAre = () => {
   return (
-    <section className="bg-[#F7F6F3] py-24 md:py-32">
+    <section className="bg-[#F7F6F3] py-12 md:py-16">
       <div className="mx-auto grid max-w-[1180px] grid-cols-1 items-center gap-14 px-8 md:grid-cols-2 md:gap-[70px]">
         <Reveal>
           <div

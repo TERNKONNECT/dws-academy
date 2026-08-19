@@ -4,7 +4,7 @@ import Reveal from "./Reveal";
 
 const FinalCta = () => {
   return (
-    <section className="bg-background px-6 py-24 text-center md:py-32">
+    <section className="bg-background px-6 py-12 text-center md:py-16">
       <Reveal>
         <h2 className="mx-auto max-w-[720px] text-[clamp(30px,4.4vw,50px)] font-bold text-foreground">
           Ready to Build Your Future in the Event Industry?

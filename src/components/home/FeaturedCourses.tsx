@@ -47,7 +47,7 @@ const FeaturedCourses = ({
   loading: boolean;
 }) => {
   return (
-    <section id="courses" className="bg-background py-24 md:py-32">
+    <section id="courses" className="bg-background py-12 md:py-16">
       <div className="mx-auto max-w-[1180px] px-8">
         <Reveal>
           <div className="mx-auto mb-16 max-w-xl text-center">

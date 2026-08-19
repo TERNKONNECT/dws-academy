@@ -341,7 +341,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
               />
               <button
                 type="submit"
-                className="bg-primary px-4 text-[13px] font-bold text-primary-foreground"
+                className="bg-primary pl-4 pr-6 text-[13px] font-bold text-primary-foreground shrink-0"
               >
                 Join
               </button>

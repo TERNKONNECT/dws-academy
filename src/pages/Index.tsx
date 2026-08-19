@@ -9,7 +9,7 @@ import Books from "@/components/home/Books";
 import Testimonials from "@/components/home/Testimonials";
 import Insights from "@/components/home/Insights";
 import Newsletter from "@/components/home/Newsletter";
-import ClarityCallCta from "@/components/home/ClarityCallCta";
+
 import FinalCta from "@/components/home/FinalCta";
 import { api } from "@/services/api";
 import { testimonialsApi, type Testimonial } from "@/api/testimonials";
@@ -69,7 +69,7 @@ const Index = () => {
       <Testimonials testimonials={testimonials} />
       <Insights />
       <Newsletter />
-      <ClarityCallCta />
+
       <FinalCta />
     </MainLayout>
   );
