@@ -11,15 +11,37 @@ import {
   LayoutDashboard,
   BookOpen,
   MessageCircle,
+  Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ThemeToggle from "@/components/ThemeToggle";
 import { useAuthStore } from "@/stores/authStore";
+import { useToast } from "@/components/ui/use-toast";
+import { newsletterApi } from "@/api/newsletter";
+import { errorMessage } from "@/lib/utils";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { isAuthenticated, user, logout } = useAuthStore();
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const [email, setEmail] = useState("");
+  const [isSubscribing, setIsSubscribing] = useState(false);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || isSubscribing) return;
+    setIsSubscribing(true);
+    try {
+      const { message } = await newsletterApi.subscribe(email);
+      toast({ title: message });
+      setEmail("");
+    } catch (err) {
+      toast({ title: "Failed to subscribe", description: errorMessage(err), variant: "destructive" });
+    } finally {
+      setIsSubscribing(false);
+    }
+  };
 
   const handleLogout = () => {
     logout();
@@ -311,13 +333,16 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             </h4>
             <ul className="space-y-3 text-sm text-gray-300">
               <li>
-                <a href="#" className="hover:text-yellow-400 transition-colors">Instagram</a>
+                <a href="https://www.instagram.com/schoolofevents?igsh=MWZ5OG91YXM0MGp2eg==" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-400 transition-colors">Instagram</a>
               </li>
               <li>
-                <a href="#" className="hover:text-yellow-400 transition-colors">LinkedIn</a>
+                <a href="https://www.facebook.com/share/1JkdekuZJ2/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-400 transition-colors">Facebook</a>
               </li>
               <li>
-                <a href="#" className="hover:text-yellow-400 transition-colors">YouTube</a>
+                <a href="https://youtube.com/@adesuwao?si=wzGPbsJkAmfpVw_G" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-400 transition-colors">YouTube</a>
+              </li>
+              <li>
+                <a href="https://www.tiktok.com/@schoolofevents?_r=1&_t=ZS-999TXWChFuX" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-400 transition-colors">TikTok</a>
               </li>
             </ul>
           </div>
@@ -329,20 +354,25 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             <p className="text-[13px] text-gray-400 mb-3">
               Insights, direct to your inbox.
             </p>
-            {/* No newsletter subscribe endpoint exists yet — placeholder form */}
+            {/* Newsletter form */}
             <form
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={handleSubscribe}
               className="flex rounded-full border border-white/10 overflow-hidden"
             >
               <input
                 type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email address"
                 className="flex-1 bg-transparent px-4 py-2.5 text-[13px] text-white outline-none placeholder:text-gray-500"
               />
               <button
                 type="submit"
-                className="bg-primary pl-4 pr-6 text-[13px] font-bold text-primary-foreground shrink-0"
+                disabled={isSubscribing}
+                className="bg-primary pl-4 pr-6 text-[13px] font-bold text-primary-foreground shrink-0 flex items-center justify-center gap-2 disabled:opacity-70"
               >
+                {isSubscribing ? <Loader2 className="h-3 w-3 animate-spin" /> : null}
                 Join
               </button>
             </form>
@@ -385,11 +415,13 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       {/* Floating Support Button */}
       <a
         href="mailto:schoolofeventsafrica@gmail.com"
-        className="fixed bottom-6 left-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-yellow-400 text-black shadow-lg shadow-black/20 transition-transform hover:-translate-y-1 hover:bg-yellow-500 hover:shadow-xl group"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-yellow-400 text-black shadow-lg shadow-black/20 transition-transform hover:-translate-y-1 hover:bg-yellow-500 hover:shadow-xl group"
         aria-label="Contact Support"
       >
         <MessageCircle className="h-6 w-6" />
-        <span className="absolute left-full ml-4 whitespace-nowrap rounded-lg bg-black px-3 py-1.5 text-sm font-semibold text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100 pointer-events-none">
+        <span className="absolute right-full mr-4 whitespace-nowrap rounded-lg bg-black px-3 py-1.5 text-sm font-semibold text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100 pointer-events-none">
           Contact Support
         </span>
       </a>

@@ -265,9 +265,9 @@ export default function Contact() {
                         className="h-14 w-full rounded-md border border-yellow-400 bg-white dark:bg-[#0B0B0C] px-3 py-2 text-base text-slate-900 dark:text-white focus:border-yellow-400 focus:ring-yellow-400 focus:outline-none"
                       >
                         <option value="" disabled>Select Category</option>
-                        <option value="Quick help">Quick help</option>
-                        <option value="Contact us">Contact us</option>
-                        <option value="What was I debited">What was I debited</option>
+                        <option value="Partnerships">Partnerships</option>
+                        <option value="Courses">Courses</option>
+                        <option value="General Questions">General Questions</option>
                       </select>
                     </div>
 
