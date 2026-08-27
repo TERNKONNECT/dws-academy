@@ -65,6 +65,7 @@ const Settings = lazy(() => import("./pages/admin/Settings"));
 const EventsGallery = lazy(() => import("./pages/admin/EventsGallery"));
 const AdminTestimonials = lazy(() => import("./pages/admin/Testimonials"));
 const AdminFaculty = lazy(() => import("./pages/admin/Faculty"));
+const NewsletterSubscribers = lazy(() => import("./pages/admin/NewsletterSubscribers"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -231,6 +232,14 @@ const App = () => (
                       element={
                         <StrictAdminRoute>
                           <AdminFaculty />
+                        </StrictAdminRoute>
+                      }
+                    />
+                    <Route
+                      path="newsletter"
+                      element={
+                        <StrictAdminRoute>
+                          <NewsletterSubscribers />
                         </StrictAdminRoute>
                       }
                     />

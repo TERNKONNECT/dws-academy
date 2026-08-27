@@ -7,19 +7,19 @@ const insights = [
     tag: "Industry Report",
     title: "The State of the African Event Industry, 2026",
     desc: "What 500+ practitioners told us about pricing, growth and the year ahead.",
-    gradient: "linear-gradient(135deg,#0B0B0C,#232016)",
+    image: "/images/african_event_industry.jpg",
   },
   {
     tag: "Case Study",
     title: "From Solo Planner to Structured Company",
     desc: "How one founder rebuilt her business around systems instead of hustle.",
-    gradient: "linear-gradient(135deg,#171512,#0B0B0C)",
+    image: "/images/solo_planner.jpg",
   },
   {
     tag: "Interview",
     title: "Building Faculty That Practices What It Teaches",
     desc: "A conversation on why practitioner-led education changes outcomes.",
-    gradient: "linear-gradient(135deg,#0f0e10,#1b1811)",
+    image: "/images/building_faculty.jpg",
   },
 ];
 
@@ -44,11 +44,16 @@ const Insights = () => {
         <Reveal delay={100}>
           <div className="grid grid-cols-1 gap-[22px] md:grid-cols-3">
             {insights.map((post) => (
-              <div
+              <a
+                href="https://adesuwaolanrewajudada.substack.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 key={post.title}
-                className="overflow-hidden rounded-2xl border border-black/10 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                className="block overflow-hidden rounded-2xl border border-black/10 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
               >
-                <div className="h-[150px]" style={{ background: post.gradient }} />
+                <div className="h-[200px] w-full overflow-hidden">
+                  <img src={post.image} alt={post.title} className="h-full w-full object-cover transition-transform duration-500 hover:scale-105" />
+                </div>
                 <div className="p-6">
                   <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-accent">
                     {post.tag}
@@ -60,8 +65,20 @@ const Insights = () => {
                     {post.desc}
                   </p>
                 </div>
-              </div>
+              </a>
             ))}
+          </div>
+        </Reveal>
+        <Reveal delay={200}>
+          <div className="mt-12 flex justify-center">
+            <a
+              href="https://adesuwaolanrewajudada.substack.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-12 items-center justify-center rounded-full bg-[#0B0B0C] px-8 text-[14px] font-medium text-white transition-colors hover:bg-[#0B0B0C]/90"
+            >
+              For more
+            </a>
           </div>
         </Reveal>
       </div>
