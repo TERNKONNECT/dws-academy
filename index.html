@@ -2,10 +2,6 @@
 <html lang="en">
 
 <head>
-  <script>
-    if (!localStorage.getItem("tkw_a11y_prefs")) {
-      localStorage.setItem("tkw_a11y_prefs", JSON.stringify({ tts: false }));
-    }
     // Applied synchronously, before first paint, so switching themes doesn't
     // flash the wrong one while React hydrates. Mirrors next-themes' own
     // storageKey/attribute config in App.tsx — keep the two in sync.
@@ -15,7 +11,6 @@
       document.documentElement.classList.add("dark");
     })();
   </script>
-  <script src="https://widget.ternkonnect.com/widget.js" data-account="Y4TeKv2Ybm" data-position="bottom-left"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/jpeg" href="/school-logo.jpeg" />

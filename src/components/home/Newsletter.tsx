@@ -40,7 +40,7 @@ const Newsletter = () => {
               Subscribe to Our Newsletter
             </h2>
             <p className="mt-[18px] text-[16.5px] text-muted-foreground">
-              Get insights, industry reports and updates from School of Events
+              Get articles, industry reports and updates from School of Events
               Africa, direct to your inbox.
             </p>
 
