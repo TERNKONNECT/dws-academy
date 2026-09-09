@@ -68,7 +68,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     { to: "/#books", label: "Books" },
     { to: "/team", label: "Our Team" },
     { to: "/gallery", label: "Gallery" },
-    { to: "/#insights", label: "Insights" },
+    { to: "/#insights", label: "Articles" },
   ];
 
   return (
@@ -173,15 +173,6 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
               </>
             )}
             
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => document.getElementById('tkw-btn')?.click()}
-              className="text-white/70 hover:text-white hover:bg-[#151517]/10 rounded-full w-12 h-12"
-              title="Accessibility Settings"
-            >
-              <Accessibility className="h-9 w-9" />
-            </Button>
           </div>
 
           <div className="flex items-center gap-1 md:hidden">
@@ -267,17 +258,6 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                   </Link> */}
                 </>
               )}
-              
-              <div className="flex justify-center pt-2 border-t border-white/10 mt-2">
-                <Button
-                  variant="ghost"
-                  onClick={() => document.getElementById('tkw-btn')?.click()}
-                  className="flex items-center justify-center gap-3 px-4 py-3 w-full rounded-full bg-transparent hover:bg-[#151517]/10 text-white/70 hover:text-white transition-colors"
-                >
-                  <Accessibility className="h-8 w-8" />
-                  <span className="text-lg font-semibold">Accessibility Settings</span>
-                </Button>
-              </div>
             </div>
           </div>
         )}
@@ -437,8 +417,6 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       {/* Floating Support Button */}
       <a
         href="mailto:schoolofeventsafrica@gmail.com"
-        target="_blank"
-        rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-yellow-400 text-black shadow-lg shadow-black/20 transition-transform hover:-translate-y-1 hover:bg-yellow-500 hover:shadow-xl group"
         aria-label="Contact Support"
       >

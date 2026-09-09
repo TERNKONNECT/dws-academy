@@ -14,6 +14,7 @@ export default function Contact() {
     phone: "",
     email: "",
     category: "",
+    message: "",
   });
 
   const handleChange = (
@@ -262,13 +263,31 @@ export default function Contact() {
                         value={form.category}
                         onChange={handleChange}
                         required
-                        className="h-14 w-full rounded-md border border-yellow-400 bg-white dark:bg-[#0B0B0C] px-3 py-2 text-base text-slate-900 dark:text-white focus:border-yellow-400 focus:ring-yellow-400 focus:outline-none"
+                        className="h-14 w-full rounded-md border border-gray-200 dark:border-white/10 bg-white dark:bg-[#0B0B0C] px-3 py-2 text-base text-slate-900 dark:text-white focus:border-yellow-400 focus:ring-yellow-400 focus:outline-none"
                       >
                         <option value="" disabled>Select Category</option>
                         <option value="Partnerships">Partnerships</option>
                         <option value="Courses">Courses</option>
                         <option value="General Questions">General Questions</option>
                       </select>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label
+                        htmlFor="message"
+                        className="text-base font-bold text-[#0A2640] dark:text-white"
+                      >
+                        Message
+                      </Label>
+                      <Textarea
+                        id="message"
+                        name="message"
+                        placeholder="Type your message here..."
+                        value={form.message}
+                        onChange={handleChange}
+                        required
+                        className="min-h-[120px] border-gray-200 dark:border-white/10 bg-white dark:bg-[#0B0B0C] text-slate-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-600 focus:border-yellow-400 focus:ring-yellow-400 text-base"
+                      />
                     </div>
 
                     <Button
