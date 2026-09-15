@@ -29,10 +29,9 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
     try {
+      const API_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:9000";
       const response = await fetch(
-        import.meta.env.VITE_API_URL
-          ? `${import.meta.env.VITE_API_URL}/api/contact`
-          : "/api/contact",
+        `${API_URL}/api/contact`,
         {
           method: "POST",
           headers: {
