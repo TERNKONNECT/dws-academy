@@ -5,7 +5,7 @@ import Reveal from "./Reveal";
 // book records once that's built.
 const books = [
   {
-    coverLines: ["MONEY", "ON THE", "TABLE"],
+    coverImage: "/money-on-the-table-cover.png",
     title: "Money on the Table",
     desc: "A practical look at where event businesses lose profit, and how to stop it.",
   },
@@ -42,21 +42,29 @@ const Books = () => {
                 key={book.title}
                 className="flex items-center gap-[22px] rounded-2xl border border-black/10 p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
               >
-                <div
-                  className="flex h-[104px] w-[74px] shrink-0 items-center justify-center rounded-[5px] border border-black/15 p-2 shadow-[3px_3px_0_rgba(0,0,0,0.08)]"
-                  style={{
-                    background: "linear-gradient(160deg,#111,#2b2413 130%)",
-                  }}
-                >
-                  <span className="text-center text-[10px] font-bold leading-tight text-primary">
-                    {book.coverLines.map((line, i) => (
-                      <span key={i}>
-                        {line}
-                        {i < book.coverLines.length - 1 && <br />}
-                      </span>
-                    ))}
-                  </span>
-                </div>
+                {book.coverImage ? (
+                  <img
+                    src={book.coverImage}
+                    alt={`${book.title} cover`}
+                    className="h-[104px] w-[74px] shrink-0 rounded-[5px] border border-black/15 object-cover shadow-[3px_3px_0_rgba(0,0,0,0.08)]"
+                  />
+                ) : (
+                  <div
+                    className="flex h-[104px] w-[74px] shrink-0 items-center justify-center rounded-[5px] border border-black/15 p-2 shadow-[3px_3px_0_rgba(0,0,0,0.08)]"
+                    style={{
+                      background: "linear-gradient(160deg,#111,#2b2413 130%)",
+                    }}
+                  >
+                    <span className="text-center text-[10px] font-bold leading-tight text-primary">
+                      {book.coverLines?.map((line, i) => (
+                        <span key={i}>
+                          {line}
+                          {i < book.coverLines!.length - 1 && <br />}
+                        </span>
+                      ))}
+                    </span>
+                  </div>
+                )}
                 <div>
                   <Badge className="mb-2 border-transparent bg-black/5 text-black/45 hover:bg-black/5">
                     Coming Soon
