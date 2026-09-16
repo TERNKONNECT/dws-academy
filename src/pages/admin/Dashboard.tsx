@@ -27,6 +27,9 @@ const Dashboard = () => {
   const isSuperAdmin = user?.role === 'super-admin';
 
   useEffect(() => {
+    const asObject = <T,>(value: unknown): T | null =>
+      value && typeof value === 'object' ? (value as T) : null;
+
     Promise.all([
       analyticsApi.getOverview(),
       analyticsApi.getUserGrowth(),
@@ -34,10 +37,16 @@ const Dashboard = () => {
       analyticsApi.getPopularCourses(),
     ])
       .then(([s, ug, eg, pc]) => {
-        setStats(s);
-        setUserGrowth(ug);
-        setEnrollmentGrowth(eg);
-        setPopularCourses(pc);
+        setStats(asObject(s));
+        setUserGrowth(asObject(ug));
+        setEnrollmentGrowth(asObject(eg));
+        setPopularCourses(Array.isArray(pc) ? pc : []);
+      })
+      .catch(() => {
+        setStats(null);
+        setUserGrowth(null);
+        setEnrollmentGrowth(null);
+        setPopularCourses([]);
       })
       .finally(() => setLoading(false));
   }, []);

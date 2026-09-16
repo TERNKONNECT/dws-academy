@@ -90,7 +90,9 @@ const Revenue = () => {
   const loadStats = () => {
     paymentsApi
       .getRevenue()
-      .then(setStats)
+      .then((data) =>
+        setStats(data && typeof data === "object" && Array.isArray(data.monthly) ? data : null),
+      )
       .catch(() => toast.error("Failed to load revenue stats"))
       .finally(() => setStatsLoading(false));
   };
@@ -104,7 +106,9 @@ const Revenue = () => {
         page,
         limit: 20,
       })
-      .then(setList)
+      .then((data) =>
+        setList(data && typeof data === "object" && Array.isArray(data.payments) ? data : null),
+      )
       .catch(() => toast.error("Failed to load payments"))
       .finally(() => setListLoading(false));
   };
@@ -113,7 +117,7 @@ const Revenue = () => {
     loadStats();
     coursesApi
       .getAll()
-      .then(setCourses)
+      .then((data) => setCourses(Array.isArray(data) ? data : []))
       .catch(() => {});
   }, []);
 

@@ -41,7 +41,7 @@ const Courses = () => {
     setLoading(true);
     coursesApi
       .getAll()
-      .then(setCourses)
+      .then((data) => setCourses(Array.isArray(data) ? data : []))
       .catch(() => toast.error("Failed to load courses"))
       .finally(() => setLoading(false));
   };

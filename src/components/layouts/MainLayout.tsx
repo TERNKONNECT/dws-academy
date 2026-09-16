@@ -64,6 +64,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   };
 
   const navLinks = [
+    { to: "/", label: "Home" },
     { to: "/courses", label: "Courses" },
     { to: "/#books", label: "Books" },
     { to: "/team", label: "Our Team" },
@@ -91,19 +92,19 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       </div>
 
       <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0B0B0C]/80 backdrop-blur-md">
-        <div className="container mx-auto px-4 flex h-20 items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 md:gap-3 font-bold text-xl md:text-2xl">
+        <div className="container mx-auto px-4 flex h-20 items-center justify-between gap-4">
+          <Link to="/" className="flex shrink-0 items-center gap-2 md:gap-3 font-bold focus:outline-none">
             <img src="/school-logo.jpeg" alt="" className="h-10 w-10 rounded-full object-cover md:h-11 md:w-11" />
-            <span className="font-bold text-white tracking-tight">School of Events Africa</span>
+            <span className="font-bold text-white tracking-tight whitespace-nowrap text-lg xl:text-xl hidden sm:block">School of Events Africa</span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden md:flex flex-1 justify-center items-center gap-3 lg:gap-6 overflow-hidden">
             {navLinks.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
                 onClick={(e) => handleNavClick(e, link.to)}
-                className="text-sm font-medium text-white/70 hover:text-white transition-colors relative group py-2"
+                className="text-[13px] lg:text-sm font-medium text-white/70 hover:text-white transition-colors relative group py-2 whitespace-nowrap focus:outline-none outline-none"
               >
                 {link.label}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-accent group-hover:w-full transition-all duration-300"></span>
@@ -111,13 +112,13 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             ))}
             <Link
               to="/contact"
-              className="rounded-full bg-primary px-5 py-2 text-[13.5px] font-bold text-primary-foreground transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(244,180,0,0.35)]"
+              className="rounded-full bg-primary/10 text-primary border border-primary/20 px-4 py-1.5 text-[12px] lg:text-[13px] font-bold transition-all hover:bg-primary hover:text-primary-foreground hover:-translate-y-0.5 whitespace-nowrap focus:outline-none hidden xl:block"
             >
               Book a Clarity Call
             </Link>
           </nav>
 
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden md:flex shrink-0 items-center gap-2 lg:gap-4">
             <ThemeToggle className="text-white/70 hover:text-white hover:bg-[#151517]/10 rounded-full" />
             {isAuthenticated ? (
               <>
@@ -125,7 +126,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-full shadow-sm hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(244,180,0,0.35)] transition-all"
+                    className="gap-1.5 bg-primary hover:bg-primary/90 text-primary-foreground font-bold rounded-full shadow-sm hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(244,180,0,0.35)] transition-all whitespace-nowrap focus:outline-none"
                   >
                     <LayoutDashboard className="h-4 w-4" />
                     Dashboard
@@ -135,17 +136,17 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="gap-2 text-white/70 hover:text-white hover:bg-[#151517]/10 rounded-full"
+                    className="gap-1.5 text-white/70 hover:text-white hover:bg-[#151517]/10 rounded-full whitespace-nowrap focus:outline-none"
                   >
                     <User className="h-4 w-4" />
-                    {user?.name}
+                    {user?.name?.split(' ')[0]}
                   </Button>
                 </Link>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={handleLogout}
-                  className="gap-2 bg-transparent border-white/20 text-white/70 hover:text-white hover:border-white/50 hover:bg-[#151517]/10 rounded-full"
+                  className="gap-1.5 bg-transparent border-white/20 text-white/70 hover:text-white hover:border-white/50 hover:bg-[#151517]/10 rounded-full whitespace-nowrap focus:outline-none hidden lg:flex"
                 >
                   <LogOut className="h-4 w-4" />
                   Logout
@@ -359,7 +360,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             {/* Newsletter form */}
             <form
               onSubmit={handleSubscribe}
-              className="flex rounded-full border border-white/10 overflow-hidden"
+              className="flex w-full rounded-full border border-white/10 overflow-hidden"
             >
               <input
                 type="email"
@@ -367,7 +368,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email address"
-                className="flex-1 bg-transparent px-4 py-2.5 text-[13px] text-white outline-none placeholder:text-gray-500"
+                className="flex-1 min-w-0 bg-transparent px-4 py-2.5 text-[13px] text-white outline-none placeholder:text-gray-500"
               />
               <button
                 type="submit"

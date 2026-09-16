@@ -22,7 +22,10 @@ const Users = () => {
   const isSuperAdmin = currentUser?.role === 'super-admin';
 
   useEffect(() => {
-    usersApi.getAll(search).then(setUsers).finally(() => setLoading(false));
+    usersApi
+      .getAll(search)
+      .then((data) => setUsers(Array.isArray(data) ? data : []))
+      .finally(() => setLoading(false));
   }, [search]);
 
   const handleToggleBlock = async (id: string) => {

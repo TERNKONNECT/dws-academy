@@ -5,13 +5,14 @@ const WhoWeAre = () => {
     <section className="bg-[#F7F6F3] py-12 md:py-16">
       <div className="mx-auto grid max-w-[1180px] grid-cols-1 items-center gap-14 px-8 md:grid-cols-2 md:gap-[70px]">
         <Reveal>
-          <div
-            className="relative aspect-[4/5] overflow-hidden rounded-[18px]"
-            style={{
-              background:
-                "linear-gradient(160deg, #17161a 0%, #0B0B0C 60%), repeating-linear-gradient(115deg, rgba(244,180,0,0.05) 0 2px, transparent 2px 46px)",
-            }}
-          >
+          <div className="relative aspect-[4/5] overflow-hidden rounded-[18px]">
+            <img 
+              src="/realistic_event_training.jpg" 
+              alt="School of Events Practitioner" 
+              className="absolute inset-0 h-full w-full object-cover" 
+            />
+            {/* Overlay to ensure text readability */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
             <div className="absolute inset-x-6 bottom-6 rounded-xl border border-white/10 bg-white/[0.06] p-5 backdrop-blur-sm">
               <div className="text-xs font-bold uppercase tracking-[0.1em] text-primary">
                 Est. Practitioner-Led

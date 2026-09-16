@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { analyticsApi } from '@/api/analytics';
+import { superAdminApi, type InstructorSummary } from '@/api/superadmin';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { StatsSkeleton } from '@/components/shared/SkeletonLoader';
 import { useAuthStore } from '@/stores/authStore';
@@ -43,24 +44,43 @@ const Analytics = () => {
   const [completion, setCompletion] = useState<{ completed: number; inProgress: number; notStarted: number } | null>(null);
   const [quizSuccess, setQuizSuccess] = useState<{ labels: string[]; passed: number[]; failed: number[] } | null>(null);
   const [popular, setPopular] = useState<{ title: string; enrollments: number }[]>([]);
+  const [topInstructors, setTopInstructors] = useState<InstructorSummary[]>([]);
 
   const user = useAuthStore((s) => s.user);
   const isSuperAdmin = user?.role === 'super-admin';
 
   useEffect(() => {
+    const asObject = <T,>(value: unknown): T | null =>
+      value && typeof value === 'object' ? (value as T) : null;
+
     Promise.all([
       analyticsApi.getOverview(),
       analyticsApi.getEnrollmentGrowth(),
       analyticsApi.getCourseCompletion(),
       analyticsApi.getQuizSuccess(),
       analyticsApi.getPopularCourses(),
+      superAdminApi.getInstructors().catch(() => []),
     ])
-      .then(([s, eg, cc, qs, pc]) => {
-        setStats(s);
-        setEnrollmentGrowth(eg);
-        setCompletion(cc);
-        setQuizSuccess(qs);
-        setPopular(pc);
+      .then(([s, eg, cc, qs, pc, instructors]) => {
+        setStats(asObject(s));
+        setEnrollmentGrowth(asObject(eg));
+        setCompletion(asObject(cc));
+        setQuizSuccess(asObject(qs));
+        setPopular(Array.isArray(pc) ? pc : []);
+        setTopInstructors(
+          (Array.isArray(instructors) ? instructors : [])
+            .slice()
+            .sort((a, b) => b.totalEnrollments - a.totalEnrollments)
+            .slice(0, 5),
+        );
+      })
+      .catch(() => {
+        setStats(null);
+        setEnrollmentGrowth(null);
+        setCompletion(null);
+        setQuizSuccess(null);
+        setPopular([]);
+        setTopInstructors([]);
       })
       .finally(() => setLoading(false));
   }, []);
@@ -247,6 +267,48 @@ const Analytics = () => {
                           <span className="font-medium truncate max-w-[200px]">{course.title}</span>
                         </div>
                         <span className="text-muted-foreground shrink-0">{course.enrollments} enrolled</span>
+                      </div>
+                      <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-primary rounded-full transition-all"
+                          style={{ width: `${pct}%` }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Top Instructors</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {topInstructors.length === 0 ? (
+              <p className="text-sm text-muted-foreground py-4 text-center">No instructor data yet.</p>
+            ) : (
+              <div className="space-y-3">
+                {topInstructors.map((instructor, idx) => {
+                  const maxEnrollments = topInstructors[0]?.totalEnrollments || 1;
+                  const pct = Math.round((instructor.totalEnrollments / maxEnrollments) * 100);
+                  return (
+                    <div key={instructor.id} className="space-y-1">
+                      <div className="flex items-center justify-between text-sm">
+                        <div className="flex items-center gap-2">
+                          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">
+                            {idx + 1}
+                          </span>
+                          <span className="font-medium truncate max-w-[160px]">{instructor.name}</span>
+                          <span className="text-xs text-muted-foreground shrink-0">
+                            {instructor.totalCourses} course{instructor.totalCourses !== 1 ? 's' : ''}
+                          </span>
+                        </div>
+                        <span className="text-muted-foreground shrink-0">
+                          {instructor.totalEnrollments} enrolled · {instructor.completionRate}% completed
+                        </span>
                       </div>
                       <div className="h-1.5 bg-muted rounded-full overflow-hidden">
                         <div

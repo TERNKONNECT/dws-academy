@@ -32,7 +32,7 @@ export default function NewsletterSubscribers() {
         startDate: startDate || undefined,
         endDate: endDate || undefined,
       });
-      setSubscribers(data);
+      setSubscribers(Array.isArray(data) ? data : []);
     } catch (err) {
       toast({
         title: "Failed to fetch subscribers",

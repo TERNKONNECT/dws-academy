@@ -11,6 +11,7 @@ import {
   Wallet,
   MessageSquare,
   Mail,
+  ShoppingBag,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
@@ -39,6 +40,7 @@ const adminNavItems = [
   { title: "Analytics", url: "/dashboard/analytics", icon: BarChart3 },
   { title: "Revenue", url: "/dashboard/revenue", icon: Wallet },
   { title: "Newsletter", url: "/dashboard/newsletter", icon: Mail },
+  { title: "Book Preorders", url: "/dashboard/book-preorders", icon: ShoppingBag },
 ];
 
 const operatorNavItems = [
@@ -60,6 +62,7 @@ const superAdminNavItems = [
   { title: "Analytics", url: "/dashboard/analytics", icon: BarChart3 },
   { title: "Revenue", url: "/dashboard/revenue", icon: Wallet },
   { title: "Newsletter", url: "/dashboard/newsletter", icon: Mail },
+  { title: "Book Preorders", url: "/dashboard/book-preorders", icon: ShoppingBag },
 ];
 
 const secondaryItems = [
