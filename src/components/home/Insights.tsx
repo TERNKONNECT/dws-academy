@@ -17,7 +17,7 @@ const Insights = () => {
     <section id="insights" className="bg-[#F7F6F3] py-12 md:py-16">
       <div className="mx-auto max-w-[1180px] px-8">
         <Reveal>
-          <div className="mb-16 max-w-xl">
+          <div className="mx-auto mb-16 max-w-xl text-center">
             <span className="text-[11.5px] font-semibold uppercase tracking-[0.16em] text-amber-700">
               Articles
             </span>
@@ -31,14 +31,14 @@ const Insights = () => {
           </div>
         </Reveal>
         <Reveal delay={100}>
-          <div className="grid grid-cols-1 gap-[22px] md:grid-cols-3">
+          <div className="flex flex-wrap justify-center gap-[22px]">
             {insights.map((post) => (
               <a
                 href={post.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 key={post.title}
-                className="block overflow-hidden rounded-2xl border border-black/10 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                className="block w-full max-w-sm overflow-hidden rounded-2xl border border-black/10 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
               >
                 <div className="h-[200px] w-full overflow-hidden">
                   <img src={post.image} alt={post.title} className="h-full w-full object-cover transition-transform duration-500 hover:scale-105" />
