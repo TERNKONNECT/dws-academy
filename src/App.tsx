@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/contexts/AuthContext";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import ScrollToHash from "@/components/ScrollToHash";
 import {
   ProtectedAdminRoute,
   StrictAdminRoute,
@@ -100,6 +101,7 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
+            <ScrollToHash />
             {/* One page throwing must not blank the whole site. */}
             <ErrorBoundary>
               <Suspense fallback={<RouteFallback />}>
