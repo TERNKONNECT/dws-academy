@@ -4,22 +4,11 @@ import Reveal from "./Reveal";
 // real posts once that's built.
 const insights = [
   {
-    tag: "Industry Report",
-    title: "The State of the African Event Industry, 2026",
-    desc: "What 500+ practitioners told us about pricing, growth and the year ahead.",
-    image: "/images/african_event_industry.jpg",
-  },
-  {
-    tag: "Case Study",
-    title: "From Solo Planner to Structured Company",
-    desc: "How one founder rebuilt her business around systems instead of hustle.",
-    image: "/images/solo_planner.jpg",
-  },
-  {
-    tag: "Interview",
-    title: "Building Faculty That Practices What It Teaches",
-    desc: "A conversation on why practitioner-led education changes outcomes.",
-    image: "/images/building_faculty.jpg",
+    tag: "Article",
+    title: "A Love Note to the Person Who Wants to Become Better in 60 Days",
+    desc: "I asked some people in my community what they wanted to accomplish in the next 60 days.",
+    image: "https://substackcdn.com/image/fetch/w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F14ff1206-de4e-4178-9b6b-1425fda4a85c_1290x2293.jpeg",
+    url: "https://adesuwaolanrewajudada.substack.com/p/a-love-note-to-the-person-who-wants",
   },
 ];
 
@@ -45,7 +34,7 @@ const Insights = () => {
           <div className="grid grid-cols-1 gap-[22px] md:grid-cols-3">
             {insights.map((post) => (
               <a
-                href="https://adesuwaolanrewajudada.substack.com"
+                href={post.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 key={post.title}
