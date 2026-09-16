@@ -14,7 +14,7 @@ const insights = [
 
 const Insights = () => {
   return (
-    <section id="insights" className="bg-[#F7F6F3] py-12 md:py-16">
+    <section id="insights" className="bg-[#F7F6F3] py-12 md:py-16 scroll-mt-24">
       <div className="mx-auto max-w-[1180px] px-8">
         <Reveal>
           <div className="mx-auto mb-16 max-w-xl text-center">
