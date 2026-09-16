@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { preordersApi } from "@/api/preorders";
 
-const PRICE_PER_COPY = 5000;
+const PRICE_PER_COPY = 15000;
 
 const BookPreorder = () => {
   const { toast } = useToast();
