@@ -50,6 +50,11 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   };
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, linkTo: string) => {
+    if (linkTo === '/' && window.location.pathname === '/') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
     if (linkTo.startsWith('/#') && window.location.pathname === '/') {
       e.preventDefault();
       const id = linkTo.replace('/#', '');
@@ -66,7 +71,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const navLinks = [
     { to: "/", label: "Home" },
     { to: "/courses", label: "Courses" },
-    { to: "/#books", label: "Books" },
+    { to: "/books/money-on-the-table", label: "Books" },
     { to: "/team", label: "Our Team" },
     { to: "/gallery", label: "Gallery" },
     { to: "/#insights", label: "Articles" },
@@ -290,7 +295,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                 </Link>
               </li>
               <li>
-                <Link to="/#books" onClick={(e) => handleNavClick(e, "/#books")} className="hover:text-yellow-400 transition-colors">
+                <Link to="/books/money-on-the-table" onClick={(e) => handleNavClick(e, "/books/money-on-the-table")} className="hover:text-yellow-400 transition-colors">
                   Books
                 </Link>
               </li>
