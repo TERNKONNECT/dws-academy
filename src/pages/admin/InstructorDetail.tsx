@@ -45,7 +45,9 @@ const InstructorDetail = () => {
     if (!id) return;
     superAdminApi
       .getInstructorDetail(id)
-      .then(setData)
+      .then((data) =>
+        setData(data && typeof data === "object" && Array.isArray(data.courses) ? data : null),
+      )
       .catch(() => toast.error("Failed to load instructor details"))
       .finally(() => setLoading(false));
   }, [id]);

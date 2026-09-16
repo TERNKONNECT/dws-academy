@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import Reveal from "./Reveal";
 
@@ -8,11 +9,8 @@ const books = [
     coverImage: "/money-on-the-table-cover.png",
     title: "Money on the Table",
     desc: "A practical look at where event businesses lose profit, and how to stop it.",
-  },
-  {
-    coverLines: ["UNTITLED", "·", "2027"],
-    title: "A Second Title, In Progress",
-    desc: "Details to be announced.",
+    href: "/books/money-on-the-table",
+    badge: "Preorder Now",
   },
 ];
 
@@ -38,36 +36,19 @@ const Books = () => {
         <Reveal delay={100}>
           <div className="mx-auto grid max-w-[760px] grid-cols-1 gap-[26px] sm:grid-cols-2">
             {books.map((book) => (
-              <div
+              <Link
                 key={book.title}
+                to={book.href}
                 className="flex items-center gap-[22px] rounded-2xl border border-black/10 p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
               >
-                {book.coverImage ? (
-                  <img
-                    src={book.coverImage}
-                    alt={`${book.title} cover`}
-                    className="h-[104px] w-[74px] shrink-0 rounded-[5px] border border-black/15 object-cover shadow-[3px_3px_0_rgba(0,0,0,0.08)]"
-                  />
-                ) : (
-                  <div
-                    className="flex h-[104px] w-[74px] shrink-0 items-center justify-center rounded-[5px] border border-black/15 p-2 shadow-[3px_3px_0_rgba(0,0,0,0.08)]"
-                    style={{
-                      background: "linear-gradient(160deg,#111,#2b2413 130%)",
-                    }}
-                  >
-                    <span className="text-center text-[10px] font-bold leading-tight text-primary">
-                      {book.coverLines?.map((line, i) => (
-                        <span key={i}>
-                          {line}
-                          {i < book.coverLines!.length - 1 && <br />}
-                        </span>
-                      ))}
-                    </span>
-                  </div>
-                )}
+                <img
+                  src={book.coverImage}
+                  alt={`${book.title} cover`}
+                  className="h-[104px] w-[74px] shrink-0 rounded-[5px] border border-black/15 object-cover shadow-[3px_3px_0_rgba(0,0,0,0.08)]"
+                />
                 <div>
-                  <Badge className="mb-2 border-transparent bg-black/5 text-black/45 hover:bg-black/5">
-                    Coming Soon
+                  <Badge className="mb-2 border-transparent bg-orange-100 text-orange-700 hover:bg-orange-100">
+                    {book.badge}
                   </Badge>
                   <h4 className="text-base font-bold text-[#0B0B0C]">
                     {book.title}
@@ -76,7 +57,7 @@ const Books = () => {
                     {book.desc}
                   </p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </Reveal>

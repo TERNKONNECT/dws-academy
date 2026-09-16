@@ -40,6 +40,9 @@ const PaymentFailed = lazy(() => import("./pages/PaymentFailed"));
 const About = lazy(() => import("./pages/About"));
 const Services = lazy(() => import("./pages/Services"));
 const Contact = lazy(() => import("./pages/Contact"));
+const MoneyOnTheTable = lazy(() => import("./pages/MoneyOnTheTable"));
+const BookPreorder = lazy(() => import("./pages/BookPreorder"));
+const BookPreorderSuccess = lazy(() => import("./pages/BookPreorderSuccess"));
 const GetStarted = lazy(() => import("./pages/GetStarted"));
 const FAQ = lazy(() => import("./pages/FAQ"));
 
@@ -65,6 +68,7 @@ const Settings = lazy(() => import("./pages/admin/Settings"));
 const EventsGallery = lazy(() => import("./pages/admin/EventsGallery"));
 const AdminTestimonials = lazy(() => import("./pages/admin/Testimonials"));
 const AdminFaculty = lazy(() => import("./pages/admin/Faculty"));
+const BookPreorders = lazy(() => import("./pages/admin/BookPreorders"));
 const NewsletterSubscribers = lazy(() => import("./pages/admin/NewsletterSubscribers"));
 
 const queryClient = new QueryClient({
@@ -107,6 +111,12 @@ const App = () => (
                   <Route path="/verify-email" element={<VerifyEmail />} />
                   <Route path="/admin-invite" element={<AdminInvite />} />
                   <Route path="/contact" element={<Contact />} />
+                  <Route path="/books/money-on-the-table" element={<MoneyOnTheTable />} />
+                  <Route path="/books/money-on-the-table/preorder" element={<BookPreorder />} />
+                  <Route
+                    path="/books/money-on-the-table/preorder/success"
+                    element={<BookPreorderSuccess />}
+                  />
                   <Route path="/about" element={<About />} />
                   <Route path="/forgot-password" element={<ForgotPassword />} />
                   <Route path="/courses" element={<Courses />} />
@@ -240,6 +250,14 @@ const App = () => (
                       element={
                         <StrictAdminRoute>
                           <NewsletterSubscribers />
+                        </StrictAdminRoute>
+                      }
+                    />
+                    <Route
+                      path="book-preorders"
+                      element={
+                        <StrictAdminRoute>
+                          <BookPreorders />
                         </StrictAdminRoute>
                       }
                     />

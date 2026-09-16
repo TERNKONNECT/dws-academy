@@ -54,11 +54,13 @@ export default function EventsGallery() {
   const { data: events, isLoading } = useQuery({
     queryKey: ["events"],
     queryFn: eventsApi.getAll,
+    select: (data) => (Array.isArray(data) ? data : []),
   });
 
   const { data: categories, isLoading: isLoadingCategories } = useQuery({
     queryKey: ["gallery-categories-admin"],
     queryFn: galleryCategoriesApi.getAllAdmin,
+    select: (data) => (Array.isArray(data) ? data : []),
   });
 
   const createEventMut = useMutation({

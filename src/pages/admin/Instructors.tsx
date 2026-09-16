@@ -55,7 +55,7 @@ const Instructors = () => {
   useEffect(() => {
     superAdminApi
       .getInstructors()
-      .then(setInstructors)
+      .then((data) => setInstructors(Array.isArray(data) ? data : []))
       .catch(() => toast.error("Failed to load instructors"))
       .finally(() => setLoading(false));
   }, []);

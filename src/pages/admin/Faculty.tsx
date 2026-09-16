@@ -58,6 +58,7 @@ export default function AdminTeam() {
   const { data: faculties = [], isLoading } = useQuery({
     queryKey: ['admin-faculty'],
     queryFn: () => facultyApi.getAll(true),
+    select: (data) => (Array.isArray(data) ? data : []),
   });
 
   const createMutation = useMutation({

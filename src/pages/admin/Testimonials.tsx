@@ -45,7 +45,7 @@ const Testimonials = () => {
     setLoading(true);
     testimonialsApi
       .getAdminAll()
-      .then(setTestimonials)
+      .then((data) => setTestimonials(Array.isArray(data) ? data : []))
       .catch(() => toast.error('Failed to load testimonials'))
       .finally(() => setLoading(false));
   };

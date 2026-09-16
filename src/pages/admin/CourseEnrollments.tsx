@@ -95,7 +95,9 @@ const CourseEnrollments = () => {
     setLoading(true);
     enrollmentsApi
       .getCourseEnrollments(id, source)
-      .then(setData)
+      .then((data) =>
+        setData(data && typeof data === "object" && Array.isArray(data.students) ? data : null),
+      )
       .catch(() => toast.error("Failed to load enrollments"))
       .finally(() => setLoading(false));
   };
@@ -105,7 +107,7 @@ const CourseEnrollments = () => {
     setPendingLoading(true);
     paymentsApi
       .getPendingForCourse(id)
-      .then(setPending)
+      .then((data) => setPending(Array.isArray(data) ? data : []))
       .catch(() => toast.error("Failed to load pending payments"))
       .finally(() => setPendingLoading(false));
   };
@@ -115,7 +117,9 @@ const CourseEnrollments = () => {
     loadPending();
     reviewsApi
       .getCourseReviews(id)
-      .then(setReviews)
+      .then((data) =>
+        setReviews(data && typeof data === "object" && Array.isArray(data.reviews) ? data : null),
+      )
       .catch(() => {})
       .finally(() => setReviewsLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
