@@ -15,6 +15,14 @@ GREEN=$(printf '\033[32m')
 DIM=$(printf '\033[2m')
 OFF=$(printf '\033[0m')
 
+export PATH="/usr/local/bin:/opt/homebrew/bin:$PATH"
+
+if [ -s "$HOME/.nvm/nvm.sh" ]; then
+  export NVM_DIR="$HOME/.nvm"
+  \. "$NVM_DIR/nvm.sh"
+fi
+
+
 fail() {
   echo "${RED}✗ $1${OFF}"
   echo "${DIM}  Fix it, or commit with --no-verify if you know what you're doing.${OFF}"

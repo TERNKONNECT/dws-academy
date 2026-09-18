@@ -77,12 +77,6 @@ export default function EventsGallery() {
     }
   }, [events, createEventMut]);
 
-  // Default the upload target to the first available category once categories load
-  useEffect(() => {
-    if (categories && categories.length > 0 && !uploadCategoryId) {
-      setUploadCategoryId(String(categories[0].id));
-    }
-  }, [categories, uploadCategoryId]);
 
   const saveImagesMut = useMutation({
     mutationFn: ({ eventId, images, categoryId }: { eventId: string; images: { url: string; key: string }[]; categoryId: number }) =>
