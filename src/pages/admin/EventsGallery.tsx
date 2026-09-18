@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { errorMessage } from "@/lib/utils";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import imageCompression from "browser-image-compression";
 import { eventsApi } from "@/api/events";
 import { galleryCategoriesApi, GalleryCategory, GalleryCategoryInput } from "@/api/galleryCategories";
 import { Card, CardContent } from "@/components/ui/card";
@@ -119,18 +120,25 @@ export default function EventsGallery() {
 
     try {
       for (const file of files) {
+        // Compress the image before uploading
+        const compressedFile = await imageCompression(file, {
+          maxSizeMB: 1,
+          maxWidthOrHeight: 1920,
+          useWebWorker: true,
+        });
+
         // 1. Get presigned URL
         const presignedData = await eventsApi.getPresignedUrl(targetEventId, {
-          filename: file.name,
-          contentType: file.type,
+          filename: compressedFile.name,
+          contentType: compressedFile.type,
         });
 
         // 2. Upload directly to S3
         await fetch(presignedData.uploadUrl, {
           method: "PUT",
-          body: file,
+          body: compressedFile,
           headers: {
-            "Content-Type": file.type,
+            "Content-Type": compressedFile.type,
           },
         });
 
