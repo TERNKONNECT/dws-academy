@@ -77,7 +77,7 @@ const Testimonials = ({ testimonials }: { testimonials: Testimonial[] }) => {
                 {[...shown, ...shown].map((t, index) => (
                   <div
                     key={`${t.id}-${index}`}
-                    className="w-[350px] shrink-0 rounded-2xl border border-black/10 bg-white p-7 transition-all duration-300 hover:shadow-lg"
+                    className="w-[350px] shrink-0 rounded-2xl border border-black/10 dark:border-white/10 bg-white dark:bg-[#151517] p-7 transition-all duration-300 hover:shadow-lg"
                   >
                     <div className="mb-4 flex gap-0.5 text-primary">
                       {Array.from({ length: 5 }).map((_, i) => (
@@ -117,7 +117,7 @@ const Testimonials = ({ testimonials }: { testimonials: Testimonial[] }) => {
               {shown.map((t) => (
                 <div
                   key={t.id}
-                  className="rounded-2xl border border-black/10 bg-white p-7 transition-all duration-300 hover:shadow-lg flex flex-col"
+                  className="rounded-2xl border border-black/10 dark:border-white/10 bg-white dark:bg-[#151517] p-7 transition-all duration-300 hover:shadow-lg flex flex-col"
                 >
                   <div className="mb-4 flex gap-0.5 text-primary">
                     {Array.from({ length: 5 }).map((_, i) => (

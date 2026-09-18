@@ -167,7 +167,7 @@ export default function AdminTeam() {
         </Button>
       </div>
 
-      <div className="rounded-md border bg-white">
+      <div className="rounded-md border bg-card">
         {faculties.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-12 text-center">
             <div className="rounded-full bg-primary/10 p-4">

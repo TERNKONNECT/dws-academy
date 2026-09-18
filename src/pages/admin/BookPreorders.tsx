@@ -42,7 +42,7 @@ export default function BookPreorders() {
         </p>
       </div>
 
-      <div className="rounded-md border bg-white">
+      <div className="rounded-md border bg-card">
         {isLoading ? (
           <div className="flex justify-center p-12">
             <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />

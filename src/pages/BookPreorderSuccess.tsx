@@ -52,7 +52,7 @@ const BookPreorderSuccess = () => {
 
   return (
     <MainLayout>
-      <div className="bg-white min-h-[70vh] flex items-center justify-center px-6 py-20">
+      <div className="bg-background min-h-[70vh] flex items-center justify-center px-6 py-20">
         <div className="mx-auto w-full max-w-[560px] text-center">
           {state.loading ? (
             <>

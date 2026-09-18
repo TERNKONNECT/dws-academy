@@ -38,7 +38,7 @@ const Insights = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 key={post.title}
-                className="block w-full max-w-sm overflow-hidden rounded-2xl border border-black/10 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                className="block w-full max-w-sm overflow-hidden rounded-2xl border border-black/10 dark:border-white/10 bg-white dark:bg-[#151517] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
               >
                 <div className="h-[200px] w-full overflow-hidden">
                   <img src={post.image} alt={post.title} className="h-full w-full object-cover transition-transform duration-500 hover:scale-105" />

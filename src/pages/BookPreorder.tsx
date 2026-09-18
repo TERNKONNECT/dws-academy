@@ -55,7 +55,7 @@ const BookPreorder = () => {
 
   return (
     <MainLayout>
-      <div className="bg-white min-h-screen px-6 py-16 md:py-24">
+      <div className="bg-background min-h-screen px-6 py-16 md:py-24">
         <div className="mx-auto max-w-[520px]">
           <Link
             to="/books/money-on-the-table"
