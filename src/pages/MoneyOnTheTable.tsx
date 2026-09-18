@@ -33,7 +33,7 @@ const paragraphs = [
 const MoneyOnTheTable = () => {
   return (
     <MainLayout>
-      <div className="bg-white">
+      <div className="bg-background">
         {/* Hero */}
         <section className="px-6 pb-16 pt-20 md:pt-28">
           <div className="mx-auto grid max-w-[980px] grid-cols-1 items-center gap-14 md:grid-cols-2">

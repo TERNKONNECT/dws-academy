@@ -29,7 +29,7 @@ const Newsletter = () => {
   };
 
   return (
-    <section className="bg-white py-12 md:py-16 border-t border-black/5">
+    <section className="bg-white dark:bg-[#0B0B0C] py-12 md:py-16 border-t border-black/5 dark:border-white/5">
       <div className="mx-auto max-w-[1180px] px-8">
         <Reveal>
           <div className="mx-auto max-w-xl text-center">
