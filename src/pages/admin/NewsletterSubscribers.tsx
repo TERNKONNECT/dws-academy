@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Download, Mail, Calendar as CalendarIcon, Loader2 } from "lucide-react";
+import { Download, Mail, Calendar as CalendarIcon, Loader2, Edit, Trash2 } from "lucide-react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,14 +16,36 @@ import { newsletterApi } from "@/api/newsletter";
 import { useToast } from "@/components/ui/use-toast";
 import { errorMessage } from "@/lib/utils";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 export default function NewsletterSubscribers() {
   const { toast } = useToast();
-  const [subscribers, setSubscribers] = useState<{ email: string; createdAt: string }[]>([]);
+  const [subscribers, setSubscribers] = useState<{ id: string; email: string; createdAt: string }[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+
+  const [editingSubscriber, setEditingSubscriber] = useState<{ id: string; email: string } | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
 
   const fetchSubscribers = async () => {
     setIsLoading(true);
@@ -65,6 +87,44 @@ export default function NewsletterSubscribers() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  const handleSaveEdit = async () => {
+    if (!editingSubscriber || !editingSubscriber.email) return;
+    setIsSaving(true);
+    try {
+      await newsletterApi.updateSubscriber(editingSubscriber.id, { email: editingSubscriber.email });
+      toast({ title: "Subscriber updated successfully" });
+      setEditingSubscriber(null);
+      fetchSubscribers();
+    } catch (err) {
+      toast({
+        title: "Failed to update subscriber",
+        description: errorMessage(err),
+        variant: "destructive",
+      });
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!deletingId) return;
+    setIsSaving(true);
+    try {
+      await newsletterApi.deleteSubscriber(deletingId);
+      toast({ title: "Subscriber deleted successfully" });
+      setDeletingId(null);
+      fetchSubscribers();
+    } catch (err) {
+      toast({
+        title: "Failed to delete subscriber",
+        description: errorMessage(err),
+        variant: "destructive",
+      });
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -120,24 +180,25 @@ export default function NewsletterSubscribers() {
               <TableRow>
                 <TableHead>Email Address</TableHead>
                 <TableHead>Subscribed At</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {isLoading ? (
                 <TableRow>
-                  <TableCell colSpan={2} className="h-32 text-center">
+                  <TableCell colSpan={3} className="h-32 text-center">
                     <Loader2 className="h-6 w-6 animate-spin mx-auto text-muted-foreground" />
                   </TableCell>
                 </TableRow>
               ) : subscribers.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={2} className="h-32 text-center text-muted-foreground">
+                  <TableCell colSpan={3} className="h-32 text-center text-muted-foreground">
                     No subscribers found for this date range.
                   </TableCell>
                 </TableRow>
               ) : (
                 subscribers.map((sub) => (
-                  <TableRow key={sub.email}>
+                  <TableRow key={sub.id || sub.email}>
                     <TableCell className="font-medium">
                       <div className="flex items-center gap-2">
                         <Mail className="h-4 w-4 text-muted-foreground" />
@@ -150,6 +211,27 @@ export default function NewsletterSubscribers() {
                         {format(new Date(sub.createdAt), "PPP")}
                       </div>
                     </TableCell>
+                    <TableCell className="text-right">
+                      <div className="flex justify-end gap-2">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => setEditingSubscriber({ id: sub.id, email: sub.email })}
+                          title="Edit"
+                        >
+                          <Edit className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          className="text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950/50"
+                          onClick={() => setDeletingId(sub.id)}
+                          title="Delete"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </TableCell>
                   </TableRow>
                 ))
               )}
@@ -157,6 +239,60 @@ export default function NewsletterSubscribers() {
           </Table>
         </CardContent>
       </Card>
+
+      {/* Edit Subscriber Dialog */}
+      <Dialog open={!!editingSubscriber} onOpenChange={(open) => !open && setEditingSubscriber(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Edit Subscriber</DialogTitle>
+            <DialogDescription>
+              Update the email address for this subscriber.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email address</Label>
+              <Input
+                id="email"
+                type="email"
+                value={editingSubscriber?.email || ""}
+                onChange={(e) =>
+                  setEditingSubscriber(prev => prev ? { ...prev, email: e.target.value } : null)
+                }
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setEditingSubscriber(null)} disabled={isSaving}>
+              Cancel
+            </Button>
+            <Button onClick={handleSaveEdit} disabled={isSaving || !editingSubscriber?.email}>
+              {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              Save changes
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Confirmation Alert Dialog */}
+      <AlertDialog open={!!deletingId} onOpenChange={(open) => !open && setDeletingId(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete the subscriber
+              from the mailing list.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isSaving}>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={(e) => { e.preventDefault(); handleDelete(); }} className="bg-red-600 hover:bg-red-700" disabled={isSaving}>
+              {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
