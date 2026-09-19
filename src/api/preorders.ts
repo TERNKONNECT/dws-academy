@@ -61,4 +61,8 @@ export const preordersApi = {
     const response = await axios.get<PreorderAdminRecord[]>('/api/preorders/admin');
     return response.data;
   },
+  delete: async (id: string) => {
+    const response = await axios.delete(`/api/preorders/admin/${id}`);
+    return response.data;
+  },
 };
