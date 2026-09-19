@@ -13,6 +13,13 @@ const initialsOf = (name?: string) => {
     .toUpperCase();
 };
 
+const truncateWords = (text: string, maxWords: number) => {
+  if (!text) return "";
+  const words = text.split(/\s+/);
+  if (words.length <= maxWords) return text;
+  return words.slice(0, maxWords).join(" ") + "...";
+};
+
 // Placeholder content — shown until real student reviews exist.
 const placeholderTestimonials: Testimonial[] = [
   {
@@ -58,14 +65,14 @@ const Testimonials = ({ testimonials }: { testimonials: Testimonial[] }) => {
   const shown = safeTestimonials.length > 0 ? safeTestimonials : placeholderTestimonials;
 
   return (
-    <section id="testimonials" className="bg-[#F7F6F3] py-12 md:py-16">
+    <section id="testimonials" className="bg-[#F7F6F3] dark:bg-[#0B0B0C] py-12 md:py-16">
       <div className="mx-auto max-w-[1180px] px-8">
         <Reveal>
           <div className="mx-auto mb-16 max-w-xl text-center">
             <span className="text-[11.5px] font-semibold uppercase tracking-[0.16em] text-amber-700">
               Success Stories
             </span>
-            <h2 className="mt-4 text-[clamp(28px,3.6vw,42px)] font-bold text-[#0B0B0C]">
+            <h2 className="mt-4 text-[clamp(28px,3.6vw,42px)] font-bold text-[#0B0B0C] dark:text-white">
               Hear From Our Students
             </h2>
           </div>
@@ -84,8 +91,8 @@ const Testimonials = ({ testimonials }: { testimonials: Testimonial[] }) => {
                         <Star key={i} className="h-3.5 w-3.5" fill="currentColor" />
                       ))}
                     </div>
-                    <p className="mb-6 text-[15px] leading-relaxed text-[#333]">
-                      {t.content}
+                    <p className="mb-6 text-[15px] leading-relaxed text-[#333] dark:text-gray-300">
+                      {truncateWords(t.content, 70)}
                     </p>
                     <div className="flex items-center gap-3 mt-auto">
                       {t.image ? (
@@ -100,7 +107,7 @@ const Testimonials = ({ testimonials }: { testimonials: Testimonial[] }) => {
                         </div>
                       )}
                       <div>
-                        <div className="text-sm font-semibold text-[#0B0B0C]">
+                        <div className="text-sm font-semibold text-[#0B0B0C] dark:text-white">
                           {t.name}
                         </div>
                         <div className="text-[12.5px] text-muted-foreground">
@@ -124,8 +131,8 @@ const Testimonials = ({ testimonials }: { testimonials: Testimonial[] }) => {
                       <Star key={i} className="h-3.5 w-3.5" fill="currentColor" />
                     ))}
                   </div>
-                  <p className="mb-6 text-[15px] leading-relaxed text-[#333] flex-grow">
-                    {t.content}
+                  <p className="mb-6 text-[15px] leading-relaxed text-[#333] dark:text-gray-300 flex-grow">
+                    {truncateWords(t.content, 70)}
                   </p>
                   <div className="flex items-center gap-3">
                     {t.image ? (
@@ -140,7 +147,7 @@ const Testimonials = ({ testimonials }: { testimonials: Testimonial[] }) => {
                       </div>
                     )}
                     <div>
-                      <div className="text-sm font-semibold text-[#0B0B0C]">
+                      <div className="text-sm font-semibold text-[#0B0B0C] dark:text-white">
                         {t.name}
                       </div>
                       <div className="text-[12.5px] text-muted-foreground">
