@@ -322,12 +322,12 @@ const Testimonials = () => {
                 placeholder="Write the testimonial here..."
                 value={formData.content}
                 onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                maxLength={1500}
+                maxLength={500}
                 required
                 className="min-h-[120px]"
               />
               <p className="text-xs text-muted-foreground text-right">
-                {formData.content.length} / 1500 (approx. 200 words)
+                {formData.content.length} / 500 (max 70 words)
               </p>
             </div>
             <div className="flex items-center justify-between space-x-2">
