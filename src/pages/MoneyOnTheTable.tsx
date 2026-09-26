@@ -41,10 +41,10 @@ const MoneyOnTheTable = () => {
               <span className="text-[11.5px] font-bold uppercase tracking-[0.2em] text-orange-600">
                 A Book by Adesuwa Olanrewaju-Dada
               </span>
-              <h1 className="mt-4 text-[clamp(34px,5.5vw,58px)] font-extrabold uppercase leading-[1.02] text-[#0B0B0C]">
+              <h1 className="mt-4 text-[clamp(34px,5.5vw,58px)] font-extrabold uppercase leading-[1.02] text-foreground">
                 Money <span className="text-orange-600">on the</span> Table
               </h1>
-              <p className="mt-5 text-lg italic leading-relaxed text-[#3c3c3e]">
+              <p className="mt-5 text-lg italic leading-relaxed text-[#3c3c3e] dark:text-gray-300">
                 A conversation, a mug, and a question I could not ignore.
               </p>
               <div className="mt-8">
@@ -70,7 +70,7 @@ const MoneyOnTheTable = () => {
         </section>
 
         {/* Photo */}
-        <section className="border-t border-black/5 px-6 py-12 md:py-16">
+        <section className="border-t border-black/5 dark:border-white/5 px-6 py-12 md:py-16">
           <div className="mx-auto max-w-[980px]">
             <img
               src="/money-on-the-table-photo.jpg"
@@ -81,15 +81,15 @@ const MoneyOnTheTable = () => {
         </section>
 
         {/* Essay */}
-        <section className="border-t border-black/5 px-6 py-16 md:py-24">
+        <section className="border-t border-black/5 dark:border-white/5 px-6 py-16 md:py-24">
           <div className="mx-auto max-w-[640px]">
-            <div className="space-y-6 text-[17px] leading-[1.85] text-[#1a1a1c]">
+            <div className="space-y-6 text-[17px] leading-[1.85] text-[#1a1a1c] dark:text-gray-100">
               {paragraphs.map((p, i) => (
                 <p key={i}>{p}</p>
               ))}
             </div>
 
-            <p className="mt-10 text-[clamp(24px,3.4vw,34px)] font-extrabold leading-tight text-[#0B0B0C]">
+            <p className="mt-10 text-[clamp(24px,3.4vw,34px)] font-extrabold leading-tight text-foreground">
               What are you leaving on the table?
             </p>
 

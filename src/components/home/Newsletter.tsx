@@ -36,7 +36,7 @@ const Newsletter = () => {
             <span className="text-[11.5px] font-semibold uppercase tracking-[0.16em] text-amber-700">
               Newsletter
             </span>
-            <h2 className="mt-4 text-[clamp(28px,3.6vw,42px)] font-bold text-[#0B0B0C]">
+            <h2 className="mt-4 text-[clamp(28px,3.6vw,42px)] font-bold text-foreground">
               Subscribe to Our Newsletter
             </h2>
             <p className="mt-[18px] text-[16.5px] text-muted-foreground">
