@@ -275,7 +275,7 @@ const CourseDetail = () => {
               {course.category}
             </Badge>
             <h1 className="text-3xl md:text-4xl font-bold">{course.title}</h1>
-            <p className="text-lg opacity-90">{course.shortDescription}</p>
+            <p className="text-sm opacity-90">{course.shortDescription}</p>
             <div className="flex flex-wrap items-center gap-4 text-sm opacity-80">
               {avgRating > 0 && (
                 <span className="flex items-center gap-1">
