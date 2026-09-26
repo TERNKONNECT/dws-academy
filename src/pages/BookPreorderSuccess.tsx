@@ -61,7 +61,7 @@ const BookPreorderSuccess = () => {
             </>
           ) : state.error && !state.preorder?.status ? (
             <>
-              <h1 className="text-2xl font-bold text-[#0B0B0C]">Something went wrong</h1>
+              <h1 className="text-2xl font-bold text-foreground">Something went wrong</h1>
               <p className="mt-3 text-muted-foreground">{state.error}</p>
               <Link to="/books/money-on-the-table/preorder">
                 <Button className="mt-6 rounded-full bg-orange-600 text-white hover:bg-orange-700">
@@ -71,7 +71,7 @@ const BookPreorderSuccess = () => {
             </>
           ) : state.error ? (
             <>
-              <h1 className="text-2xl font-bold text-[#0B0B0C]">Almost there</h1>
+              <h1 className="text-2xl font-bold text-foreground">Almost there</h1>
               <p className="mt-3 text-muted-foreground">{state.error}</p>
             </>
           ) : (
@@ -79,14 +79,14 @@ const BookPreorderSuccess = () => {
               <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-orange-100">
                 <CheckCircle2 className="h-10 w-10 text-orange-600" />
               </div>
-              <h1 className="mt-6 text-[clamp(26px,3.6vw,36px)] font-extrabold text-[#0B0B0C]">
+              <h1 className="mt-6 text-[clamp(26px,3.6vw,36px)] font-extrabold text-foreground">
                 You Are Officially On The List 🎉
               </h1>
-              <p className="mt-4 text-[16px] leading-relaxed text-[#3c3c3e]">
+              <p className="mt-4 text-[16px] leading-relaxed text-[#3c3c3e] dark:text-gray-300">
                 Thank you for pre-ordering <strong>Money on the Table</strong>. You have secured
                 your copy before the official release.
               </p>
-              <p className="mt-4 text-[16px] leading-relaxed text-[#3c3c3e]">
+              <p className="mt-4 text-[16px] leading-relaxed text-[#3c3c3e] dark:text-gray-300">
                 This book is more than pages. It is a collection of lessons, conversations and
                 experiences created for people who know they are capable of more.
               </p>

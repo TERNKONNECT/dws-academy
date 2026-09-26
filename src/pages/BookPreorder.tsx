@@ -64,7 +64,7 @@ const BookPreorder = () => {
             <ArrowLeft className="h-4 w-4" /> Back to the book
           </Link>
 
-          <h1 className="mt-6 text-[clamp(26px,3.6vw,36px)] font-extrabold text-[#0B0B0C]">
+          <h1 className="mt-6 text-[clamp(26px,3.6vw,36px)] font-extrabold text-foreground">
             Secure your copy of Money on the Table
           </h1>
           <p className="mt-3 text-[15px] text-muted-foreground">
@@ -74,7 +74,7 @@ const BookPreorder = () => {
 
           <form onSubmit={handleSubmit} className="mt-8 space-y-5">
             <div className="space-y-2">
-              <Label htmlFor="fullName" className="text-[#0B0B0C]">
+              <Label htmlFor="fullName" className="text-foreground">
                 Full Name
               </Label>
               <Input
@@ -89,7 +89,7 @@ const BookPreorder = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-[#0B0B0C]">
+              <Label htmlFor="email" className="text-foreground">
                 Email Address
               </Label>
               <Input
@@ -105,7 +105,7 @@ const BookPreorder = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="whatsapp" className="text-[#0B0B0C]">
+              <Label htmlFor="whatsapp" className="text-foreground">
                 WhatsApp Number
               </Label>
               <Input
@@ -120,7 +120,7 @@ const BookPreorder = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="quantity" className="text-[#0B0B0C]">
+              <Label htmlFor="quantity" className="text-foreground">
                 Quantity
               </Label>
               <Input
@@ -136,7 +136,7 @@ const BookPreorder = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="deliveryDetails" className="text-[#0B0B0C]">
+              <Label htmlFor="deliveryDetails" className="text-foreground">
                 Delivery Details <span className="font-normal text-muted-foreground">(optional)</span>
               </Label>
               <Textarea

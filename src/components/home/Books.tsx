@@ -23,7 +23,7 @@ const Books = () => {
             <span className="text-[11.5px] font-semibold uppercase tracking-[0.16em] text-amber-700">
               Books
             </span>
-            <h2 className="mt-4 text-[clamp(28px,3.6vw,42px)] font-bold text-[#0B0B0C]">
+            <h2 className="mt-4 text-[clamp(28px,3.6vw,42px)] font-bold text-foreground">
               Books by Adesuwa Dada
             </h2>
             <p className="mt-[18px] text-[16.5px] text-muted-foreground">
@@ -50,7 +50,7 @@ const Books = () => {
                   <Badge className="mb-2 border-transparent bg-orange-100 text-orange-700 hover:bg-orange-100">
                     {book.badge}
                   </Badge>
-                  <h4 className="text-base font-bold text-[#0B0B0C]">
+                  <h4 className="text-base font-bold text-foreground">
                     {book.title}
                   </h4>
                   <p className="mt-1.5 text-[13.5px] text-muted-foreground">
