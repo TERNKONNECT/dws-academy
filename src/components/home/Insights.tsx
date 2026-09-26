@@ -47,7 +47,7 @@ const Insights = () => {
                   <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-accent">
                     {post.tag}
                   </span>
-                  <h4 className="mt-2.5 text-[16.5px] font-bold text-[#0B0B0C]">
+                  <h4 className="mt-2.5 text-[16.5px] font-bold text-foreground">
                     {post.title}
                   </h4>
                   <p className="mt-2 text-[13.5px] text-muted-foreground">
