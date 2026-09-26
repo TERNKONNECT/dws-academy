@@ -24,7 +24,7 @@ const FeaturedCourseCard = ({ course }: { course: Course }) => (
       <h4 className="mt-2.5 text-[17.5px] font-bold text-foreground">
         {course.title}
       </h4>
-      <p className="mt-2.5 flex-1 text-sm text-muted-foreground">
+      <p className="mt-2.5 flex-1 text-xs text-muted-foreground">
         {course.shortDescription}
       </p>
       <div className="mt-4 flex flex-wrap items-center gap-3.5 text-xs text-muted-foreground">
