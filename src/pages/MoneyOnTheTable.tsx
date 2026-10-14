@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 const paragraphs = [
   "This morning, I found myself looking at my favourite mug.",
   "A simple mug. But one that carries a story.",
-  "It was a gift from Wemi Jones after one of our conversations, and every time I use it, I am reminded of the people, lessons and moments that have shaped my journey.",
+  "It was a gift from Mrs. Wemi Jones after one of our conversations, and every time I use it, I am reminded of the people, lessons and moments that have shaped my journey.",
   "I was holding that mug after a meeting with one of my mentees.",
   "She is incredibly talented.",
   "Skilled. Creative. Passionate. The kind of person you know has something special.",
